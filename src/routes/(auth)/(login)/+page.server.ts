@@ -3,7 +3,6 @@ import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { error, fail, redirect } from '@sveltejs/kit';
-import { generateId } from 'lucia';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/db';
 import { lucia } from '$lib/server/auth';

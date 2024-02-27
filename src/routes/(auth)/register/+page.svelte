@@ -31,7 +31,7 @@
 </script>
 
 <Card.Root class="w-full max-w-md">
-	<form method="POST" use:enhance>
+	<form method="POST" action="?/register" use:enhance>
 		<Card.Header>
 			<Card.Title>Register</Card.Title>
 			<Card.Description>Register to your account</Card.Description>

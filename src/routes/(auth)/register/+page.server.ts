@@ -8,6 +8,7 @@ import { Argon2id } from 'oslo/password';
 import { db } from '$lib/db';
 import { eq } from 'drizzle-orm';
 import { userTable } from '$lib/db/schema';
+import { lucia } from '$lib/server/auth';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -16,7 +17,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	default: async (event) => {
+	register: async (event) => {
 		const form = await superValidate(event, zod(formSchema));
 		if (!form.valid) {
 			return fail(400, {
@@ -45,5 +46,18 @@ export const actions: Actions = {
 		return {
 			form
 		};
+	},
+
+	logout: async (event) => {
+		if (!event.locals.session) {
+			return fail(401);
+		}
+		await lucia.invalidateSession(event.locals.session.id);
+		const sessionCookie = lucia.createBlankSessionCookie();
+		event.cookies.set(sessionCookie.name, sessionCookie.value, {
+			path: '.',
+			...sessionCookie.attributes
+		});
+		redirect(302, '/');
 	}
 };
