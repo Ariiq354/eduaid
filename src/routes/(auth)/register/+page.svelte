@@ -54,7 +54,7 @@
 		</Card.Content>
 		<Card.Footer class="flex w-full justify-between">
 			<Button href="/" variant="ghost">Login</Button>
-			<Form.Button>
+			<Form.Button disabled={$submitting}>
 				{#if $submitting}
 					<Loader2 class="mr-2 h-4 w-4 animate-spin" />
 				{/if}
