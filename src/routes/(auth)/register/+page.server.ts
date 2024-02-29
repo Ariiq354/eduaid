@@ -6,7 +6,6 @@ import { fail, redirect } from '@sveltejs/kit';
 import { generateId } from 'lucia';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/db';
-import { eq } from 'drizzle-orm';
 import { userTable } from '$lib/db/schema';
 import { lucia } from '$lib/server/auth';
 

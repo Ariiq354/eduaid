@@ -7,7 +7,9 @@ import { Argon2id } from 'oslo/password';
 import { db } from '$lib/db';
 import { lucia } from '$lib/server/auth';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async (event) => {
+	if (event.locals.user) redirect(302, '/dashboard');
+
 	return {
 		form: await superValidate(zod(formSchema))
 	};

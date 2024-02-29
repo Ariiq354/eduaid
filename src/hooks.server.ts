@@ -1,11 +1,13 @@
 import { lucia } from '$lib/server/auth';
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const sessionId = event.cookies.get(lucia.sessionCookieName);
 	if (!sessionId) {
 		event.locals.user = null;
 		event.locals.session = null;
+
+		if (event.url.pathname.startsWith('/dashboard')) redirect(302, '/');
 		return resolve(event);
 	}
 
@@ -28,5 +30,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 	event.locals.user = user;
 	event.locals.session = session;
+
+	if (event.url.pathname.startsWith('/dashboard')) {
+		if (!event.locals.user) redirect(302, '/');
+		if (event.url.pathname.startsWith('/dashboard/admin') && event.locals.user.role !== 2)
+			redirect(302, '/dashboard');
+	}
 	return resolve(event);
 };

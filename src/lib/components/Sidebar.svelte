@@ -42,7 +42,7 @@
 			</div>
 		{/if}
 		<div class="flex flex-col gap-2">
-			<div class="font-mono text-sm font-semibold tracking-widest opacity-50">User</div>
+			<div class="font-mono text-sm font-semibold tracking-widest opacity-50">USER</div>
 			<div class="flex flex-col gap-2">
 				<a
 					href="/dashboard"
