@@ -1,69 +1,66 @@
 <script lang="ts">
-	import type { ActionData, PageData } from './$types';
+  import type { PageData } from './$types';
 
-	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+  import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
+  import { goto } from '$app/navigation';
+  import { Button } from '$lib/components/ui/button';
+  import * as Card from '$lib/components/ui/card';
+  import * as Form from '$lib/components/ui/form';
+  import { Input } from '$lib/components/ui/input';
+  import { Loader2 } from 'lucide-svelte';
+  import { toast } from 'svelte-sonner';
+  import { formSchema } from './schema';
 
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
-	import * as Form from '$lib/components/ui/form';
-	import { Input } from '$lib/components/ui/input';
-	import { formSchema, type FormSchema } from './schema';
-	import { Loader2 } from 'lucide-svelte';
-	import { toast } from 'svelte-sonner';
-	import { goto } from '$app/navigation';
+  export let data: PageData;
 
-	export let data: PageData;
+  const form = superForm(data.form, {
+    validators: zodClient(formSchema),
 
-	const form = superForm(data.form, {
-		validators: zodClient(formSchema),
-		resetForm: false,
+    async onUpdate({ form }) {
+      if (form.valid) {
+        toast.success('Login sukses');
+        await goto('/dashboard');
+      }
+    },
 
-		async onUpdate({ form }) {
-			if (form.valid) {
-				toast.success('Succesfully logged in');
-				await goto('/dashboard');
-			}
-		},
+    onError(event) {
+      toast.error(event.result.error.message);
+    }
+  });
 
-		onError(event) {
-			toast.error(event.result.error.message);
-		}
-	});
-
-	const { form: formData, enhance, submitting } = form;
+  const { form: formData, enhance, submitting } = form;
 </script>
 
 <Card.Root class="w-full max-w-md">
-	<form method="POST" use:enhance>
-		<Card.Header>
-			<Card.Title>Login</Card.Title>
-			<Card.Description>Login to your account</Card.Description>
-		</Card.Header>
-		<Card.Content>
-			<Form.Field {form} name="username">
-				<Form.Control let:attrs>
-					<Form.Label>Username</Form.Label>
-					<Input {...attrs} bind:value={$formData.username} />
-				</Form.Control>
-				<Form.FieldErrors />
-			</Form.Field>
-			<Form.Field {form} name="password">
-				<Form.Control let:attrs>
-					<Form.Label>Password</Form.Label>
-					<Input {...attrs} bind:value={$formData.password} type="password" />
-				</Form.Control>
-				<Form.FieldErrors />
-			</Form.Field>
-		</Card.Content>
-		<Card.Footer class="flex w-full justify-between">
-			<Button href="/register" variant="ghost">Register</Button>
-			<Form.Button disabled={$submitting}>
-				{#if $submitting}
-					<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-				{/if}
-				Submit
-			</Form.Button>
-		</Card.Footer>
-	</form>
+  <form method="POST" use:enhance action="?/login">
+    <Card.Header>
+      <Card.Title>Login</Card.Title>
+      <Card.Description>Login ke akunmu</Card.Description>
+    </Card.Header>
+    <Card.Content>
+      <Form.Field {form} name="username">
+        <Form.Control let:attrs>
+          <Form.Label>Username</Form.Label>
+          <Input {...attrs} bind:value={$formData.username} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="password">
+        <Form.Control let:attrs>
+          <Form.Label>Password</Form.Label>
+          <Input {...attrs} bind:value={$formData.password} type="password" />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+    </Card.Content>
+    <Card.Footer class="flex w-full justify-between">
+      <Form.Button disabled={$submitting} class="w-full">
+        {#if $submitting}
+          <Loader2 class="mr-2 h-4 w-4 animate-spin" />
+        {/if}
+        Submit
+      </Form.Button>
+    </Card.Footer>
+  </form>
 </Card.Root>

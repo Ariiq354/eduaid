@@ -4,48 +4,64 @@ import { formSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
-import { db } from '$lib/db';
+import { db } from '$lib/server';
 import { lucia } from '$lib/server/auth';
 
 export const load: PageServerLoad = async (event) => {
-	if (event.locals.user) redirect(302, '/dashboard');
+  if (event.locals.user) redirect(302, '/dashboard');
 
-	return {
-		form: await superValidate(zod(formSchema))
-	};
+  return {
+    form: await superValidate(zod(formSchema))
+  };
 };
 
 export const actions: Actions = {
-	default: async (event) => {
-		const form = await superValidate(event, zod(formSchema));
-		if (!form.valid) {
-			return fail(400, {
-				form
-			});
-		}
+  login: async (event) => {
+    const form = await superValidate(event, zod(formSchema));
+    if (!form.valid) {
+      return fail(400, {
+        form
+      });
+    }
 
-		const exist = await db.query.userTable.findFirst({
-			where: (users, { eq }) => eq(users.username, form.data.username)
-		});
+    const exist = await db.query.userTable.findFirst({
+      where: (users, { eq }) => eq(users.username, form.data.username)
+    });
 
-		if (!exist) {
-			error(400, 'Wrong Username or Password');
-		}
+    if (!exist) {
+      error(401, 'Username atau password salah');
+    }
 
-		const validPassword = await new Argon2id().verify(exist.password!, form.data.password);
-		if (!validPassword) {
-			error(400, 'Wrong Username or Password');
-		}
+    const validPassword = await new Argon2id().verify(exist.password!, form.data.password);
 
-		const session = await lucia.createSession(exist.id, {});
-		const sessionCookie = lucia.createSessionCookie(session.id);
-		event.cookies.set(sessionCookie.name, sessionCookie.value, {
-			path: '.',
-			...sessionCookie.attributes
-		});
+    if (!validPassword) {
+      error(401, 'Username atau password salah');
+    }
 
-		return {
-			form
-		};
-	}
+    const session = await lucia.createSession(exist.id, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+    event.cookies.set(sessionCookie.name, sessionCookie.value, {
+      path: '.',
+      ...sessionCookie.attributes
+    });
+
+    return {
+      form
+    };
+  },
+
+  logout: async (event) => {
+    if (!event.locals.session) {
+      return fail(401);
+    }
+
+    await lucia.invalidateSession(event.locals.session.id);
+    const sessionCookie = lucia.createBlankSessionCookie();
+    event.cookies.set(sessionCookie.name, sessionCookie.value, {
+      path: '.',
+      ...sessionCookie.attributes
+    });
+
+    redirect(302, '/');
+  }
 };
