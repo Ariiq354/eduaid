@@ -17,7 +17,7 @@ export const formSchema = z.object({
   namaIbu: z.string().min(1),
   pekerjaanAyah: z.string().min(1),
   pekerjaanIbu: z.string().min(1),
-  alamatOrtu: z.string().min(1),
+  jalan: z.string().min(1),
   provinsi: z.string().min(1),
   kota: z.string().min(1),
   kecamatan: z.string().min(1),

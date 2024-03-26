@@ -1,14 +1,14 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
   import * as Select from '$lib/components/ui/select';
+  import { Loader2 } from 'lucide-svelte';
+  import { toast } from 'svelte-sonner';
   import SuperDebug, { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
-  import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
-  import { goto } from '$app/navigation';
-  import { Loader2 } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
@@ -29,33 +29,34 @@
   });
 
   const { form: formData, enhance, submitting } = form;
+
   $formData.password = '';
+
   $: selectedRole = $formData.role
     ? {
-        label: $formData.role === 1 ? 'User' : 'Admin',
+        label: $formData.role === 1 ? 'Pengguna' : 'Admin',
         value: $formData.role.toString()
       }
     : undefined;
   $: selectedStatus = $formData.status
     ? {
-        label: $formData.status === 1 ? 'Inactive' : 'Active',
+        label: $formData.status === 1 ? 'Tidak Aktif' : 'Aktif ',
         value: $formData.status.toString()
       }
     : undefined;
 </script>
 
-<SuperDebug data={form.form} />
-
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
-      <h1 class="text-3xl font-bold">Teachers</h1>
+      <h1 class="text-3xl font-bold">Guru</h1>
       {#if $formData.id}
-        <p>Edit Teacher</p>
+        <p>Ubah Guru</p>
       {:else}
-        <p>Create Teacher</p>
+        <p>Buat Guru</p>
       {/if}
     </div>
+    <Button variant="ghost" href="/dashboard/admin/teacher">Kembali</Button>
   </div>
   <hr />
 
@@ -81,7 +82,7 @@
     </Form.Field>
     <Form.Field {form} name="role">
       <Form.Control let:attrs>
-        <Form.Label>Role</Form.Label>
+        <Form.Label>Peran</Form.Label>
         <Select.Root
           selected={selectedRole}
           onSelectedChange={(v) => {
@@ -89,10 +90,10 @@
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Select user role" />
+            <Select.Value placeholder="Pilih peran user " />
           </Select.Trigger>
           <Select.Content>
-            <Select.Item value="1" label="User" />
+            <Select.Item value="1" label="Pengguna" />
             <Select.Item value="2" label="Admin" />
           </Select.Content>
         </Select.Root>
@@ -110,11 +111,11 @@
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Select Status" />
+            <Select.Value placeholder="Pilih status" />
           </Select.Trigger>
           <Select.Content>
-            <Select.Item value="1" label="Inactive" />
-            <Select.Item value="2" label="Active" />
+            <Select.Item value="1" label="Tidak Aktif" />
+            <Select.Item value="2" label="Aktif" />
           </Select.Content>
         </Select.Root>
         <input hidden bind:value={$formData.status} name={attrs.name} />

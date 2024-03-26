@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button';
-  import { Plus } from 'lucide-svelte';
   import type { PageData } from './$types';
   import DataTable from './components/data-table.svelte';
 
@@ -10,16 +9,10 @@
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
-      <h1 class="text-3xl font-bold">Kelas</h1>
-      <p>Pengaturan Kelas</p>
+      <h1 class="text-3xl font-bold">Classes</h1>
+      <p>Manage Classes</p>
     </div>
-    <Button
-      href="/dashboard/admin/class/new"
-      variant="outline"
-      class="flex items-center gap-1 shadow-lg"
-    >
-      Tambah
-    </Button>
+    <Button href="/dashboard/admin/class/new">Add</Button>
   </div>
   <hr />
   <DataTable data={data.classData} />

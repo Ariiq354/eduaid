@@ -1,21 +1,15 @@
 <script lang="ts">
   import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
   import { writable } from 'svelte/store';
-  import type { selectStudent } from '$lib/server/schema';
+  import type { selectSubject } from '$lib/server/schema';
   import * as Table from '$lib/components/ui/table';
   import DataTableActions from './data-table-action.svelte';
   import { addPagination, addSortBy, addTableFilter } from 'svelte-headless-table/plugins';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
-  import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-svelte';
+  import { ArrowUpDown } from 'lucide-svelte';
 
-  type studentType = selectStudent & {
-    class: {
-      classname: string;
-    } | null;
-  };
-
-  export let data: studentType[];
+  export let data: selectSubject[];
 
   const tableData = writable(data);
   $: tableData.set(data);
@@ -32,29 +26,19 @@
 
   const columns = table.createColumns([
     table.column({
-      accessor: 'nisn',
-      header: 'NISN'
+      accessor: 'subjectName',
+      header: 'Name'
     }),
     table.column({
-      accessor: 'studentName',
-      header: 'Nama Siswa'
-    }),
-    table.column({
-      accessor: ({ class: kelas }) => kelas?.classname,
-      header: 'Kelas',
-      cell: ({ value }) => {
-        if (!value) {
-          return 'Kosong';
-        } else {
-          return value;
-        }
-      }
+      accessor: 'batch',
+      header: 'Batch'
     }),
     table.column({
       accessor: ({ id }) => id,
-      header: 'Menu',
+      header: 'Action',
       cell: ({ value }) => {
         return createRender(DataTableActions, { id: value });
+        ``;
       },
       plugins: {
         sort: {
@@ -76,7 +60,7 @@
 
 <div>
   <div class="flex items-center py-4">
-    <Input class="max-w-sm" placeholder="Cari..." type="text" bind:value={$filterValue} />
+    <Input class="max-w-sm" placeholder="Filter value..." type="text" bind:value={$filterValue} />
   </div>
   <div class="rounded-md border">
     <Table.Root {...$tableAttrs}>
@@ -87,7 +71,7 @@
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
                   <Table.Head {...attrs}>
-                    {#if cell.id !== 'Menu'}
+                    {#if cell.id !== 'Action'}
                       <Button variant="ghost" on:click={props.sort.toggle}>
                         <Render of={cell.render()} />
                         <ArrowUpDown class={'ml-2 h-4 w-4'} />
@@ -124,13 +108,13 @@
       variant="outline"
       size="sm"
       on:click={() => ($pageIndex = $pageIndex - 1)}
-      disabled={!$hasPreviousPage}><ChevronLeft size="20" /></Button
+      disabled={!$hasPreviousPage}>Previous</Button
     >
     <Button
       variant="outline"
       size="sm"
       disabled={!$hasNextPage}
-      on:click={() => ($pageIndex = $pageIndex + 1)}><ChevronRight size="20" /></Button
+      on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
     >
   </div>
 </div>

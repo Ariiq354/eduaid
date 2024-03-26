@@ -61,11 +61,11 @@ export const studentTable = sqliteTable('student', {
   namaIbu: text('nama_ibu').notNull(),
   pekerjaanAyah: text('pekerjaan_ayah').notNull(),
   pekerjaanIbu: text('pekerjaan_ibu').notNull(),
-  alamatOrtu: text('alamat_ortu').notNull(),
   provinsi: text('provinsi').notNull(),
   kota: text('kota').notNull(),
   kecamatan: text('kecamatan').notNull(),
   kelurahan: text('kelurahan').notNull(),
+  jalan: text('jalan').notNull(),
   noTelepon: text('no_telepon').notNull(),
   namaWali: text('nama_wali').notNull(),
   pekerjaanWali: text('pekerjaan_wali').notNull(),
@@ -85,9 +85,12 @@ export type selectStudent = typeof studentTable.$inferSelect;
 export const subjectTable = sqliteTable('subject', {
   id: text('id').notNull().primaryKey(),
   subjectName: text('subject_name').notNull(),
+  batch: integer('batch').notNull(),
   minimum: integer('minimum').notNull(),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
 });
+
+export type selectSubject = typeof subjectTable.$inferSelect;
 
 export const pelajaranRelations = relations(subjectTable, ({ many }) => ({
   capaianPembelajaran: many(cpTable)

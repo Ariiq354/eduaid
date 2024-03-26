@@ -12,7 +12,7 @@
   import type { PageData } from './$types';
   import { formSchema } from './schema';
   import { cn } from '$lib/utils';
-  import { buttonVariants } from '$lib/components/ui/button';
+  import { Button, buttonVariants } from '$lib/components/ui/button';
   import {
     type DateValue,
     DateFormatter,
@@ -24,14 +24,6 @@
   import { Textarea } from '$lib/components/ui/textarea';
 
   export let data: PageData;
-
-  //Date Picker
-  const df = new DateFormatter('en-US', {
-    dateStyle: 'long'
-  });
-  let value: DateValue | undefined;
-  $: value = $formData.tanggalLahir ? parseDate($formData.tanggalLahir) : undefined;
-  let placeholder: DateValue = today(getLocalTimeZone());
 
   const form = superForm(data.form, {
     validators: zodClient(formSchema),
@@ -49,6 +41,15 @@
   });
 
   const { form: formData, enhance, submitting } = form;
+
+  // Date Picker
+  const df = new DateFormatter('en-US', {
+    dateStyle: 'long'
+  });
+  let value: DateValue | undefined;
+  $: value = $formData.tanggalLahir ? parseDate($formData.tanggalLahir) : undefined;
+  let placeholder: DateValue = today(getLocalTimeZone());
+
   $: selectedGender = $formData.gender
     ? {
         label: $formData.gender === 1 ? 'Laki-laki' : 'Perempuan',
@@ -64,7 +65,7 @@
     : undefined;
 </script>
 
-<SuperDebug data={form.form} />
+<!-- <SuperDebug data={form.form} /> -->
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
@@ -76,6 +77,7 @@
         <p>Create Student</p>
       {/if}
     </div>
+    <Button variant="ghost" href="/dashboard/admin/student">Kembali</Button>
   </div>
   <hr />
 
@@ -85,6 +87,7 @@
         <input hidden name={attrs.name} bind:value={$formData.id} />
       </Form.Control>
     </Form.Field>
+
     <h1 class="mb-2 text-xl">Identitas siswa</h1>
     <div class="flex gap-12">
       <Form.Field {form} name="noInduk" class="w-full">
@@ -165,13 +168,13 @@
       </Form.Field>
       <Form.Field {form} name="tanggalLahir" class="flex w-full flex-col justify-center">
         <Form.Control let:attrs>
-          <Form.Label class="space-y-2">Tanggal Lahir</Form.Label>
+          <Form.Label>Tanggal Lahir</Form.Label>
           <Popover.Root>
             <Popover.Trigger
               {...attrs}
               class={cn(
                 buttonVariants({ variant: 'outline' }),
-                'w-[280px] justify-start pl-4 text-left font-normal',
+                'w-full justify-start pl-4 text-left font-normal',
                 !value && 'text-muted-foreground'
               )}
             >
@@ -200,7 +203,7 @@
           <input hidden value={$formData.tanggalLahir} name={attrs.name} />
         </Form.Control>
       </Form.Field>
-      <Form.Field {form} name="classId" class="w-full">
+      <Form.Field {form} name="classId" class="flex w-full flex-col justify-center">
         <Form.Control let:attrs>
           <Form.Label>Class</Form.Label>
           <Select.Root
@@ -230,69 +233,40 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="namaAyah">
-      <Form.Control let:attrs>
-        <Form.Label>Nama Ayah</Form.Label>
-        <Input {...attrs} bind:value={$formData.namaAyah} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="namaIbu">
-      <Form.Control let:attrs>
-        <Form.Label>Nama Ibu</Form.Label>
-        <Input {...attrs} bind:value={$formData.namaIbu} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="pekerjaanAyah">
-      <Form.Control let:attrs>
-        <Form.Label>Pekerjaan Ayah</Form.Label>
-        <Input {...attrs} bind:value={$formData.pekerjaanAyah} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="pekerjaanIbu">
-      <Form.Control let:attrs>
-        <Form.Label>Pekerjaan Ibu</Form.Label>
-        <Input {...attrs} bind:value={$formData.pekerjaanIbu} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="alamatOrtu">
-      <Form.Control let:attrs>
-        <Form.Label>Jalan</Form.Label>
-        <Input {...attrs} bind:value={$formData.alamatOrtu} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="provinsi">
-      <Form.Control let:attrs>
-        <Form.Label>Provinsi</Form.Label>
-        <Input {...attrs} bind:value={$formData.provinsi} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="kota">
-      <Form.Control let:attrs>
-        <Form.Label>Kabupaten/Kota</Form.Label>
-        <Input {...attrs} bind:value={$formData.kota} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="kecamatan">
-      <Form.Control let:attrs>
-        <Form.Label>Kecamatan</Form.Label>
-        <Input {...attrs} bind:value={$formData.kecamatan} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="kelurahan">
-      <Form.Control let:attrs>
-        <Form.Label>Kelurahan</Form.Label>
-        <Input {...attrs} bind:value={$formData.kelurahan} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
+
+    <h1 class="mb-2 mt-12 text-xl">Identitas Orang Tua</h1>
+    <div class="flex gap-12">
+      <Form.Field {form} name="namaAyah" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Nama Ayah</Form.Label>
+          <Input {...attrs} bind:value={$formData.namaAyah} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="pekerjaanAyah" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Pekerjaan Ayah</Form.Label>
+          <Input {...attrs} bind:value={$formData.pekerjaanAyah} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+    </div>
+    <div class="flex gap-12">
+      <Form.Field {form} name="namaIbu" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Nama Ibu</Form.Label>
+          <Input {...attrs} bind:value={$formData.namaIbu} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="pekerjaanIbu" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Pekerjaan Ibu</Form.Label>
+          <Input {...attrs} bind:value={$formData.pekerjaanIbu} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+    </div>
     <Form.Field {form} name="noTelepon">
       <Form.Control let:attrs>
         <Form.Label>No Telepon</Form.Label>
@@ -300,24 +274,65 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="namaWali">
+    <div class="flex gap-12">
+      <Form.Field {form} name="provinsi" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Provinsi</Form.Label>
+          <Input {...attrs} bind:value={$formData.provinsi} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="kota" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Kabupaten/Kota</Form.Label>
+          <Input {...attrs} bind:value={$formData.kota} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="kecamatan" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Kecamatan</Form.Label>
+          <Input {...attrs} bind:value={$formData.kecamatan} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="kelurahan" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Kelurahan</Form.Label>
+          <Input {...attrs} bind:value={$formData.kelurahan} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+    </div>
+    <Form.Field {form} name="jalan">
       <Form.Control let:attrs>
-        <Form.Label>Nama Wali</Form.Label>
-        <Input {...attrs} bind:value={$formData.namaWali} />
+        <Form.Label>Jalan</Form.Label>
+        <Textarea {...attrs} bind:value={$formData.jalan} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="pekerjaanWali">
-      <Form.Control let:attrs>
-        <Form.Label>Pekerjaan Wali</Form.Label>
-        <Input {...attrs} bind:value={$formData.pekerjaanWali} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
+
+    <h1 class="mb-2 mt-12 text-xl">Identitas Wali</h1>
+    <div class="flex gap-12">
+      <Form.Field {form} name="namaWali" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Nama Wali</Form.Label>
+          <Input {...attrs} bind:value={$formData.namaWali} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="pekerjaanWali" class="w-full">
+        <Form.Control let:attrs>
+          <Form.Label>Pekerjaan Wali</Form.Label>
+          <Input {...attrs} bind:value={$formData.pekerjaanWali} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+    </div>
     <Form.Field {form} name="alamatWali">
       <Form.Control let:attrs>
         <Form.Label>Alamat Wali</Form.Label>
-        <Input {...attrs} bind:value={$formData.alamatWali} />
+        <Textarea {...attrs} bind:value={$formData.alamatWali} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>

@@ -7,7 +7,7 @@
   import { addPagination, addSortBy, addTableFilter } from 'svelte-headless-table/plugins';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
-  import { ArrowUpDown } from 'lucide-svelte';
+  import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-svelte';
 
   type classType = selectClass & {
     teacher: {
@@ -33,22 +33,28 @@
   const columns = table.createColumns([
     table.column({
       accessor: 'classname',
-      header: 'Name'
+      header: 'Nama kelas'
     }),
     table.column({
       accessor: 'batch',
-      header: 'Batch'
+      header: 'Tingkat'
     }),
     table.column({
       accessor: ({ teacher }) => teacher?.username,
-      header: 'Teacher'
+      header: 'Guru',
+      cell: ({ value }) => {
+        if (!value) {
+          return 'Kosong';
+        } else {
+          return value;
+        }
+      }
     }),
     table.column({
       accessor: ({ id }) => id,
-      header: 'Action',
+      header: 'Menu',
       cell: ({ value }) => {
         return createRender(DataTableActions, { id: value });
-        ``;
       },
       plugins: {
         sort: {
@@ -70,7 +76,7 @@
 
 <div>
   <div class="flex items-center py-4">
-    <Input class="max-w-sm" placeholder="Filter value..." type="text" bind:value={$filterValue} />
+    <Input class="max-w-sm" placeholder="Cari..." type="text" bind:value={$filterValue} />
   </div>
   <div class="rounded-md border">
     <Table.Root {...$tableAttrs}>
@@ -81,7 +87,7 @@
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
                   <Table.Head {...attrs}>
-                    {#if cell.id !== 'Action'}
+                    {#if cell.id !== 'Menu'}
                       <Button variant="ghost" on:click={props.sort.toggle}>
                         <Render of={cell.render()} />
                         <ArrowUpDown class={'ml-2 h-4 w-4'} />
@@ -118,13 +124,17 @@
       variant="outline"
       size="sm"
       on:click={() => ($pageIndex = $pageIndex - 1)}
-      disabled={!$hasPreviousPage}>Previous</Button
+      disabled={!$hasPreviousPage}
     >
+      <ChevronLeft size="20" />
+    </Button>
     <Button
       variant="outline"
       size="sm"
       disabled={!$hasNextPage}
-      on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
+      on:click={() => ($pageIndex = $pageIndex + 1)}
     >
+      <ChevronRight size="20" />
+    </Button>
   </div>
 </div>

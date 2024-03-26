@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async (event) => {
+export const load: PageServerLoad = async () => {
   const student = await db.query.studentTable.findMany({
     with: {
       class: {

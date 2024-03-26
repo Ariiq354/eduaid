@@ -9,24 +9,25 @@
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
   import { Loader2 } from 'lucide-svelte';
-  import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
 
   const form = superForm(data.form, {
     validators: zodClient(formSchema),
+
     async onUpdate({ form }) {
       if (form.valid) {
         toast.success('Submit succesfull');
         await goto('/dashboard/admin/class');
       }
     },
+
     onError(event) {
       toast.error(event.result.error.message);
     }
   });
-  const { form: formData, enhance, submitting } = form;
 
+  const { form: formData, enhance, submitting } = form;
   $: selectedTeacher = $formData.userId
     ? {
         label: data.teacher.find((teacher) => teacher.id == $formData.userId)?.username,
@@ -41,17 +42,17 @@
     : undefined;
 </script>
 
+<SuperDebug data={form.form} />
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
-      <h1 class="text-3xl font-bold">Kelas</h1>
+      <h1 class="text-3xl font-bold">Class</h1>
       {#if $formData.id}
-        <p>Ubah Kelas</p>
+        <p>Edit Class</p>
       {:else}
-        <p>Buat Kelas</p>
+        <p>Create Class</p>
       {/if}
     </div>
-    <Button variant="ghost" href="/dashboard/admin/class">Kembali</Button>
   </div>
   <hr />
 
@@ -63,14 +64,14 @@
     </Form.Field>
     <Form.Field {form} name="classname">
       <Form.Control let:attrs>
-        <Form.Label>Nama Kelas</Form.Label>
+        <Form.Label>Class Name</Form.Label>
         <Input {...attrs} bind:value={$formData.classname} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
     <Form.Field {form} name="batch">
       <Form.Control let:attrs>
-        <Form.Label>Tingkat Kelas</Form.Label>
+        <Form.Label>Batch</Form.Label>
         <Select.Root
           selected={selectedBatch}
           onSelectedChange={(v) => {
@@ -94,7 +95,7 @@
     </Form.Field>
     <Form.Field {form} name="userId">
       <Form.Control let:attrs>
-        <Form.Label>Wali Kelas</Form.Label>
+        <Form.Label>Teacher</Form.Label>
         <Select.Root
           selected={selectedTeacher}
           onSelectedChange={(v) => {
@@ -118,7 +119,7 @@
       {#if $submitting}
         <Loader2 class="mr-2 h-4 w-4 animate-spin" />
       {/if}
-      Simpan
+      Submit
     </Form.Button>
   </form>
 </div>

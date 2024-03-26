@@ -1,14 +1,14 @@
 import { db } from '$lib/server';
-import { userTable } from '$lib/server/schema';
+import { subjectTable } from '$lib/server/schema';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
-  const user = await db.query.userTable.findMany();
+  const subject = await db.query.subjectTable.findMany();
 
   return {
-    user
+    subject
   };
 };
 
@@ -20,7 +20,7 @@ export const actions: Actions = {
     }
 
     try {
-      await db.delete(userTable).where(eq(userTable.id, id));
+      await db.delete(subjectTable).where(eq(subjectTable.id, id));
     } catch (error) {
       return fail(500, { message: 'something went wrong' });
     }

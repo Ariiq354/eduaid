@@ -1,12 +1,13 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
-  import { invalidateAll } from '$app/navigation';
-  import { Button } from '$lib/components/ui/button';
+  import { MoreHorizontal, Loader2 } from 'lucide-svelte';
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+  import { Button } from '$lib/components/ui/button';
+  import { Copy, Edit, Trash } from 'lucide-svelte';
   import Modal from '$lib/components/ui/modal.svelte';
-  import { Copy, Edit, Loader2, MoreHorizontal, Trash } from 'lucide-svelte';
-  import { toast } from 'svelte-sonner';
+  import { enhance } from '$app/forms';
   import type { SubmitFunction } from '../$types';
+  import { toast } from 'svelte-sonner';
+  import { invalidateAll } from '$app/navigation';
 
   export let id: string;
   let isOpen = false;
@@ -21,26 +22,26 @@
       } else {
         loading = false;
         invalidateAll();
-        toast.success('Guru dihapus');
+        toast.success('User Deleted');
       }
     };
   };
 </script>
 
 <Modal
-  title="Apakah anda yakin?"
-  description="Tindakan ini tidak dapat dibatalkan"
+  title="Are you sure?"
+  description="This action cannot be undone."
   {isOpen}
   onClose={() => (isOpen = false)}
 >
   <div class="flex w-full items-center justify-end space-x-2 pt-6">
-    <Button disabled={loading} variant="outline" on:click={() => (isOpen = false)}>Batal</Button>
+    <Button disabled={loading} variant="outline" on:click={() => (isOpen = false)}>Cancel</Button>
     <form action="?/delete&id={id}" method="post" use:enhance={addTodo}>
       <Button disabled={loading} variant="destructive" type="submit">
         {#if loading}
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         {/if}
-        Lanjut
+        Continue
       </Button>
     </form>
   </div>
@@ -48,25 +49,26 @@
 <DropdownMenu.Root>
   <DropdownMenu.Trigger asChild let:builder>
     <Button variant="ghost" builders={[builder]} size="icon" class="relative h-8 w-8 p-0">
+      <span class="sr-only">Open menu</span>
       <MoreHorizontal class="h-4 w-4" />
     </Button>
   </DropdownMenu.Trigger>
   <DropdownMenu.Content>
     <DropdownMenu.Group>
-      <DropdownMenu.Label>Menu</DropdownMenu.Label>
+      <DropdownMenu.Label>Actions</DropdownMenu.Label>
       <DropdownMenu.Item on:click={() => navigator.clipboard.writeText(id)}>
         <Copy class="mr-2 h-4 w-4" />
-        Salin ID
+        Copy ID
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenu.Separator />
-    <DropdownMenu.Item href={`/dashboard/admin/teacher/${id}`}>
+    <DropdownMenu.Item href={`/dashboard/admin/pelajaran/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
-      Ubah
+      Update
     </DropdownMenu.Item>
     <DropdownMenu.Item on:click={() => (isOpen = true)}>
       <Trash class="mr-2 h-4 w-4" />
-      Hapus
+      Delete
     </DropdownMenu.Item>
   </DropdownMenu.Content>
 </DropdownMenu.Root>
