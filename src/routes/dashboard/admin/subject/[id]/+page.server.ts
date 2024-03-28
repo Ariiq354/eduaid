@@ -1,5 +1,5 @@
 import { db } from '$lib/server';
-import { classTable, userTable } from '$lib/server/schema';
+import { subjectTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { generateId } from 'lucia';
@@ -10,20 +10,12 @@ import { formSchema } from './schema';
 
 export const load: PageServerLoad = async ({ params }) => {
   const id = params.id;
-  const data = await db.query.classTable.findFirst({
-    where: eq(classTable.id, id),
-    with: {
-      teacher: true
-    }
-  });
-
-  const teacher = await db.query.userTable.findMany({
-    where: eq(userTable.status, 2)
+  const data = await db.query.subjectTable.findFirst({
+    where: eq(subjectTable.id, id)
   });
 
   return {
-    form: await superValidate(data, zod(formSchema)),
-    teacher
+    form: await superValidate(data, zod(formSchema))
   };
 };
 
@@ -41,19 +33,21 @@ export const actions: Actions = {
     }
 
     await db
-      .insert(classTable)
+      .insert(subjectTable)
       .values({
         id: form.data.id,
-        userId: form.data.userId,
-        classname: form.data.classname,
-        batch: form.data.batch
+        subjectName: form.data.subjectName,
+        batch: form.data.batch,
+        medium: form.data.medium,
+        minimum: form.data.minimum
       })
       .onConflictDoUpdate({
-        target: classTable.id,
+        target: subjectTable.id,
         set: {
-          userId: form.data.userId,
-          classname: form.data.classname,
-          batch: form.data.batch
+          subjectName: form.data.subjectName,
+          batch: form.data.batch,
+          medium: form.data.medium,
+          minimum: form.data.minimum
         }
       });
 

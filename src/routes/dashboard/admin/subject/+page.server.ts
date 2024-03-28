@@ -1,8 +1,8 @@
 import { db } from '$lib/server';
 import { subjectTable } from '$lib/server/schema';
 import { eq } from 'drizzle-orm';
-import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
   const subject = await db.query.subjectTable.findMany();

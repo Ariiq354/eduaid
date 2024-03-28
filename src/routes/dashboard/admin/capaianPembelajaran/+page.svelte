@@ -9,11 +9,13 @@
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
-      <h1 class="text-3xl font-bold">Classes</h1>
-      <p>Manage Classes</p>
+      <h1 class="text-3xl font-bold">Capaian Pembelajaran</h1>
+      <p>Pengaturan Capaian Pembelajaran</p>
     </div>
-    <Button href="/dashboard/admin/class/new">Add</Button>
+    <Button href="/dashboard/admin/capaianPembelajaran/new" variant="outline" class="shadow-lg">
+      Tambah
+    </Button>
   </div>
   <hr />
-  <DataTable data={data.classData} />
+  <DataTable data={data.cpData} />
 </div>

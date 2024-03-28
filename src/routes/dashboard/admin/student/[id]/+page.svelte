@@ -1,27 +1,16 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { Calendar } from '$lib/components/ui/calendar';
+  import { Button } from '$lib/components/ui/button';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
-  import * as Popover from '$lib/components/ui/popover';
   import * as Select from '$lib/components/ui/select';
-  import { CalendarIcon, Loader2 } from 'lucide-svelte';
+  import { Textarea } from '$lib/components/ui/textarea';
+  import { Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
   import SuperDebug, { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema } from './schema';
-  import { cn } from '$lib/utils';
-  import { Button, buttonVariants } from '$lib/components/ui/button';
-  import {
-    type DateValue,
-    DateFormatter,
-    getLocalTimeZone,
-    today,
-    CalendarDate,
-    parseDate
-  } from '@internationalized/date';
-  import { Textarea } from '$lib/components/ui/textarea';
 
   export let data: PageData;
 
@@ -39,16 +28,7 @@
       toast.error(event.result.error.message);
     }
   });
-
   const { form: formData, enhance, submitting } = form;
-
-  // Date Picker
-  const df = new DateFormatter('en-US', {
-    dateStyle: 'long'
-  });
-  let value: DateValue | undefined;
-  $: value = $formData.tanggalLahir ? parseDate($formData.tanggalLahir) : undefined;
-  let placeholder: DateValue = today(getLocalTimeZone());
 
   $: selectedGender = $formData.gender
     ? {
@@ -64,8 +44,6 @@
       }
     : undefined;
 </script>
-
-<!-- <SuperDebug data={form.form} /> -->
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
@@ -159,51 +137,26 @@
       </Form.Field>
     </div>
     <div class="mt-2 flex gap-12">
-      <Form.Field {form} name="tempatLahir" class="flex w-full flex-col justify-center">
+      <Form.Field {form} name="tempatLahir" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Tempat Lahir</Form.Label>
           <Input {...attrs} bind:value={$formData.tempatLahir} />
         </Form.Control>
         <Form.FieldErrors />
       </Form.Field>
-      <Form.Field {form} name="tanggalLahir" class="flex w-full flex-col justify-center">
+      <Form.Field {form} name="tanggalLahir" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Tanggal Lahir</Form.Label>
-          <Popover.Root>
-            <Popover.Trigger
-              {...attrs}
-              class={cn(
-                buttonVariants({ variant: 'outline' }),
-                'w-full justify-start pl-4 text-left font-normal',
-                !value && 'text-muted-foreground'
-              )}
-            >
-              {value ? df.format(value.toDate(getLocalTimeZone())) : 'Pick a date'}
-              <CalendarIcon class="ml-auto h-4 w-4 opacity-50" />
-            </Popover.Trigger>
-            <Popover.Content class="w-auto p-0" side="top">
-              <Calendar
-                {value}
-                bind:placeholder
-                minValue={new CalendarDate(1900, 1, 1)}
-                maxValue={today(getLocalTimeZone())}
-                calendarLabel="Date of birth"
-                initialFocus
-                onValueChange={(v) => {
-                  if (v) {
-                    $formData.tanggalLahir = v.toString();
-                  } else {
-                    $formData.tanggalLahir = '';
-                  }
-                }}
-              />
-            </Popover.Content>
-          </Popover.Root>
-          <Form.FieldErrors />
-          <input hidden value={$formData.tanggalLahir} name={attrs.name} />
+          <input
+            type="date"
+            bind:value={$formData.tanggalLahir}
+            class="w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground"
+            {...attrs}
+          />
         </Form.Control>
+        <Form.FieldErrors />
       </Form.Field>
-      <Form.Field {form} name="classId" class="flex w-full flex-col justify-center">
+      <Form.Field {form} name="classId" class="w-full ">
         <Form.Control let:attrs>
           <Form.Label>Class</Form.Label>
           <Select.Root

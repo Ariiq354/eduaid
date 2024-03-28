@@ -1,21 +1,21 @@
 <script lang="ts">
   import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
   import { writable } from 'svelte/store';
-  import type { selectClass } from '$lib/server/schema';
+  import type { selectCp } from '$lib/server/schema';
   import * as Table from '$lib/components/ui/table';
   import DataTableActions from './data-table-action.svelte';
   import { addPagination, addSortBy, addTableFilter } from 'svelte-headless-table/plugins';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
-  import { ArrowUpDown } from 'lucide-svelte';
+  import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-svelte';
 
-  type classType = selectClass & {
-    teacher: {
-      username: string;
+  type cpType = selectCp & {
+    subject: {
+      subjectName: string;
     } | null;
   };
 
-  export let data: classType[];
+  export let data: cpType[];
 
   const tableData = writable(data);
   $: tableData.set(data);
@@ -32,23 +32,18 @@
 
   const columns = table.createColumns([
     table.column({
-      accessor: 'classname',
-      header: 'Name'
+      accessor: 'capaianPembelajaran',
+      header: 'Capaian Pembelajaran'
     }),
     table.column({
-      accessor: 'batch',
-      header: 'Batch'
-    }),
-    table.column({
-      accessor: ({ teacher }) => teacher?.username,
-      header: 'Teacher'
+      accessor: 'subject',
+      header: 'Pelajaran'
     }),
     table.column({
       accessor: ({ id }) => id,
-      header: 'Action',
+      header: 'Menu',
       cell: ({ value }) => {
         return createRender(DataTableActions, { id: value });
-        ``;
       },
       plugins: {
         sort: {
@@ -81,7 +76,7 @@
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
                   <Table.Head {...attrs}>
-                    {#if cell.id !== 'Action'}
+                    {#if cell.id !== 'Menu'}
                       <Button variant="ghost" on:click={props.sort.toggle}>
                         <Render of={cell.render()} />
                         <ArrowUpDown class={'ml-2 h-4 w-4'} />
@@ -118,13 +113,13 @@
       variant="outline"
       size="sm"
       on:click={() => ($pageIndex = $pageIndex - 1)}
-      disabled={!$hasPreviousPage}>Previous</Button
+      disabled={!$hasPreviousPage}><ChevronLeft size="20" /></Button
     >
     <Button
       variant="outline"
       size="sm"
       disabled={!$hasNextPage}
-      on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
+      on:click={() => ($pageIndex = $pageIndex + 1)}><ChevronRight size="20" /></Button
     >
   </div>
 </div>

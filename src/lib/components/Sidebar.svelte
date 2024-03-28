@@ -15,7 +15,7 @@
   export let status: number;
 </script>
 
-<div class="sticky z-10 hidden min-h-screen w-72 flex-col bg-white p-4 shadow-xl md:flex">
+<div class="sticky left-0 top-0 z-10 hidden h-screen w-72 flex-col p-4 shadow-xl md:flex">
   <div class="flex items-center gap-2">
     <div class="flex items-center justify-center gap-2">
       <svg
@@ -117,8 +117,8 @@
               <div class="flex items-center">Siswa</div>
             </a>
             <a
-              href="/dashboard/admin/pelajaran"
-              class:active={$page.url.pathname === '/dashboard/admin/pelajaran'}
+              href="/dashboard/admin/subject"
+              class:active={$page.url.pathname === '/dashboard/admin/subject'}
               class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
             >
               <Book size="20" />

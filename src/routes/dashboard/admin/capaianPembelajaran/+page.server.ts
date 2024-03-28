@@ -1,22 +1,22 @@
 import { db } from '$lib/server';
-import { classTable } from '$lib/server/schema';
+import { cpTable } from '$lib/server/schema';
+import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
-import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
-  const classData = await db.query.classTable.findMany({
+  const cpData = await db.query.cpTable.findMany({
     with: {
-      teacher: {
+      subject: {
         columns: {
-          username: true
+          subjectName: true
         }
       }
     }
   });
 
   return {
-    classData
+    cpData
   };
 };
 
@@ -28,7 +28,7 @@ export const actions: Actions = {
     }
 
     try {
-      await db.delete(classTable).where(eq(classTable.id, id));
+      await db.delete(cpTable).where(eq(cpTable.id, id));
     } catch (error) {
       return fail(500, { message: 'something went wrong' });
     }

@@ -9,6 +9,7 @@
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
   import { Loader2 } from 'lucide-svelte';
+  import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
 
@@ -18,7 +19,7 @@
     async onUpdate({ form }) {
       if (form.valid) {
         toast.success('Submit succesfull');
-        await goto('/dashboard/admin/class');
+        await goto('/dashboard/admin/subject');
       }
     },
 
@@ -28,12 +29,7 @@
   });
 
   const { form: formData, enhance, submitting } = form;
-  $: selectedTeacher = $formData.userId
-    ? {
-        label: data.teacher.find((teacher) => teacher.id == $formData.userId)?.username,
-        value: $formData.userId
-      }
-    : undefined;
+
   $: selectedBatch = $formData.batch.toString()
     ? {
         label: $formData.batch.toString(),
@@ -42,17 +38,18 @@
     : undefined;
 </script>
 
-<SuperDebug data={form.form} />
+<!-- <SuperDebug data={form.form} /> -->
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
-      <h1 class="text-3xl font-bold">Class</h1>
+      <h1 class="text-3xl font-bold">Pelajaran</h1>
       {#if $formData.id}
-        <p>Edit Class</p>
+        <p>Ubah Pelajaran</p>
       {:else}
-        <p>Create Class</p>
+        <p>Buat Pelajaran</p>
       {/if}
     </div>
+    <Button variant="ghost" href="/dashboard/admin/subject">Kembali</Button>
   </div>
   <hr />
 
@@ -62,10 +59,10 @@
         <input hidden name={attrs.name} bind:value={$formData.id} />
       </Form.Control>
     </Form.Field>
-    <Form.Field {form} name="classname">
+    <Form.Field {form} name="subjectName">
       <Form.Control let:attrs>
-        <Form.Label>Class Name</Form.Label>
-        <Input {...attrs} bind:value={$formData.classname} />
+        <Form.Label>Nama Pelajaran</Form.Label>
+        <Input {...attrs} bind:value={$formData.subjectName} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
@@ -93,25 +90,17 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="userId">
+    <Form.Field {form} name="minimum">
       <Form.Control let:attrs>
-        <Form.Label>Teacher</Form.Label>
-        <Select.Root
-          selected={selectedTeacher}
-          onSelectedChange={(v) => {
-            v && ($formData.userId = v.value);
-          }}
-        >
-          <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Select teacher" />
-          </Select.Trigger>
-          <Select.Content>
-            {#each data.teacher as teacher}
-              <Select.Item value={teacher.id} label={teacher.username} />
-            {/each}
-          </Select.Content>
-        </Select.Root>
-        <input hidden bind:value={$formData.userId} name={attrs.name} />
+        <Form.Label>Nilai batas bawah</Form.Label>
+        <Input {...attrs} bind:value={$formData.minimum} />
+      </Form.Control>
+      <Form.FieldErrors />
+    </Form.Field>
+    <Form.Field {form} name="medium">
+      <Form.Control let:attrs>
+        <Form.Label>Nilai batas atas</Form.Label>
+        <Input {...attrs} type="number" bind:value={$formData.medium} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>

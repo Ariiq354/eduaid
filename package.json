@@ -15,7 +15,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.1.1",
+    "@sveltejs/adapter-auto": "^3.2.0",
     "@sveltejs/kit": "^2.5.4",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@types/better-sqlite3": "^7.6.9",
@@ -25,14 +25,14 @@
     "postcss-load-config": "^5.0.3",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.2",
-    "prettier-plugin-tailwindcss": "^0.5.12",
+    "prettier-plugin-tailwindcss": "^0.5.13",
     "svelte": "^4.2.12",
     "svelte-check": "^3.6.8",
     "svelte-headless-table": "^0.18.2",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.3",
     "tslib": "^2.6.2",
     "typescript": "^5.4.3",
-    "vite": "^5.2.4"
+    "vite": "^5.2.6"
   },
   "type": "module",
   "dependencies": {
@@ -40,10 +40,10 @@
     "@libsql/client": "^0.5.6",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
     "better-sqlite3": "^9.4.3",
-    "bits-ui": "^0.20.0",
+    "bits-ui": "^0.21.1",
     "clsx": "^2.1.0",
-    "drizzle-orm": "^0.30.4",
-    "formsnap": "^0.5.1",
+    "drizzle-orm": "^0.30.5",
+    "formsnap": "^1.0.0",
     "lucia": "^3.1.1",
     "lucide-svelte": "^0.363.0",
     "oslo": "^1.1.3",

@@ -126,7 +126,7 @@
       {#if $submitting}
         <Loader2 class="mr-2 h-4 w-4 animate-spin" />
       {/if}
-      Submit
+      Simpan
     </Form.Button>
   </form>
 </div>

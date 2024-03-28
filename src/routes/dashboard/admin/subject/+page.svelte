@@ -9,10 +9,10 @@
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
-      <h1 class="text-3xl font-bold">Subjects</h1>
-      <p>Manage Subject</p>
+      <h1 class="text-3xl font-bold">Pelajaran</h1>
+      <p>Pengaturan Pelajaran</p>
     </div>
-    <Button href="/dashboard/admin/pelajaran/new">Add</Button>
+    <Button href="/dashboard/admin/subject/new" variant="outline" class="shadow-lg">Tambah</Button>
   </div>
   <hr />
   <DataTable data={data.subject} />

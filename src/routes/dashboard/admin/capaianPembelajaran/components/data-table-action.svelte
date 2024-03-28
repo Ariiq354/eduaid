@@ -29,19 +29,19 @@
 </script>
 
 <Modal
-  title="Are you sure?"
-  description="This action cannot be undone."
+  title="Apakah anda yakin?"
+  description="Tindakan ini tidak dapat dibatalkan"
   {isOpen}
   onClose={() => (isOpen = false)}
 >
   <div class="flex w-full items-center justify-end space-x-2 pt-6">
-    <Button disabled={loading} variant="outline" on:click={() => (isOpen = false)}>Cancel</Button>
+    <Button disabled={loading} variant="outline" on:click={() => (isOpen = false)}>Batal</Button>
     <form action="?/delete&id={id}" method="post" use:enhance={addTodo}>
       <Button disabled={loading} variant="destructive" type="submit">
         {#if loading}
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         {/if}
-        Continue
+        Lanjut
       </Button>
     </form>
   </div>
@@ -49,7 +49,6 @@
 <DropdownMenu.Root>
   <DropdownMenu.Trigger asChild let:builder>
     <Button variant="ghost" builders={[builder]} size="icon" class="relative h-8 w-8 p-0">
-      <span class="sr-only">Open menu</span>
       <MoreHorizontal class="h-4 w-4" />
     </Button>
   </DropdownMenu.Trigger>
@@ -58,17 +57,17 @@
       <DropdownMenu.Label>Actions</DropdownMenu.Label>
       <DropdownMenu.Item on:click={() => navigator.clipboard.writeText(id)}>
         <Copy class="mr-2 h-4 w-4" />
-        Copy ID
+        Salin ID
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenu.Separator />
     <DropdownMenu.Item href={`/dashboard/admin/class/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
-      Update
+      Ubah
     </DropdownMenu.Item>
     <DropdownMenu.Item on:click={() => (isOpen = true)}>
       <Trash class="mr-2 h-4 w-4" />
-      Delete
+      Hapus
     </DropdownMenu.Item>
   </DropdownMenu.Content>
 </DropdownMenu.Root>

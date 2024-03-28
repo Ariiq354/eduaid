@@ -7,7 +7,8 @@ export const userTable = sqliteTable('user', {
   password: text('password').notNull(),
   role: integer('role').default(1).notNull(), // 1: user, 2: admin
   status: integer('status').default(1).notNull(), // 1: inactive, 2: active
-  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
 export const usersRelations = relations(userTable, ({ many }) => ({
@@ -31,7 +32,8 @@ export const classTable = sqliteTable('class', {
   }),
   classname: text('classname').notNull(),
   batch: integer('batch').notNull(),
-  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
 export const classRelations = relations(classTable, ({ one, many }) => ({
@@ -70,7 +72,8 @@ export const studentTable = sqliteTable('student', {
   namaWali: text('nama_wali').notNull(),
   pekerjaanWali: text('pekerjaan_wali').notNull(),
   alamatWali: text('alamat_wali').notNull(),
-  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
 export const studentRelations = relations(studentTable, ({ one }) => ({
@@ -87,7 +90,9 @@ export const subjectTable = sqliteTable('subject', {
   subjectName: text('subject_name').notNull(),
   batch: integer('batch').notNull(),
   minimum: integer('minimum').notNull(),
-  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+  medium: integer('medium').notNull(),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
 export type selectSubject = typeof subjectTable.$inferSelect;
@@ -100,11 +105,14 @@ export const cpTable = sqliteTable('capainPembelajaran', {
   id: text('id').notNull().primaryKey(),
   subjectId: text('subject_id').references(() => subjectTable.id, { onDelete: 'set null' }),
   capaianPembelajaran: text('capaian_pembelajaran').notNull(),
-  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`)
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
+export type selectCp = typeof cpTable.$inferSelect;
+
 export const cpRelations = relations(cpTable, ({ one }) => ({
-  class: one(subjectTable, {
+  subject: one(subjectTable, {
     fields: [cpTable.subjectId],
     references: [subjectTable.id]
   })

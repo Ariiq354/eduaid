@@ -7,7 +7,7 @@
   import { addPagination, addSortBy, addTableFilter } from 'svelte-headless-table/plugins';
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
-  import { ArrowUpDown } from 'lucide-svelte';
+  import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-svelte';
 
   export let data: selectSubject[];
 
@@ -27,18 +27,25 @@
   const columns = table.createColumns([
     table.column({
       accessor: 'subjectName',
-      header: 'Name'
+      header: 'Nama Pelajaran'
     }),
     table.column({
       accessor: 'batch',
-      header: 'Batch'
+      header: 'Tingkat'
+    }),
+    table.column({
+      accessor: 'minimum',
+      header: 'Nilai batas bawah'
+    }),
+    table.column({
+      accessor: 'medium',
+      header: 'Nilai batas atas'
     }),
     table.column({
       accessor: ({ id }) => id,
-      header: 'Action',
+      header: 'Menu',
       cell: ({ value }) => {
         return createRender(DataTableActions, { id: value });
-        ``;
       },
       plugins: {
         sort: {
@@ -71,7 +78,7 @@
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
                   <Table.Head {...attrs}>
-                    {#if cell.id !== 'Action'}
+                    {#if cell.id !== 'Menu'}
                       <Button variant="ghost" on:click={props.sort.toggle}>
                         <Render of={cell.render()} />
                         <ArrowUpDown class={'ml-2 h-4 w-4'} />
@@ -108,13 +115,13 @@
       variant="outline"
       size="sm"
       on:click={() => ($pageIndex = $pageIndex - 1)}
-      disabled={!$hasPreviousPage}>Previous</Button
+      disabled={!$hasPreviousPage}><ChevronLeft size="20" /></Button
     >
     <Button
       variant="outline"
       size="sm"
       disabled={!$hasNextPage}
-      on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
+      on:click={() => ($pageIndex = $pageIndex + 1)}><ChevronRight size="20" /></Button
     >
   </div>
 </div>
