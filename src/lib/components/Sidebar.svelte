@@ -2,10 +2,12 @@
   import {
     Book,
     BookOpen,
+    ClipboardPlus,
     DoorClosed,
+    FileQuestion,
     GraduationCap,
-    LayoutDashboard,
     NotebookTabs,
+    Percent,
     ScanEye,
     Users
   } from 'lucide-svelte';
@@ -143,8 +145,8 @@
             class:active={$page.url.pathname === '/dashboard'}
             class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
           >
-            <LayoutDashboard size="20" />
-            <div class="flex items-center">Score Dashboard</div>
+            <Percent size="20" />
+            <div class="flex items-center">Nilai Siswa</div>
           </a>
           <a
             href="/dashboard/scan"
@@ -155,12 +157,28 @@
             <div class="flex items-center">Scan</div>
           </a>
           <a
-            href="/dashboard/curriculum"
-            class:active={$page.url.pathname === '/dashboard/curriculum'}
+            href="/dashboard/tujuanPembelajaran"
+            class:active={$page.url.pathname === '/dashboard/tujuanPembelajaran'}
             class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
           >
             <NotebookTabs size="20" />
-            <div class="flex items-center">Curriculum</div>
+            <div class="flex items-center">Tujuan Pembelajaran</div>
+          </a>
+          <a
+            href="/dashboard/modul"
+            class:active={$page.url.pathname === '/dashboard/modul'}
+            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+          >
+            <ClipboardPlus size="20" />
+            <div class="flex items-center">Modul Pembelajaran</div>
+          </a>
+          <a
+            href="/dashboard/soal"
+            class:active={$page.url.pathname === '/dashboard/soal'}
+            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+          >
+            <FileQuestion size="20" />
+            <div class="flex items-center">Pembuatan Soal</div>
           </a>
         </div>
       </div>

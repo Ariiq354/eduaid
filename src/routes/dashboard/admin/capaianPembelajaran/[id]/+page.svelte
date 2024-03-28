@@ -29,6 +29,13 @@
   });
 
   const { form: formData, enhance, submitting } = form;
+
+  $: selectedPhase = $formData.phase.toString()
+    ? {
+        label: $formData.phase.toString(),
+        value: $formData.phase.toString()
+      }
+    : undefined;
   $: selectedSubject = $formData.subjectId
     ? {
         label: data.subject.find((subject) => subject.id == $formData.subjectId)?.subjectName,
@@ -84,6 +91,30 @@
           </Select.Content>
         </Select.Root>
         <input hidden bind:value={$formData.subjectId} name={attrs.name} />
+      </Form.Control>
+      <Form.FieldErrors />
+    </Form.Field>
+    <Form.Field {form} name="phase">
+      <Form.Control let:attrs>
+        <Form.Label>Batch</Form.Label>
+        <Select.Root
+          selected={selectedPhase}
+          onSelectedChange={(v) => {
+            v && ($formData.phase = parseInt(v.value));
+          }}
+        >
+          <Select.Trigger {...attrs}>
+            <Select.Value placeholder="Select batch" />
+          </Select.Trigger>
+          <Select.Content>
+            {#each Array(3)
+              .fill(undefined)
+              .map((_, i) => i + 1) as num}
+              <Select.Item value={num} label={num.toString()} />
+            {/each}
+          </Select.Content>
+        </Select.Root>
+        <input hidden bind:value={$formData.phase} name={attrs.name} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>

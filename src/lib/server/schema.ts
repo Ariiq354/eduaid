@@ -12,7 +12,8 @@ export const userTable = sqliteTable('user', {
 });
 
 export const usersRelations = relations(userTable, ({ many }) => ({
-  class: many(classTable)
+  class: many(classTable),
+  tp: many(tpTable)
 }));
 
 export type selectUser = typeof userTable.$inferSelect;
@@ -105,15 +106,39 @@ export const cpTable = sqliteTable('capainPembelajaran', {
   id: text('id').notNull().primaryKey(),
   subjectId: text('subject_id').references(() => subjectTable.id, { onDelete: 'set null' }),
   capaianPembelajaran: text('capaian_pembelajaran').notNull(),
+  phase: integer('phase').notNull(),
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
   updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
 export type selectCp = typeof cpTable.$inferSelect;
 
-export const cpRelations = relations(cpTable, ({ one }) => ({
+export const cpRelations = relations(cpTable, ({ one, many }) => ({
   subject: one(subjectTable, {
     fields: [cpTable.subjectId],
     references: [subjectTable.id]
+  }),
+  tp: many(tpTable)
+}));
+
+export const tpTable = sqliteTable('tujuanPembelajaran', {
+  id: text('id').notNull().primaryKey(),
+  cpId: text('cp_id').references(() => cpTable.id, { onDelete: 'set null' }),
+  userId: text('user_id')
+    .notNull()
+    .references(() => userTable.id, { onDelete: 'cascade' }),
+  tujuanPembelajaran: text('tujuan_pembelajaran').notNull(),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
+});
+
+export const tpRelations = relations(tpTable, ({ one }) => ({
+  cp: one(cpTable, {
+    fields: [tpTable.cpId],
+    references: [cpTable.id]
+  }),
+  teacher: one(userTable, {
+    fields: [tpTable.userId],
+    references: [userTable.id]
   })
 }));

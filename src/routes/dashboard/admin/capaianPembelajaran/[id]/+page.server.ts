@@ -43,13 +43,15 @@ export const actions: Actions = {
       .values({
         id: form.data.id,
         subjectId: form.data.subjectId,
-        capaianPembelajaran: form.data.capaianPembelajaran
+        capaianPembelajaran: form.data.capaianPembelajaran,
+        phase: form.data.phase
       })
       .onConflictDoUpdate({
         target: cpTable.id,
         set: {
           subjectId: form.data.subjectId,
-          capaianPembelajaran: form.data.capaianPembelajaran
+          capaianPembelajaran: form.data.capaianPembelajaran,
+          phase: form.data.phase
         }
       });
 
