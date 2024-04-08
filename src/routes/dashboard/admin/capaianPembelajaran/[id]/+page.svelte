@@ -44,7 +44,6 @@
     : undefined;
 </script>
 
-<SuperDebug data={form.form} />
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
@@ -96,7 +95,7 @@
     </Form.Field>
     <Form.Field {form} name="phase">
       <Form.Control let:attrs>
-        <Form.Label>Batch</Form.Label>
+        <Form.Label>Fase</Form.Label>
         <Select.Root
           selected={selectedPhase}
           onSelectedChange={(v) => {
@@ -104,7 +103,7 @@
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Select batch" />
+            <Select.Value placeholder="Pilih Fase" />
           </Select.Trigger>
           <Select.Content>
             {#each Array(3)

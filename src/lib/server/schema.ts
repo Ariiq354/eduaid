@@ -77,11 +77,12 @@ export const studentTable = sqliteTable('student', {
   updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
 });
 
-export const studentRelations = relations(studentTable, ({ one }) => ({
+export const studentRelations = relations(studentTable, ({ one, many }) => ({
   class: one(classTable, {
     fields: [studentTable.classId],
     references: [classTable.id]
-  })
+  }),
+  nilai: many(nilaiTable)
 }));
 
 export type selectStudent = typeof studentTable.$inferSelect;
@@ -123,7 +124,7 @@ export const cpRelations = relations(cpTable, ({ one, many }) => ({
 
 export const tpTable = sqliteTable('tujuanPembelajaran', {
   id: text('id').notNull().primaryKey(),
-  cpId: text('cp_id').references(() => cpTable.id, { onDelete: 'set null' }),
+  cpId: text('cp_id').references(() => cpTable.id, { onDelete: 'cascade' }),
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
@@ -140,5 +141,27 @@ export const tpRelations = relations(tpTable, ({ one }) => ({
   teacher: one(userTable, {
     fields: [tpTable.userId],
     references: [userTable.id]
+  })
+}));
+
+export const nilaiTable = sqliteTable('nilai', {
+  id: text('id').notNull().primaryKey(),
+  tpId: text('tp_id').references(() => tpTable.id, { onDelete: 'cascade' }),
+  studentId: text('student_id')
+    .notNull()
+    .references(() => studentTable.id, { onDelete: 'cascade' }),
+  nilai: integer('nilai').notNull(),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`CURRENT_TIMESTAMP`)
+});
+
+export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
+  tp: one(tpTable, {
+    fields: [nilaiTable.tpId],
+    references: [tpTable.id]
+  }),
+  student: one(studentTable, {
+    fields: [nilaiTable.studentId],
+    references: [studentTable.id]
   })
 }));
