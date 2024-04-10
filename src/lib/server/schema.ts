@@ -144,6 +144,8 @@ export const tpRelations = relations(tpTable, ({ one }) => ({
   })
 }));
 
+export type selectTP = typeof tpTable.$inferSelect;
+
 export const nilaiTable = sqliteTable('nilai', {
   id: text('id').notNull().primaryKey(),
   tpId: text('tp_id').references(() => tpTable.id, { onDelete: 'cascade' }),
@@ -165,3 +167,4 @@ export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
     references: [studentTable.id]
   })
 }));
+
