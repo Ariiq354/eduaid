@@ -46,6 +46,8 @@
     : undefined;
 </script>
 
+<SuperDebug data={$formData} />
+
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
