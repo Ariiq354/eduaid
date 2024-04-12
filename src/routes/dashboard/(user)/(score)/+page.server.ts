@@ -1,8 +1,7 @@
 import { db } from '$lib/server';
 import { classTable } from '$lib/server/schema';
-import { eq } from 'drizzle-orm';
-import type { Actions, PageServerLoad } from './$types';
-import { fail } from '@sveltejs/kit';
+import { eq, sql } from 'drizzle-orm';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
   const classData = await db.query.classTable.findMany({

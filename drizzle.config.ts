@@ -5,5 +5,6 @@ export default {
   out: './drizzle',
   dbCredentials: {
     url: 'file:test.db'
-  }
+  },
+  verbose: true
 } satisfies Config;
