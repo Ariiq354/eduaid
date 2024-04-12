@@ -145,7 +145,7 @@ export const tpTable = sqliteTable('tujuanPembelajaran', {
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
-export const tpRelations = relations(tpTable, ({ one }) => ({
+export const tpRelations = relations(tpTable, ({ one, many }) => ({
   cp: one(cpTable, {
     fields: [tpTable.cpId],
     references: [cpTable.id]
@@ -153,7 +153,8 @@ export const tpRelations = relations(tpTable, ({ one }) => ({
   teacher: one(userTable, {
     fields: [tpTable.userId],
     references: [userTable.id]
-  })
+  }),
+  modul: many(modulTable)
 }));
 
 export type selectTP = typeof tpTable.$inferSelect;
@@ -181,3 +182,27 @@ export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
     references: [studentTable.id]
   })
 }));
+
+export const modulTable = sqliteTable('modul', {
+  id: text('id').notNull().primaryKey(),
+  tpId: text('tp_id').references(() => tpTable.id, { onDelete: 'cascade' }),
+  userId: text('user_id')
+    .notNull()
+    .references(() => userTable.id, { onDelete: 'cascade' }),
+  modul: text('modul').notNull(),
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+});
+
+export const modulRelations = relations(modulTable, ({ one }) => ({
+  tp: one(tpTable, {
+    fields: [modulTable.tpId],
+    references: [tpTable.id]
+  }),
+  teacher: one(userTable, {
+    fields: [modulTable.userId],
+    references: [userTable.id]
+  })
+}));
+
+export type selectmodul = typeof modulTable.$inferSelect;
