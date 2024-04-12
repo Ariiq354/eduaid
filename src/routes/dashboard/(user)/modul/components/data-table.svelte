@@ -22,7 +22,7 @@
   
     const table = createTable(tableData, {
       page: addPagination({
-        initialPageSize: 5
+        initialPageSize: 10
       }),
       sort: addSortBy(),
       filter: addTableFilter({
@@ -36,7 +36,7 @@
         header: 'Modul'
       }),
       table.column({
-        accessor: 'tp',
+        accessor: ({tp}) => tp?.tujuanPembelajaran,
         header: 'Tujuan Pembelajaran'
       }),
       table.column({
