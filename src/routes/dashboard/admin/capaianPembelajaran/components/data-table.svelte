@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
   import { writable } from 'svelte/store';
-  import type { selectCp } from '$lib/server/schema';
+  import type { selectCp } from '$lib/server/schema'; 
   import * as Table from '$lib/components/ui/table';
   import DataTableActions from './data-table-action.svelte';
   import { addPagination, addSortBy, addTableFilter } from 'svelte-headless-table/plugins';
@@ -36,7 +36,7 @@
       header: 'Capaian Pembelajaran'
     }),
     table.column({
-      accessor: 'subject',
+      accessor: ({subject}) => subject?.subjectName,
       header: 'Pelajaran'
     }),
     table.column({

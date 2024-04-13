@@ -61,7 +61,7 @@
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenu.Separator />
-    <DropdownMenu.Item href={`/dashboard/admin/pelajaran/${id}`}>
+    <DropdownMenu.Item href={`/dashboard/admin/subject/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
       Ubah
     </DropdownMenu.Item>

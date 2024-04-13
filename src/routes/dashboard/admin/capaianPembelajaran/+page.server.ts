@@ -3,8 +3,10 @@ import { cpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
+import { createChatCompletion } from '$lib/server/openai';
 
 export const load: PageServerLoad = async () => {
+
   const cpData = await db.query.cpTable.findMany({
     with: {
       subject: {
