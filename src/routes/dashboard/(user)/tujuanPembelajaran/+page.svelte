@@ -19,5 +19,10 @@
     </Button>
 
     <hr />
-    <DataTable data={data.tpData} />
+    {#each data.cpData as cp (cp.id)}
+      <button>
+        <a href={`/dashboard/tujuanPembelajaran/${cp.id}`}>{cp.capaianPembelajaran}</a>
+      </button>
+    {/each}
+    <!-- <DataTable data={data.tpData} /> -->
   </div>

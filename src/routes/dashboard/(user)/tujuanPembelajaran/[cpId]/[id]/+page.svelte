@@ -1,10 +1,11 @@
 <script lang="ts">
+    import type { PageData } from './$types';
+    import { page } from '$app/stores';
     import * as Form from '$lib/components/ui/form';
     import { Input } from '$lib/components/ui/input';
     import * as Select from '$lib/components/ui/select';
     import SuperDebug, { superForm } from 'sveltekit-superforms';
     import { zodClient } from 'sveltekit-superforms/adapters';
-    import type { PageData } from './$types';
     import { toast } from 'svelte-sonner';
     import { formSchema } from './schema';
     import { goto } from '$app/navigation';
@@ -12,7 +13,7 @@
     import { Button } from '$lib/components/ui/button';
   
     export let data: PageData;
-  
+
     const form = superForm(data.form, {
       validators: zodClient(formSchema),
   

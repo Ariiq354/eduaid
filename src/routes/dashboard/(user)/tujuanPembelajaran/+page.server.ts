@@ -1,22 +1,14 @@
 import { db } from '$lib/server';
-import { tpTable } from '$lib/server/schema';
+import { tpTable, cpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-  const tpData = await db.query.tpTable.findMany({
-    with: {
-      cp: {
-        columns: {
-          capaianPembelajaran: true
-        }
-      }
-    }
-  });
+  const cpData = await db.query.cpTable.findMany({})
 
   return {
-    tpData
+    cpData
   };
 };
 

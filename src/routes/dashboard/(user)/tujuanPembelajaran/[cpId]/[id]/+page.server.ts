@@ -5,7 +5,7 @@ import { eq } from 'drizzle-orm';
 import { generateId } from 'lucia';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import type { Actions, PageServerLoad } from './$types';
+import type { PageServerLoad, Actions } from './$types';
 import { formSchema } from './schema';
 
 export const load: PageServerLoad = async ({ params }) => {
