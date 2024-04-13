@@ -4,13 +4,14 @@ import { text, integer, sqliteTable } from 'drizzle-orm/sqlite-core';
 export const userTable = sqliteTable('user', {
   id: text('id').notNull().primaryKey(),
   username: text('username').notNull().unique(),
-  password: text('password').notNull(),
+  password: text('password'),
   role: integer('role').default(1).notNull(), // 1: user, 2: admin
   status: integer('status').default(1).notNull(), // 1: inactive, 2: active
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  test: text('test').notNull().default('test')
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const usersRelations = relations(userTable, ({ many }) => ({
@@ -34,11 +35,11 @@ export const classTable = sqliteTable('class', {
     onDelete: 'set null'
   }),
   classname: text('classname').notNull(),
-  batch: integer('batch').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  batch: integer('batch').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const classRelations = relations(classTable, ({ one, many }) => ({
@@ -76,11 +77,11 @@ export const studentTable = sqliteTable('student', {
   noTelepon: text('no_telepon').notNull(),
   namaWali: text('nama_wali').notNull(),
   pekerjaanWali: text('pekerjaan_wali').notNull(),
-  alamatWali: text('alamat_wali').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  alamatWali: text('alamat_wali').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const studentRelations = relations(studentTable, ({ one, many }) => ({
@@ -98,11 +99,11 @@ export const subjectTable = sqliteTable('subject', {
   subjectName: text('subject_name').notNull(),
   batch: integer('batch').notNull(),
   minimum: integer('minimum').notNull(),
-  medium: integer('medium').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  medium: integer('medium').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export type selectSubject = typeof subjectTable.$inferSelect;
@@ -115,11 +116,11 @@ export const cpTable = sqliteTable('capainPembelajaran', {
   id: text('id').notNull().primaryKey(),
   subjectId: text('subject_id').references(() => subjectTable.id, { onDelete: 'set null' }),
   capaianPembelajaran: text('capaian_pembelajaran').notNull(),
-  phase: integer('phase').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  phase: integer('phase').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export type selectCp = typeof cpTable.$inferSelect;
@@ -138,11 +139,11 @@ export const tpTable = sqliteTable('tujuanPembelajaran', {
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
-  tujuanPembelajaran: text('tujuan_pembelajaran').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  tujuanPembelajaran: text('tujuan_pembelajaran').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const tpRelations = relations(tpTable, ({ one, many }) => ({
@@ -165,11 +166,11 @@ export const nilaiTable = sqliteTable('nilai', {
   studentId: text('student_id')
     .notNull()
     .references(() => studentTable.id, { onDelete: 'cascade' }),
-  nilai: integer('nilai').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  nilai: integer('nilai').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
@@ -189,9 +190,11 @@ export const modulTable = sqliteTable('modul', {
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
-  modul: text('modul').notNull(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at').$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+  modul: text('modul').notNull()
+  // createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  // updatedAt: text('updated_at')
+  //   .default(sql`(CURRENT_TIMESTAMP)`)
+  //   .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
 export const modulRelations = relations(modulTable, ({ one }) => ({
