@@ -53,7 +53,9 @@
     "zod": "^3.22.4"
   },
   "trustedDependencies": [
+    "@sveltejs/kit",
     "es5-ext",
+    "esbuild",
     "svelte-preprocess"
   ]
 }
