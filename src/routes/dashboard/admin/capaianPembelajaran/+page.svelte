@@ -7,11 +7,6 @@
 </script>
 
 <div class="flex flex-col gap-4">
-
-  <div>
-    {data.greeting}
-  </div>
-
   <div class="flex items-center justify-between">
     <div>
       <h1 class="text-3xl font-bold">Capaian Pembelajaran</h1>

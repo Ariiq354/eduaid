@@ -1,4 +1,5 @@
 import { OPENAI_API_KEY } from '$env/static/private';
+import { Configuration, OpenAIApi } from 'openai-edge';
 import { message } from 'sveltekit-superforms';
 
 type ChatCompletion = {
@@ -26,7 +27,7 @@ const isChatCompletion = (data: unknown): data is ChatCompletion =>
 	typeof data === 'object' &&
 	!!(data as ChatCompletion).choices?.[0].message?.content
 
-    export const createChatCompletion = async (name: string) => {
+export const createChatCompletion = async (name: string) => {
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: new Headers({
@@ -38,7 +39,7 @@ const isChatCompletion = (data: unknown): data is ChatCompletion =>
                 messages: [
                     {
                         role: 'user',
-                        content: `when is indonesia independece day`,
+                        content: `who is nekomata okayu`,
                     },
                 ],
             }),
@@ -55,4 +56,4 @@ const isChatCompletion = (data: unknown): data is ChatCompletion =>
         }
     
         return json.choices[0].message.content
-    }
+}

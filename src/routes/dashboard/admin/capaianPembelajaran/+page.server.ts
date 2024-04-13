@@ -6,9 +6,6 @@ import type { Actions, PageServerLoad } from './$types';
 import { createChatCompletion } from '$lib/server/openai';
 
 export const load: PageServerLoad = async () => {
-  const name = "jdon"
-
-  const greeting = await createChatCompletion(name)
 
   const cpData = await db.query.cpTable.findMany({
     with: {
@@ -21,8 +18,7 @@ export const load: PageServerLoad = async () => {
   });
 
   return {
-    cpData,
-    greeting
+    cpData
   };
 };
 
