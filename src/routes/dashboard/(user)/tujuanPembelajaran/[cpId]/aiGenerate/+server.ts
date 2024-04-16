@@ -17,7 +17,6 @@ export const POST: RequestHandler = async ( {request} ) => {
         model: 'gpt-3.5-turbo-0125',
         stream: true,
         messages,
-        max_tokens: 75
     })
 
     const stream = OpenAIStream(response)
