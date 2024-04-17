@@ -42,7 +42,7 @@
     "drizzle-orm": "^0.30.7",
     "formsnap": "^1.0.0",
     "lucia": "^3.1.1",
-    "lucide-svelte": "^0.365.0",
+    "lucide-svelte": "^0.368.0",
     "openai": "^4.33.0",
     "openai-edge": "^1.2.2",
     "oslo": "^1.2.0",

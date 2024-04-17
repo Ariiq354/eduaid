@@ -141,8 +141,8 @@
         <div class="font-mono text-sm font-semibold tracking-widest opacity-50">USER</div>
         <div class="flex flex-col gap-2">
           <a
-            href="/dashboard"
-            class:active={$page.url.pathname === '/dashboard'}
+            href="/dashboard/score"
+            class:active={$page.url.pathname === '/dashboard/score'}
             class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
           >
             <Percent size="20" />
