@@ -6,12 +6,12 @@ import type { Actions, PageServerLoad } from './$types';
 import { createChatCompletion } from '$lib/server/openai';
 
 export const load: PageServerLoad = async () => {
-
   const cpData = await db.query.cpTable.findMany({
     with: {
       subject: {
         columns: {
-          subjectName: true
+          subjectName: true,
+          phase: true
         }
       }
     }

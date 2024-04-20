@@ -37,7 +37,7 @@ export const actions: Actions = {
       .values({
         id: form.data.id,
         subjectName: form.data.subjectName,
-        batch: form.data.batch,
+        phase: form.data.phase,
         medium: form.data.medium,
         minimum: form.data.minimum
       })
@@ -45,7 +45,7 @@ export const actions: Actions = {
         target: subjectTable.id,
         set: {
           subjectName: form.data.subjectName,
-          batch: form.data.batch,
+          phase: form.data.phase,
           medium: form.data.medium,
           minimum: form.data.minimum
         }

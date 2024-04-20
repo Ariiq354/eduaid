@@ -30,15 +30,17 @@
 
   const { form: formData, enhance, submitting } = form;
 
-  $: selectedBatch = $formData.batch.toString()
+  const phaseLabel = ['Fase 1 (Kelas 1 & 2)', 'Fase 2 (Kelas 3 & 4)', 'Fase 3 (Kelas 5 & 6)'];
+
+  $: selectedPhase = $formData.phase.toString()
     ? {
-        label: $formData.batch.toString(),
-        value: $formData.batch.toString()
+        label: phaseLabel[$formData.phase - 1],
+        value: $formData.phase.toString()
       }
     : undefined;
 </script>
 
-<!-- <SuperDebug data={form.form} /> -->
+<SuperDebug data={form.form} />
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
@@ -66,27 +68,25 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="batch">
+    <Form.Field {form} name="phase">
       <Form.Control let:attrs>
-        <Form.Label>Batch</Form.Label>
+        <Form.Label>Fase</Form.Label>
         <Select.Root
-          selected={selectedBatch}
+          selected={selectedPhase}
           onSelectedChange={(v) => {
-            v && ($formData.batch = parseInt(v.value));
+            v && ($formData.phase = parseInt(v.value));
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Select batch" />
+            <Select.Value placeholder="Pilih fase" />
           </Select.Trigger>
           <Select.Content>
-            {#each Array(6)
-              .fill(undefined)
-              .map((_, i) => i + 1) as num}
-              <Select.Item value={num} label={num.toString()} />
-            {/each}
+            <Select.Item value={1} label={'Fase 1 (Kelas 1 & 2)'} />
+            <Select.Item value={2} label={'Fase 2 (Kelas 3 & 4)'} />
+            <Select.Item value={3} label={'Fase 3 (Kelas 5 & 6)'} />
           </Select.Content>
         </Select.Root>
-        <input hidden bind:value={$formData.batch} name={attrs.name} />
+        <input hidden bind:value={$formData.phase} name={attrs.name} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>

@@ -96,7 +96,7 @@ export type selectStudent = typeof studentTable.$inferSelect;
 export const subjectTable = sqliteTable('subject', {
   id: text('id').notNull().primaryKey(),
   subjectName: text('subject_name').notNull(),
-  batch: integer('batch').notNull(),
+  phase: integer('phase').notNull(),
   minimum: integer('minimum').notNull(),
   medium: integer('medium').notNull(),
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
@@ -115,7 +115,6 @@ export const cpTable = sqliteTable('capainPembelajaran', {
   id: text('id').notNull().primaryKey(),
   subjectId: text('subject_id').references(() => subjectTable.id, { onDelete: 'set null' }),
   capaianPembelajaran: text('capaian_pembelajaran').notNull(),
-  phase: integer('phase').notNull(),
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
   updatedAt: text('updated_at')
     .default(sql`(CURRENT_TIMESTAMP)`)
