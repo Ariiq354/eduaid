@@ -30,20 +30,16 @@
 
   const { form: formData, enhance, submitting } = form;
 
-  $: selectedPhase = $formData.phase.toString()
-    ? {
-        label: $formData.phase.toString(),
-        value: $formData.phase.toString()
-      }
-    : undefined;
   $: selectedSubject = $formData.subjectId
-    ? {
-        label: data.subject.find((subject) => subject.id == $formData.subjectId)?.subjectName,
-        value: $formData.subjectId
-      }
+    ? (() => {
+        const subject = data.subject.find((subject) => subject.id === $formData.subjectId);
+        const label = subject ? `${subject.subjectName} Fase ${subject.phase}` : '';
+        return { label, value: $formData.subjectId };
+      })()
     : undefined;
 </script>
 
+<SuperDebug data={$formData} />
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
     <div>
@@ -85,35 +81,14 @@
           </Select.Trigger>
           <Select.Content>
             {#each data.subject as subject}
-              <Select.Item value={subject.id} label={subject.subjectName} />
+              <Select.Item
+                value={subject.id}
+                label={`${subject.subjectName} Fase ${subject.phase}`}
+              />
             {/each}
           </Select.Content>
         </Select.Root>
         <input hidden bind:value={$formData.subjectId} name={attrs.name} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="phase">
-      <Form.Control let:attrs>
-        <Form.Label>Fase</Form.Label>
-        <Select.Root
-          selected={selectedPhase}
-          onSelectedChange={(v) => {
-            v && ($formData.phase = parseInt(v.value));
-          }}
-        >
-          <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Pilih Fase" />
-          </Select.Trigger>
-          <Select.Content>
-            {#each Array(3)
-              .fill(undefined)
-              .map((_, i) => i + 1) as num}
-              <Select.Item value={num} label={num.toString()} />
-            {/each}
-          </Select.Content>
-        </Select.Root>
-        <input hidden bind:value={$formData.phase} name={attrs.name} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>

@@ -30,8 +30,20 @@
       header: 'Nama Pelajaran'
     }),
     table.column({
-      accessor: 'batch',
-      header: 'Tingkat'
+      accessor: 'phase',
+      header: 'Fase',
+      cell: ({ value }) => {
+        switch (value) {
+          case 1:
+            return 'Fase 1 (Kelas 1 & 2)';
+          case 2:
+            return 'Fase 2 (Kelas 3 & 4)';
+          case 3:
+            return 'Fase 3 (Kelas 5 & 6)';
+          default:
+            return '-';
+        }
+      }
     }),
     table.column({
       accessor: 'minimum',

@@ -44,7 +44,7 @@ export const actions: Actions = {
     }
 
     const nisnexist = await db.query.studentTable.findFirst({
-      where: and(eq(studentTable.nisn, form.data.nisn), ne(studentTable.nisn, form.data.nisn))
+      where: and(eq(studentTable.nisn, form.data.nisn), ne(studentTable.id, form.data.id))
     });
 
     if (nisnexist) {

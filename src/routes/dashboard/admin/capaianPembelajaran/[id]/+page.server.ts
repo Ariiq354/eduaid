@@ -13,7 +13,12 @@ export const load: PageServerLoad = async ({ params }) => {
   const data = await db.query.cpTable.findFirst({
     where: eq(cpTable.id, id),
     with: {
-      subject: true
+      subject: {
+        columns: {
+          subjectName: true,
+          phase: true
+        }
+      }
     }
   });
 
@@ -43,15 +48,13 @@ export const actions: Actions = {
       .values({
         id: form.data.id,
         subjectId: form.data.subjectId,
-        capaianPembelajaran: form.data.capaianPembelajaran,
-        phase: form.data.phase
+        capaianPembelajaran: form.data.capaianPembelajaran
       })
       .onConflictDoUpdate({
         target: cpTable.id,
         set: {
           subjectId: form.data.subjectId,
-          capaianPembelajaran: form.data.capaianPembelajaran,
-          phase: form.data.phase
+          capaianPembelajaran: form.data.capaianPembelajaran
         }
       });
 
