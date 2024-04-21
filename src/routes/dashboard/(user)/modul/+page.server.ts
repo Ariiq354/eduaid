@@ -1,34 +1,20 @@
 import { db } from '$lib/server';
-import { modulTable, cpTable, classTable } from '$lib/server/schema';
+import { modulTable, cpTable, classTable, tpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { count, eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ( event ) => {
-
-  const tpData = await db.query.tpTable.findMany({})
-
-  const modulData = await db.query.modulTable.findMany({
-    where: eq(modulTable.userId, event.locals.user!.id),
-    with: {
-      tp: { 
-        columns: {
-          tujuanPembelajaran: true
-        }
-      }
-    }
-  });
-
-  const filteredTpData = tpData.filter(tp => {
-    if (event.locals.user!.role === 2) {
-      return tpData;
-    } else {
-      return tp.userId === event.locals.user!.id;
-    }
-  });
+export const load: PageServerLoad = async (event) => {
+  const modulData = await db
+    .select({
+      tpId: tpTable.id,
+      tpName: tpTable.tujuanPembelajaran,
+      modulCount: count(modulTable.id)
+    })
+    .from(tpTable)
+    .leftJoin(modulTable, eq(modulTable.tpId, tpTable.id));
 
   return {
-    tpData: filteredTpData,
     modulData
   };
 };
