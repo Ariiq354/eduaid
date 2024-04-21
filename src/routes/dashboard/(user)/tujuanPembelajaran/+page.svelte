@@ -25,22 +25,17 @@
   <hr />
 
   <div class="flex flex-wrap">
-    <!-- <pre>
-      {JSON.stringify(data.testData, null, 2)}
-    </pre> -->
-    {#each data.testData as cp (cp.cpId)}
+    {#each data.cpData as cp (cp.cpId)}
       <a
         class="w-1/3 rounded-md px-4 py-6 shadow-md hover:shadow-lg"
         href={`/dashboard/tujuanPembelajaran/${cp.cpId}`}
       >
-        <!-- Title -->
         <div
           class="mb-2 text-xl font-bold text-slate-800 transition duration-300 ease-in-out hover:text-slate-600"
         >
           <span>{cp.capaianPembelajaran}</span>
         </div>
 
-        <!-- Total -->
         <p class="text-base text-gray-700">
           Jumlah Tujuan Pembelajaran:
           <span class="font-semibold text-gray-900">
