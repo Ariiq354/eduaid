@@ -1,8 +1,11 @@
 <script lang="ts">
-    import { Button } from '$lib/components/ui/button';
-    import { CirclePlus, Pencil, BotMessageSquare } from 'lucide-svelte';
     import type { PageData } from './$types';
+    import type { SubmitFunction } from '../$types';
+    import { Button } from '$lib/components/ui/button';
+    import { CirclePlus, Pencil, BotMessageSquare, Trash } from 'lucide-svelte';
     import { page } from '$app/stores';
+    import { toast } from 'svelte-sonner';
+    import { invalidateAll } from '$app/navigation';
 
     export let data: PageData;
 
@@ -36,10 +39,18 @@
                 <div class="flex flex-row justify-between w-full items-center">
                     <p class="">{tp.tujuanPembelajaran}</p>
 
-                    <Button class="shadow-lg w-fit gap-3" href={`/dashboard/tujuanPembelajaran/${cpId}/${tp.id}`}>
-                        <Pencil class="w-4"/>
-                        Edit
-                    </Button>
+                    <div class="flex flex-row gap-4">
+                        <Button class="shadow-lg w-fit gap-3" href={`/dashboard/tujuanPembelajaran/${cpId}/${tp.id}`}>
+                            <Pencil class="w-4"/>
+                            Edit
+                        </Button>
+
+                        <Button class="shadow-lg w-fit gap-3">
+                            <Trash class="w-4"/>
+                            Hapus
+                        </Button>
+                    </div>
+                    
                 </div>
             </div>
         {/if}
