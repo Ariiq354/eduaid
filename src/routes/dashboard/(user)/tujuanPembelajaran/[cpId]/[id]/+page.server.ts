@@ -22,19 +22,20 @@ export const load: PageServerLoad = async ({ params, locals }) => {
       }
     });
 
-    const capaianPembelajaran = await db.query.cpTable.findMany();
+    const capaianPembelajaran = await db.query.cpTable.findMany({
+      with: {
+        subject: true
+      }
+    });
 
     const filteredCpData = capaianPembelajaran.filter(cp => {
       if (locals.user!.role === 2) {
-        return capaianPembelajaran
-      }  else if (classData!.batch === 1 || classData!.batch === 2) {
-        return cp.phase === 1;
-      } else if (classData!.batch === 3 || classData!.batch === 4) {
-        return cp.phase === 2;
-      } else if (classData!.batch === 5 || classData!.batch === 6) {
-        return cp.phase === 3;
+        return capaianPembelajaran;
       }
-      return false;
+      const batch = classData!.batch; 
+      return  (batch === 1 || batch === 2) ? cp.subject!.phase === 1 :
+              (batch === 3 || batch === 4) ? cp.subject!.phase === 2 :
+              (batch === 5 || batch === 6) ? cp.subject!.phase === 3 : false;
     });
   
   
