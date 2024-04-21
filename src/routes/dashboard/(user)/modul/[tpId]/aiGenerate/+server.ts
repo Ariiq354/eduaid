@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ( {request} ) => {
     let prompt = [
         {
             role: 'system',
-            content: "Anda adalah Edu Ai, asisten ai yang membantu pengguna dalam membuat 'Tujuan Pembelajaran' berdasarkan 'Capaian Pembelajaran' yang mereka berikan. Hanya Berikan jawaban dalam list dan maksimal 5 tujuan pembelajaran",
+            content: "Anda adalah Edu Ai, asisten ai yang membantu pengguna dalam membuat 'Modul Pembelajaran' berdasarkan 'Tujuan Pembelajaran' yang mereka berikan. Hanya Berikan jawaban dalam list dan maksimal 5 modul pembelajaran",
         },
     ]
 

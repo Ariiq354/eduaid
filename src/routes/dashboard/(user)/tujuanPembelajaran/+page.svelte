@@ -22,18 +22,21 @@
 
     <div class="flex flex-wrap">
       {#each data.cpData as cp (cp.id)}
-        <a class="max-w-sm rounded overflow-hidden shadow-lg my-4 mx-auto" href={`/dashboard/tujuanPembelajaran/${cp.id}`}>
-          <div class="px-6 py-4">
+        <a class="rounded-md w-1/3 shadow-md hover:shadow-lg px-4 py-6" href={`/dashboard/tujuanPembelajaran/${cp.id}`}>
+
+            <!-- Title -->
             <div class="font-bold text-xl mb-2 text-slate-800 hover:text-slate-600 transition duration-300 ease-in-out">
               <span>{cp.capaianPembelajaran}</span>
             </div>
+
+            <!-- Total -->
             <p class="text-gray-700 text-base">
               Jumlah Tujuan Pembelajaran: 
               <span class="text-gray-900 font-semibold">
                 {data.tpData.filter(tp => tp.cpId === cp.id).length}
               </span>
             </p>
-          </div>
+
         </a>
       {/each}
     </div>

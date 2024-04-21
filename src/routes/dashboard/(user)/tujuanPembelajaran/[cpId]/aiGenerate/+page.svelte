@@ -53,7 +53,7 @@ const { form: formData, enhance, submitting } = form;
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-3xl font-bold">Asisten Ai</h1>
-            <p>Buat Tujuan Pembelajaran dengan bantua Ai</p>
+            <p>Buat Tujuan Pembelajaran Anda dengan bantuan Ai</p>
         </div>
         <Button variant="ghost" href="/dashboard/tujuanPembelajaran">Kembali</Button>
     </div>
@@ -62,13 +62,20 @@ const { form: formData, enhance, submitting } = form;
     <hr />
 
     <!-- Chat & Input -->
-    <div class="flex flex-row gap-4 min-h-">
+    <div class="flex flex-row gap-4 min-h-[640px]">
 
         <!-- Chat Interface -->
-        <div class="flex flex-col justify-between py-8 w-8/12 border rounded-md">
+        <div class="flex flex-col justify-between py-8 w-8/12 border rounded-md bg-slate-100 shadow-md">
 
             <!--  Chat -->
             <ul class="flex flex-col py-8 px-4">
+                        <li class="self-start text-left">
+                            <div class="font-bold text-slate-600">Asisten Ai</div>
+                            <div class="px-4 py-2 rounded-r-md rounded-t-md bg-slate-600 text-white max-w-3xl w-full">
+                                Halo, saya Edu Ai. Saya akan membantu Anda membuat Tujuan Pembelajaran. Berikan saja Capaian Pembelajaran yang ingin Anda pilih, dan saya akan menghasilkan daftar saran untuk Anda.
+                            </div>
+                        </li>
+
                 {#each $messages as message}
                     {#if message.role === "user"}
                         <li class="self-end text-right">
@@ -79,7 +86,7 @@ const { form: formData, enhance, submitting } = form;
                         </li>
                     {:else}
                         <li class="self-start text-left">
-                            <div class="font-bold text-slate-600">{message.role}</div>
+                            <div class="font-bold text-slate-600">Asisten Ai</div>
                             <div class="px-4 py-2 rounded-r-md rounded-t-md bg-slate-600 text-white max-w-3xl w-full">
                                 {message.content}
                             </div>
@@ -97,7 +104,7 @@ const { form: formData, enhance, submitting } = form;
         </div>
 
         <!-- Input Interface -->
-        <div class="flex flex-col w-4/12 p-8 border rounded-md">
+        <div class="flex flex-col w-4/12 p-8 border rounded-md shadow-md">
             <form method="POST" use:enhance>
             <Form.Field {form} name="id">
                 <Form.Control let:attrs>

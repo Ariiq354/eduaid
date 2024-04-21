@@ -8,7 +8,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import { formSchema } from './schema';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
     const id = params.id;
     const data = await db.query.modulTable.findFirst({
       where: eq(modulTable.id, id),
@@ -18,10 +18,18 @@ export const load: PageServerLoad = async ({ params }) => {
     });
   
     const tujuanPembelajaran = await db.query.tpTable.findMany();
+
+    const filteredTpData = tujuanPembelajaran.filter(tp => {
+      if (locals.user!.role === 2) {
+        return tujuanPembelajaran;
+      } else {
+        return tp.userId === locals.user!.id;
+      }
+    });
   
     return {
       form: await superValidate(data, zod(formSchema)),
-      tujuanPembelajaran
+      tujuanPembelajaran:filteredTpData
     };
   };
 

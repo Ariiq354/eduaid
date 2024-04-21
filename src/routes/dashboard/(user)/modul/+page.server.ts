@@ -1,13 +1,17 @@
 import { db } from '$lib/server';
-import { modulTable } from '$lib/server/schema';
+import { modulTable, cpTable, classTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ( event ) => {
+
+  const tpData = await db.query.tpTable.findMany({})
+
   const modulData = await db.query.modulTable.findMany({
+    where: eq(modulTable.userId, event.locals.user!.id),
     with: {
-      tp: {
+      tp: { 
         columns: {
           tujuanPembelajaran: true
         }
@@ -15,7 +19,16 @@ export const load: PageServerLoad = async () => {
     }
   });
 
+  const filteredTpData = tpData.filter(tp => {
+    if (event.locals.user!.role === 2) {
+      return tpData;
+    } else {
+      return tp.userId === event.locals.user!.id;
+    }
+  });
+
   return {
+    tpData: filteredTpData,
     modulData
   };
 };
