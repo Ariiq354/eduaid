@@ -22,7 +22,7 @@
       } else {
         loading = false;
         invalidateAll();
-        toast.success('User Deleted');
+        toast.success('Capaian Pembelajaran Deleted');
       }
     };
   };
