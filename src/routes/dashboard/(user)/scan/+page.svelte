@@ -1,27 +1,16 @@
-<svelte:head>
-    <title>Posts debug</title>
-</svelte:head>
+<script lang="ts">
+    import type { PageData } from './$types';
+    import { Button } from '$lib/components/ui/button';
 
-<script context="module">
-    export async function load({params, fetch}) {
-        const Posts = await GetAllPosts()
-        async function GetAllPosts(params) {
-            let url = 'http://localhost:8000/'
-            const res = await fetch(url)
-            return await res.json
-        }
-        return {
-            props: {
-                Posts:Posts
-            }
-        }
-    }
+    export let data: PageData;
+    const { answerImage } = data
 </script>
 
-<script>
-    export let Posts;
-</script>
+<div>
+    {answerImage}
 
-<section id="posts">
-{Posts}
-</section>
+    <Button
+    href="https://www.google.com">
+        Test
+    </Button>
+</div>
