@@ -1,7 +1,8 @@
 import { db } from '$lib/server';
-import { cpTable, nilaiTable, studentTable, subjectTable, tpTable } from '$lib/server/schema';
-import { eq, avg } from 'drizzle-orm';
+import { cpTable, nilaiTable, subjectTable, tpTable } from '$lib/server/schema';
+import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
+import { fail, type Actions } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params }) => {
   const studentId = params.studentId;
@@ -23,4 +24,21 @@ export const load: PageServerLoad = async ({ params }) => {
     scoreData,
     classId
   };
+};
+
+export const actions: Actions = {
+  delete: async ({ url }) => {
+    const id = url.searchParams.get('id');
+    if (!id) {
+      return fail(400, { message: 'invalid request' });
+    }
+
+    try {
+      await db.delete(nilaiTable).where(eq(nilaiTable.id, id));
+    } catch (error) {
+      return fail(500, { message: 'something went wrong' });
+    }
+
+    return;
+  }
 };
