@@ -105,7 +105,7 @@
             <Select.Value placeholder="Select teacher" />
           </Select.Trigger>
           <Select.Content>
-            {#each data.teacher as teacher}
+            {#each data.teacher as teacher (teacher.id)}
               <Select.Item value={teacher.id} label={teacher.username} />
             {/each}
           </Select.Content>

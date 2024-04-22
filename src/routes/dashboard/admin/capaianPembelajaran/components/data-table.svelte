@@ -12,6 +12,7 @@
   type cpType = selectCp & {
     subject: {
       subjectName: string;
+      phase: number;
     } | null;
   };
 

@@ -14,7 +14,7 @@
   </div>
   <hr />
   <div class="grid grid-cols-3 gap-4">
-    {#each data.classData as classData}
+    {#each data.classData as classData (classData.classId)}
       <a
         href="/dashboard/score/{classData.classId}"
         class="flex w-full justify-between rounded-md bg-blue-900 p-4 text-white"

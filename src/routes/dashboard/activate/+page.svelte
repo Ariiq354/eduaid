@@ -18,7 +18,7 @@
     async onUpdate({ form }) {
       if (form.valid) {
         toast.success('User teraktivasi');
-        await goto('/dashboard');
+        await goto('/dashboard/score');
         invalidateAll();
       }
     },

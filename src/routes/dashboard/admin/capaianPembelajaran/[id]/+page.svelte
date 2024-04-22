@@ -80,7 +80,7 @@
             <Select.Value placeholder="Pilih pelajaran..." />
           </Select.Trigger>
           <Select.Content>
-            {#each data.subject as subject}
+            {#each data.subject as subject (subject.id)}
               <Select.Item
                 value={subject.id}
                 label={`${subject.subjectName} Fase ${subject.phase}`}
