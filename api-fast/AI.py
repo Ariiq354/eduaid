@@ -126,7 +126,6 @@ def main (path, questions, choices, answers):
 
     imgStacked = utils.stackImages(imgArray, 0.5)
 
-
     ### SHOW
     # cv2.imshow("Original",img)
     cv2.imshow("Stacked Images",imgStacked)
