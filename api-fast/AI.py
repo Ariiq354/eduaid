@@ -128,7 +128,6 @@ def main (path, questions, choices, answers):
 
 
     ### SHOW
-    # cv2.imshow("Original",img)
     cv2.imshow("Stacked Images",imgStacked)
     cv2.waitKey(0)
 
