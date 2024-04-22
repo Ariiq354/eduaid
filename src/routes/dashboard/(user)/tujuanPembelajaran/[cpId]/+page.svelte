@@ -1,11 +1,7 @@
 <script lang="ts">
-    import type { PageData } from './$types';
-    import type { SubmitFunction } from '../$types';
-    import { Button } from '$lib/components/ui/button';
-    import { CirclePlus, Pencil, BotMessageSquare, Trash } from 'lucide-svelte';
-    import { page } from '$app/stores';
-    import { toast } from 'svelte-sonner';
-    import { invalidateAll } from '$app/navigation';
+  import { Button } from '$lib/components/ui/button';
+  import { BotMessageSquare, CirclePlus, Pencil, Trash } from 'lucide-svelte';
+  import type { PageData } from './$types';
 
   export let data: PageData;
 </script>
@@ -44,22 +40,22 @@
         <div class="flex w-full flex-row items-center justify-between">
           <p class="">{tp.tujuanPembelajaran}</p>
 
-                    <div class="flex flex-row gap-4">
-                        <Button class="shadow-lg w-fit gap-3" href={`/dashboard/tujuanPembelajaran/${cpId}/${tp.id}`}>
-                            <Pencil class="w-4"/>
-                            Edit
-                        </Button>
+          <div class="flex flex-row gap-4">
+            <Button
+              class="w-fit gap-3 shadow-lg"
+              href={`/dashboard/tujuanPembelajaran/${data.cpId}/${tp.id}`}
+            >
+              <Pencil class="w-4" />
+              Edit
+            </Button>
 
-                        <Button class="shadow-lg w-fit gap-3">
-                            <Trash class="w-4"/>
-                            Hapus
-                        </Button>
-                    </div>
-                    
-                </div>
-            </div>
-        {/if}
-
+            <Button class="w-fit gap-3 shadow-lg">
+              <Trash class="w-4" />
+              Hapus
+            </Button>
+          </div>
+        </div>
+      </div>
     {/each}
   {/if}
 </div>
