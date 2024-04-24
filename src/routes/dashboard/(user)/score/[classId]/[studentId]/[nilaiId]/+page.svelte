@@ -32,7 +32,7 @@
 
   $: selectedTp = $formData.tpId
     ? {
-        label: data.tpData.find((item) => item.tpId == $formData.id)?.tpName as string,
+        label: data.tpData.find((item) => item.tpId == $formData.tpId)?.tpName as string,
         value: $formData.tpId
       }
     : undefined;

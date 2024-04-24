@@ -14,14 +14,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
   const id = params.nilaiId;
   const data = await db.query.nilaiTable.findFirst({
-    where: eq(nilaiTable.id, id),
-    with: {
-      tp: {
-        columns: {
-          tujuanPembelajaran: true
-        }
-      }
-    }
+    where: eq(nilaiTable.id, id)
   });
 
   const sq = db
