@@ -63,7 +63,7 @@
     <DropdownMenu.Separator />
     <DropdownMenu.Item href={`/dashboard/admin/class/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
-      Ubah
+      Edit
     </DropdownMenu.Item>
     <DropdownMenu.Item on:click={() => (isOpen = true)}>
       <Trash class="mr-2 h-4 w-4" />

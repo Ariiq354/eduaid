@@ -8,7 +8,7 @@
   import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
-  import { ArrowLeft, Loader2 } from 'lucide-svelte';
+  import { Loader2 } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
@@ -19,7 +19,7 @@
     async onUpdate({ form }) {
       if (form.valid) {
         toast.success('Submit succesfull');
-        await goto('/dashboard/admin/capaianPembelajaran');
+        await goto(`/dashboard/score/${data.classId}/${data.studentId}`);
       }
     },
 
@@ -30,30 +30,28 @@
 
   const { form: formData, enhance, submitting } = form;
 
-  $: selectedSubject = $formData.subjectId
-    ? (() => {
-        const subject = data.subject.find((subject) => subject.id === $formData.subjectId);
-        const label = subject ? `${subject.subjectName} Fase ${subject.phase}` : '';
-        return { label, value: $formData.subjectId };
-      })()
+  $: selectedTp = $formData.tpId
+    ? {
+        label: data.tpData.find((item) => item.tpId == $formData.id)?.tpName as string,
+        value: $formData.tpId
+      }
     : undefined;
-
-  data.subject;
 </script>
 
+<!-- <SuperDebug data={$formData} /> -->
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div class="flex flex-col gap-1">
-      <h1 class="text-3xl font-bold">Capaian Pembelajaran</h1>
+    <div>
+      <h1 class="text-3xl font-bold">Nilai</h1>
       {#if $formData.id}
-        <p>Form Edit Capaian Pembelajaran</p>
+        <p>Edit Nilai</p>
       {:else}
-        <p>Form Buat Capaian Pembelajaran</p>
+        <p>Buat Nilai</p>
       {/if}
     </div>
-    <Button variant="outline" href="/dashboard/admin/capaianPembelajaran" class="p-2 shadow-lg">
-      <ArrowLeft />
-    </Button>
+    <Button variant="ghost" href={`/dashboard/admin/${data.classId}/${data.studentId}`}
+      >Kembali</Button
+    >
   </div>
   <hr />
 
@@ -63,39 +61,32 @@
         <input hidden name={attrs.name} bind:value={$formData.id} />
       </Form.Control>
     </Form.Field>
-    <Form.Field {form} name="capaianPembelajaran">
+    <Form.Field {form} name="nilai">
       <Form.Control let:attrs>
-        <Form.Label>Capaian Pembelajaran</Form.Label>
-        <Input {...attrs} bind:value={$formData.capaianPembelajaran} />
+        <Form.Label>Nilai (1 - 100)</Form.Label>
+        <Input {...attrs} bind:value={$formData.nilai} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="subjectId">
+    <Form.Field {form} name="tpId">
       <Form.Control let:attrs>
         <Form.Label>Pelajaran</Form.Label>
         <Select.Root
-          selected={selectedSubject}
+          selected={selectedTp}
           onSelectedChange={(v) => {
-            v && ($formData.subjectId = v.value);
+            v && ($formData.tpId = v.value);
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Pilih pelajaran" />
+            <Select.Value placeholder="Pilih pelajaran..." />
           </Select.Trigger>
           <Select.Content>
-            {#if data.subject.length}
-              {#each data.subject as subject (subject.id)}
-                <Select.Item
-                  value={subject.id}
-                  label={`${subject.subjectName} Fase ${subject.phase}`}
-                />
-              {/each}
-            {:else}
-              <Select.Item value="none" label="Pelajaran Belum Ada" disabled />
-            {/if}
+            {#each data.tpData as tpData (tpData.tpId)}
+              <Select.Item value={tpData.tpId} label={tpData.tpName} />
+            {/each}
           </Select.Content>
         </Select.Root>
-        <input hidden bind:value={$formData.subjectId} name={attrs.name} />
+        <input hidden bind:value={$formData.tpId} name={attrs.name} />
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>

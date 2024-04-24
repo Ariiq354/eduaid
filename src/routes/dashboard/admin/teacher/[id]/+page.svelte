@@ -1,15 +1,15 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { Button } from '$lib/components/ui/button';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
   import * as Select from '$lib/components/ui/select';
-  import { Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
-  import SuperDebug, { superForm } from 'sveltekit-superforms';
+  import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema } from './schema';
-  import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
 
@@ -46,19 +46,21 @@
     : undefined;
 </script>
 
-<SuperDebug data={$formData} />
+<!-- <SuperDebug data={$formData} /> -->
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
+    <div class="flex flex-col gap-1">
       <h1 class="text-3xl font-bold">Guru</h1>
       {#if $formData.id}
-        <p>Ubah Guru</p>
+        <p>Form Edit Guru</p>
       {:else}
-        <p>Buat Guru</p>
+        <p>Form Pembuatan Guru</p>
       {/if}
     </div>
-    <Button variant="ghost" href="/dashboard/admin/teacher">Kembali</Button>
+    <Button variant="outline" href="/dashboard/admin/teacher" class="p-2 shadow-lg">
+      <ArrowLeft />
+    </Button>
   </div>
   <hr />
 
@@ -124,7 +126,10 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Button disabled={$submitting} class="mt-4">
+    <Form.Button
+      disabled={$submitting}
+      class="mt-4 transition-all duration-200 hover:-translate-y-1"
+    >
       {#if $submitting}
         <Loader2 class="mr-2 h-4 w-4 animate-spin" />
       {/if}

@@ -79,19 +79,23 @@
 
 <div>
   <div class="flex items-center py-4">
-    <Input class="max-w-sm" placeholder="Filter value..." type="text" bind:value={$filterValue} />
+    <Input class="max-w-sm" placeholder="Cari..." type="text" bind:value={$filterValue} />
   </div>
   <div class="rounded-md border">
     <Table.Root {...$tableAttrs}>
       <Table.Header>
         {#each $headerRows as headerRow}
           <Subscribe rowAttrs={headerRow.attrs()}>
-            <Table.Row>
+            <Table.Row class="bg-primary/20 hover:bg-primary/10">
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
                   <Table.Head {...attrs}>
                     {#if cell.id !== 'Menu'}
-                      <Button variant="ghost" on:click={props.sort.toggle}>
+                      <Button
+                        variant="ghost"
+                        class="hover:bg-background/0 hover:text-foreground"
+                        on:click={props.sort.toggle}
+                      >
                         <Render of={cell.render()} />
                         <ArrowUpDown class={'ml-2 h-4 w-4'} />
                       </Button>

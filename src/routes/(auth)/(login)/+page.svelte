@@ -31,11 +31,10 @@
   const { form: formData, enhance, submitting } = form;
 </script>
 
-<Card.Root class="w-full max-w-md">
+<Card.Root class="w-full max-w-md border-2 border-primary shadow-xl">
   <form method="POST" use:enhance action="?/login">
     <Card.Header>
-      <Card.Title>Login</Card.Title>
-      <Card.Description>Login ke akunmu</Card.Description>
+      <Card.Title class="text-center text-2xl font-bold">Login</Card.Title>
     </Card.Header>
     <Card.Content>
       <Form.Field {form} name="username">
@@ -54,7 +53,10 @@
       </Form.Field>
     </Card.Content>
     <Card.Footer class="flex w-full justify-between">
-      <Form.Button disabled={$submitting} class="w-full">
+      <Form.Button
+        disabled={$submitting}
+        class="w-full transition-all duration-300 hover:-translate-y-1"
+      >
         {#if $submitting}
           <Loader2 class="mr-2 h-4 w-4 animate-spin" />
         {/if}

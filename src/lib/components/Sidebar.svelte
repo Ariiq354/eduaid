@@ -17,8 +17,10 @@
   export let status: number;
 </script>
 
-<div class="sticky left-0 top-0 z-10 hidden h-screen w-72 flex-col p-4 shadow-xl md:flex">
-  <div class="flex items-center gap-2">
+<div
+  class="sticky left-0 top-0 z-10 hidden h-screen w-72 flex-col border-r-2 bg-primary/15 shadow-xl md:flex"
+>
+  <div class=" flex w-full items-center gap-2 border-b-2 px-4 py-6">
     <div class="flex items-center justify-center gap-2">
       <svg
         width="200"
@@ -89,23 +91,23 @@
     </div>
   </div>
   {#if status === 2}
-    <div class="flex flex-col gap-8 pt-6">
+    <div class="flex flex-col gap-8 p-4">
       {#if role === 2}
         <div class="flex flex-col gap-2">
-          <div class="font-mono text-sm font-semibold tracking-widest opacity-50">ADMIN</div>
+          <div class="text-xs font-medium uppercase tracking-wider text-gray-500">admin</div>
           <div class="flex flex-col gap-2">
             <a
               href="/dashboard/admin/class"
               class:active={$page.url.pathname === '/dashboard/admin/class'}
-              class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
             >
               <DoorClosed size="20" />
-              <div class="flex items-center">Kelas</div>
+              Kelas
             </a>
             <a
               href="/dashboard/admin/teacher"
               class:active={$page.url.pathname === '/dashboard/admin/teacher'}
-              class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
             >
               <Users size="20" />
               <div class="flex items-center">Guru</div>
@@ -113,7 +115,7 @@
             <a
               href="/dashboard/admin/student"
               class:active={$page.url.pathname === '/dashboard/admin/student'}
-              class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
             >
               <GraduationCap size="20" />
               <div class="flex items-center">Siswa</div>
@@ -121,7 +123,7 @@
             <a
               href="/dashboard/admin/subject"
               class:active={$page.url.pathname === '/dashboard/admin/subject'}
-              class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
             >
               <Book size="20" />
               <div class="flex items-center">Pelajaran</div>
@@ -129,7 +131,7 @@
             <a
               href="/dashboard/admin/capaianPembelajaran"
               class:active={$page.url.pathname === '/dashboard/admin/capaianPembelajaran'}
-              class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+              class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
             >
               <BookOpen size="20" />
               <div class="flex items-center">Capaian Pembelajaran</div>
@@ -138,12 +140,12 @@
         </div>
       {/if}
       <div class="flex flex-col gap-2">
-        <div class="font-mono text-sm font-semibold tracking-widest opacity-50">USER</div>
+        <div class="text-xs font-medium uppercase tracking-wider text-gray-500">user</div>
         <div class="flex flex-col gap-2">
           <a
             href="/dashboard/score"
             class:active={$page.url.pathname === '/dashboard/score'}
-            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
           >
             <Percent size="20" />
             <div class="flex items-center">Nilai Siswa</div>
@@ -151,7 +153,7 @@
           <a
             href="/dashboard/scan"
             class:active={$page.url.pathname === '/dashboard/scan'}
-            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
           >
             <ScanEye size="20" />
             <div class="flex items-center">Scan</div>
@@ -159,7 +161,7 @@
           <a
             href="/dashboard/tujuanPembelajaran"
             class:active={$page.url.pathname === '/dashboard/tujuanPembelajaran'}
-            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
           >
             <NotebookTabs size="20" />
             <div class="flex items-center">Tujuan Pembelajaran</div>
@@ -167,7 +169,7 @@
           <a
             href="/dashboard/modul"
             class:active={$page.url.pathname === '/dashboard/modul'}
-            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
           >
             <ClipboardPlus size="20" />
             <div class="flex items-center">Modul Pembelajaran</div>
@@ -175,7 +177,7 @@
           <a
             href="/dashboard/soal"
             class:active={$page.url.pathname === '/dashboard/soal'}
-            class="flex items-center gap-2 rounded-md p-2 transition-colors duration-300 hover:bg-blue-800 hover:text-white"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground"
           >
             <FileQuestion size="20" />
             <div class="flex items-center">Pembuatan Soal</div>
@@ -188,7 +190,7 @@
 
 <style>
   .active {
-    background-color: rgb(30 64 175);
-    color: rgb(255 255 255);
+    background-color: hsl(210 34% 63% / 0.2);
+    color: rgb(47 53 65);
   }
 </style>
