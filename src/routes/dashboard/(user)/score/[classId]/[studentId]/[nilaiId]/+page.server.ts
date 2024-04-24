@@ -78,7 +78,7 @@ export const actions: Actions = {
         studentId: event.params.studentId
       })
       .onConflictDoUpdate({
-        target: cpTable.id,
+        target: nilaiTable.id,
         set: {
           tpId: form.data.tpId,
           nilai: form.data.nilai,
