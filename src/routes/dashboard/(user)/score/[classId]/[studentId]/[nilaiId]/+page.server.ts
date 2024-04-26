@@ -11,17 +11,10 @@ import { formSchema } from './schema';
 export const load: PageServerLoad = async ({ params, locals }) => {
   const studentId = params.studentId;
   const classId = params.classId;
-
   const id = params.nilaiId;
+
   const data = await db.query.nilaiTable.findFirst({
-    where: eq(nilaiTable.id, id),
-    with: {
-      tp: {
-        columns: {
-          tujuanPembelajaran: true
-        }
-      }
-    }
+    where: eq(nilaiTable.id, id)
   });
 
   const sq = db
@@ -78,7 +71,7 @@ export const actions: Actions = {
         studentId: event.params.studentId
       })
       .onConflictDoUpdate({
-        target: cpTable.id,
+        target: nilaiTable.id,
         set: {
           tpId: form.data.tpId,
           nilai: form.data.nilai,

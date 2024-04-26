@@ -7,7 +7,7 @@
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
+    <div class="flex flex-col gap-1">
       <h1 class="text-3xl font-bold">Kelas</h1>
       <p>Daftar Kelas</p>
     </div>
@@ -17,7 +17,7 @@
     {#each data.classData as classData (classData.classId)}
       <a
         href="/dashboard/score/{classData.classId}"
-        class="flex w-full justify-between rounded-md bg-blue-900 p-4 text-white"
+        class="flex w-full justify-between rounded-md bg-primary p-4 text-primary-foreground"
       >
         <div>{classData.classname}</div>
         <div class="flex gap-2">
