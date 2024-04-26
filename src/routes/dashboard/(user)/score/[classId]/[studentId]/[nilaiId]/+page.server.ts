@@ -11,8 +11,8 @@ import { formSchema } from './schema';
 export const load: PageServerLoad = async ({ params, locals }) => {
   const studentId = params.studentId;
   const classId = params.classId;
-
   const id = params.nilaiId;
+
   const data = await db.query.nilaiTable.findFirst({
     where: eq(nilaiTable.id, id)
   });
