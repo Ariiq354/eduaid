@@ -35,7 +35,7 @@
 
   <div class="flex flex-row gap-4">
     <Button
-      href="/dashboard/tujuanPembelajaran/${data.cpId}/new"
+      href="/dashboard/admin/tujuanPembelajaran/${data.cpId}/new"
       variant="default"
       class="w-fit gap-3 shadow-lg"
     >
@@ -43,7 +43,7 @@
       Tambah
     </Button>
     <Button
-      href="/dashboard/tujuanPembelajaran/${data.cpId}/aiGenerate"
+      href="/dashboard/admin/tujuanPembelajaran/${data.cpId}/aiGenerate"
       variant="default"
       class="w-fit gap-3 shadow-lg"
     >
@@ -84,7 +84,7 @@
           <div class="flex flex-row gap-4">
             <Button
               class="w-fit gap-3 shadow-lg"
-              href={`/dashboard/tujuanPembelajaran/${data.cpId}/${tp.id}`}
+              href={`/dashboard/admin/tujuanPembelajaran/${data.cpId}/${tp.id}`}
             >
               <Pencil class="w-4" />
               Edit
