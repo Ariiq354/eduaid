@@ -15,7 +15,7 @@
 
   <div class="flex flex-row gap-4">
     <Button
-      href="/dashboard/tujuanPembelajaran/cp/new"
+      href="/dashboard/admin/tujuanPembelajaran/cp/new"
       variant="default"
       class="w-fit gap-3 shadow-lg"
     >
@@ -24,7 +24,7 @@
     </Button>
 
     <Button
-      href="/dashboard/tujuanPembelajaran/cp/aiGenerate"
+      href="/dashboard/admin/tujuanPembelajaran/cp/aiGenerate"
       variant="default"
       class="w-fit gap-3 shadow-lg"
     >
@@ -37,26 +37,23 @@
 
   <div class="flex flex-wrap">
     
-    {#each data.cpData as cp (cp.cpId)}
-      {#if cp.tpCount > 0}
-        <a
-          class="w-1/3 rounded-md px-4 py-6 shadow-md hover:shadow-lg"
-          href={`/dashboard/tujuanPembelajaran/${cp.cpId}`}
+    {#each data.cpData as cp (cp.id)}
+      <a
+        class="w-1/3 rounded-md px-4 py-6 shadow-md hover:shadow-lg"
+        href={`/dashboard/admin/tujuanPembelajaran/${cp.id}`}
+      >
+        <div
+          class="mb-2 text-xl font-bold text-slate-800 transition duration-300 ease-in-out hover:text-slate-600"
         >
-          <div
-            class="mb-2 text-xl font-bold text-slate-800 transition duration-300 ease-in-out hover:text-slate-600"
-          >
-            <span>{cp.capaianPembelajaran}</span>
-          </div>
-
-          <p class="text-base text-gray-700">
-            Jumlah Tujuan Pembelajaran:
-            <span class="font-semibold text-gray-900">
-              {cp.tpCount}
-            </span>
-          </p>
-        </a>
-      {/if}
+          <span>{cp.capaianPembelajaran}</span>
+        </div>
+        <p class="text-base text-gray-700">
+          Jumlah Tujuan Pembelajaran:
+          <span class="font-semibold text-gray-900">
+            {cp.tp.length}
+          </span>
+        </p>
+      </a>
     {/each}
   </div>
 </div>
