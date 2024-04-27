@@ -55,7 +55,7 @@
   </div>
   <hr />
 
-  <SuperDebug data={$formData} />
+  <!-- <SuperDebug data={$formData} /> -->
 
   <form method="POST" use:enhance>
     <Form.Field {form} name="id">
