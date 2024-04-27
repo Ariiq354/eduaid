@@ -22,7 +22,7 @@
       } else {
         loading = false;
         invalidateAll();
-        toast.success('Modul Deleted');
+        toast.success('Nilai dihapus');
       }
     };
   };

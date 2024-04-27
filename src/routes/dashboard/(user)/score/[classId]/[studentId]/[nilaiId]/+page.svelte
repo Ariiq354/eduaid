@@ -8,7 +8,7 @@
   import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
-  import { Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
@@ -18,7 +18,7 @@
 
     async onUpdate({ form }) {
       if (form.valid) {
-        toast.success('Submit succesfull');
+        toast.success('Submit berhasil');
         await goto(`/dashboard/score/${data.classId}/${data.studentId}`);
       }
     },
@@ -32,26 +32,25 @@
 
   $: selectedTp = $formData.tpId
     ? {
-        label: data.tpData.find((item) => item.tpId == $formData.id)?.tpName as string,
+        label: data.tpData.find((item) => item.tpId == $formData.tpId)?.tpName as string,
         value: $formData.tpId
       }
     : undefined;
 </script>
 
-<!-- <SuperDebug data={$formData} /> -->
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
+    <div class="flex flex-col gap-1">
       <h1 class="text-3xl font-bold">Nilai</h1>
       {#if $formData.id}
-        <p>Edit Nilai</p>
+        <p>Form Edit Nilai</p>
       {:else}
-        <p>Buat Nilai</p>
+        <p>Form Buat Nilai</p>
       {/if}
     </div>
-    <Button variant="ghost" href={`/dashboard/admin/${data.classId}/${data.studentId}`}
-      >Kembali</Button
-    >
+    <Button variant="outline" href={`/dashboard/score/${data.classId}`} class="p-2 shadow-lg">
+      <ArrowLeft />
+    </Button>
   </div>
   <hr />
 
@@ -78,12 +77,16 @@
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Pilih pelajaran..." />
+            <Select.Value placeholder="Pilih tujuan pelajaran..." />
           </Select.Trigger>
           <Select.Content>
-            {#each data.tpData as tpData (tpData.tpId)}
-              <Select.Item value={tpData.tpId} label={tpData.tpName} />
-            {/each}
+            {#if data.tpData.length}
+              {#each data.tpData as tpData (tpData.tpId)}
+                <Select.Item value={tpData.tpId} label={tpData.tpName} />
+              {/each}
+            {:else}
+              <Select.Item value="" label="Tujuan pembelajaran tidak ada" disabled />
+            {/if}
           </Select.Content>
         </Select.Root>
         <input hidden bind:value={$formData.tpId} name={attrs.name} />
