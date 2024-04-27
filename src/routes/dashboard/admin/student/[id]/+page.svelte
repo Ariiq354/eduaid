@@ -5,7 +5,7 @@
   import { Input } from '$lib/components/ui/input';
   import * as Select from '$lib/components/ui/select';
   import { Textarea } from '$lib/components/ui/textarea';
-  import { Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
   import SuperDebug, { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
@@ -19,7 +19,7 @@
 
     async onUpdate({ form }) {
       if (form.valid) {
-        toast.success('Submit succesfull');
+        toast.success('Submit berhasil');
         await goto('/dashboard/admin/student');
       }
     },
@@ -47,15 +47,17 @@
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
-      <h1 class="text-3xl font-bold">Student</h1>
+    <div class="flex flex-col gap-1">
+      <h1 class="text-3xl font-bold">Siswa</h1>
       {#if $formData.id}
-        <p>Edit Student</p>
+        <p>Form Edit Siswa</p>
       {:else}
-        <p>Create Student</p>
+        <p>Form Buat Siswa</p>
       {/if}
     </div>
-    <Button variant="ghost" href="/dashboard/admin/student">Kembali</Button>
+    <Button variant="outline" href="/dashboard/admin/student" class="p-2 shadow-lg">
+      <ArrowLeft />
+    </Button>
   </div>
   <hr />
 
@@ -110,7 +112,7 @@
             }}
           >
             <Select.Trigger {...attrs}>
-              <Select.Value placeholder="Select student gender" />
+              <Select.Value placeholder="Pilih gender siswa" />
             </Select.Trigger>
             <Select.Content>
               <Select.Item value="1" label="Laki-laki" />
@@ -150,7 +152,7 @@
           <input
             type="date"
             bind:value={$formData.tanggalLahir}
-            class="w-full rounded-md border border-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground"
+            class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground"
             {...attrs}
           />
         </Form.Control>
@@ -166,7 +168,7 @@
             }}
           >
             <Select.Trigger {...attrs}>
-              <Select.Value placeholder="Select class" />
+              <Select.Value placeholder="Pilih Kelas" />
             </Select.Trigger>
             <Select.Content>
               {#each data.kelas as kelas}

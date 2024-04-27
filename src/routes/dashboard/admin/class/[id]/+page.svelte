@@ -8,7 +8,7 @@
   import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
-  import { Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
@@ -17,7 +17,7 @@
     validators: zodClient(formSchema),
     async onUpdate({ form }) {
       if (form.valid) {
-        toast.success('Submit succesfull');
+        toast.success('Submit berhasil');
         await goto('/dashboard/admin/class');
       }
     },
@@ -43,15 +43,17 @@
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
+    <div class="flex flex-col gap-1">
       <h1 class="text-3xl font-bold">Kelas</h1>
       {#if $formData.id}
-        <p>Ubah Kelas</p>
+        <p>Form Edit Kelas</p>
       {:else}
-        <p>Buat Kelas</p>
+        <p>Form Buat Kelas</p>
       {/if}
     </div>
-    <Button variant="ghost" href="/dashboard/admin/class">Kembali</Button>
+    <Button variant="outline" href="/dashboard/admin/class" class="p-2 shadow-lg">
+      <ArrowLeft />
+    </Button>
   </div>
   <hr />
 

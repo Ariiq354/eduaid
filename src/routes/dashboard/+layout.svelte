@@ -11,7 +11,7 @@
 
 <div class="flex">
   <Sidebar role={data.user.role} status={data.user.status} />
-  <div class="flex flex-1 flex-col bg-slate-50">
+  <div class="flex flex-1 flex-col bg-background">
     <Topbar />
     <div class="container h-full w-full py-8">
       {#if $navigating}
@@ -19,7 +19,7 @@
           <Loader2 class="animate-spin" size="50" />
         </div>
       {:else}
-        <Card.Root class="w-full">
+        <Card.Root class="bg-prima w-full">
           <Card.Content class="p-6">
             <slot />
           </Card.Content>

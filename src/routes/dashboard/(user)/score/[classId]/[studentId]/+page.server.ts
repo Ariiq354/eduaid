@@ -10,6 +10,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
   const scoreData = await db
     .select({
+      nilaiId: nilaiTable.id,
       subjectName: subjectTable.subjectName,
       tpName: tpTable.tujuanPembelajaran,
       score: nilaiTable.nilai
@@ -22,7 +23,8 @@ export const load: PageServerLoad = async ({ params }) => {
 
   return {
     scoreData,
-    classId
+    classId,
+    studentId
   };
 };
 

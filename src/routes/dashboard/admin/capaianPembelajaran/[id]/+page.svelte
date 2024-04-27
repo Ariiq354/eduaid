@@ -8,7 +8,7 @@
   import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
-  import { Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
 
   export let data: PageData;
@@ -37,20 +37,23 @@
         return { label, value: $formData.subjectId };
       })()
     : undefined;
+
+  data.subject;
 </script>
 
-<SuperDebug data={$formData} />
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
-      <h1 class="text-3xl font-bold">Class</h1>
+    <div class="flex flex-col gap-1">
+      <h1 class="text-3xl font-bold">Capaian Pembelajaran</h1>
       {#if $formData.id}
-        <p>Edit Class</p>
+        <p>Form Edit Capaian Pembelajaran</p>
       {:else}
-        <p>Create Class</p>
+        <p>Form Buat Capaian Pembelajaran</p>
       {/if}
     </div>
-    <Button variant="ghost" href="/dashboard/admin/capaianPembelajaran">Kembali</Button>
+    <Button variant="outline" href="/dashboard/admin/capaianPembelajaran" class="p-2 shadow-lg">
+      <ArrowLeft />
+    </Button>
   </div>
   <hr />
 
@@ -77,15 +80,19 @@
           }}
         >
           <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Pilih pelajaran..." />
+            <Select.Value placeholder="Pilih pelajaran" />
           </Select.Trigger>
           <Select.Content>
-            {#each data.subject as subject (subject.id)}
-              <Select.Item
-                value={subject.id}
-                label={`${subject.subjectName} Fase ${subject.phase}`}
-              />
-            {/each}
+            {#if data.subject.length}
+              {#each data.subject as subject (subject.id)}
+                <Select.Item
+                  value={subject.id}
+                  label={`${subject.subjectName} Fase ${subject.phase}`}
+                />
+              {/each}
+            {:else}
+              <Select.Item value="none" label="Pelajaran Belum Ada" disabled />
+            {/if}
           </Select.Content>
         </Select.Root>
         <input hidden bind:value={$formData.subjectId} name={attrs.name} />

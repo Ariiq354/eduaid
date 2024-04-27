@@ -1,7 +1,7 @@
 import { db } from '$lib/server';
-import { tpTable, cpTable, classTable, subjectTable } from '$lib/server/schema';
+import { classTable, cpTable, subjectTable, tpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
-import { count, eq, isNotNull, ne, sql } from 'drizzle-orm';
+import { count, eq, isNotNull, sql } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
