@@ -160,7 +160,9 @@ export type selectTP = typeof tpTable.$inferSelect;
 
 export const nilaiTable = sqliteTable('nilai', {
   id: text('id').notNull().primaryKey(),
-  tpId: text('tp_id').references(() => tpTable.id, { onDelete: 'cascade' }),
+  tpId: text('tp_id')
+    .notNull()
+    .references(() => tpTable.id, { onDelete: 'cascade' }),
   studentId: text('student_id')
     .notNull()
     .references(() => studentTable.id, { onDelete: 'cascade' }),

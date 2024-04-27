@@ -27,7 +27,7 @@
   const columns = table.createColumns([
     table.column({
       accessor: 'username',
-      header: 'Username'
+      header: 'Nama User'
     }),
     table.column({
       accessor: 'role',
@@ -84,12 +84,16 @@
       <Table.Header>
         {#each $headerRows as headerRow}
           <Subscribe rowAttrs={headerRow.attrs()}>
-            <Table.Row>
+            <Table.Row class="bg-primary/20 hover:bg-primary/10">
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
                   <Table.Head {...attrs}>
                     {#if cell.id !== 'Menu'}
-                      <Button variant="ghost" on:click={props.sort.toggle}>
+                      <Button
+                        variant="ghost"
+                        class="hover:bg-background/0 hover:text-foreground"
+                        on:click={props.sort.toggle}
+                      >
                         <Render of={cell.render()} />
                         <ArrowUpDown class={'ml-2 h-4 w-4'} />
                       </Button>

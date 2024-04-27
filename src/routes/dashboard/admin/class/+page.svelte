@@ -9,16 +9,12 @@
 
 <div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
+    <div class="flex flex-col gap-1">
       <h1 class="text-3xl font-bold">Kelas</h1>
-      <p>Pengaturan Kelas</p>
+      <p>Tabel Daftar Kelas</p>
     </div>
-    <Button
-      href="/dashboard/admin/class/new"
-      variant="outline"
-      class="flex items-center gap-1 shadow-lg"
-    >
-      Tambah
+    <Button href="/dashboard/admin/class/new" variant="outline" class="p-2 shadow-lg">
+      <Plus />
     </Button>
   </div>
   <hr />
