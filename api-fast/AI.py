@@ -3,21 +3,37 @@ import numpy as np
 import utils
 # import sys
 import argparse
+import requests
 
 ### AI MODULE ###
 
-def main (path, questions, choices, answers):
-    
-    ### DEFINING
-    img = cv2.imread(path)
+def main (path, 
+          questions, choices, 
+          answers
+          ):
 
-    answer_mapping = {
-    0: 'A',
-    1: 'B',
-    2: 'C',
-    3: 'D',
-    4: 'E'
-    }
+    ### DEFINING
+    ## Online Path
+    resp = requests.get(path)
+    onlineArr = np.asarray(bytearray(resp.content), dtype=np.uint8)
+    imgOnline = cv2.imdecode(onlineArr, -1)
+
+    widthImg = 700
+    heightImg = 700
+
+    letter_to_number = {
+            'A': 0,
+            'B': 1,
+            'C': 2,
+            'D': 3,
+            'E': 4}
+
+    imgOnline = cv2.resize(imgOnline,(widthImg, heightImg))
+    img = imgOnline
+
+    ## Offline path
+    # img = cv2.imread(path)
+    # cv2.imshow('path', img)
 
 
     ### PRE-PROCESSING
@@ -94,13 +110,13 @@ def main (path, questions, choices, answers):
             myIndex.append(myIndexVal[0][0])
         print(myIndex)
 
-        letter_to_number = {
-            'A': 0,
-            'B': 1,
-            'C': 2,
-            'D': 3,
-            'E': 4
-            }
+        # letter_to_number = {
+        #     'A': 0,
+        #     'B': 1,
+        #     'C': 2,
+        #     'D': 3,
+        #     'E': 4
+        #     }
         
         numeric_answers = [letter_to_number.get(letter, -1) for letter in answers]
 
@@ -115,6 +131,9 @@ def main (path, questions, choices, answers):
         score = (sum(grading)/questions)*100 ## FINAL SCORE
         print(score)
 
+        return myIndex, grading, score
+    
+    return None, None, None
 
 
 
@@ -128,10 +147,11 @@ def main (path, questions, choices, answers):
 
 
     ### SHOW
-    cv2.imshow("Stacked Images",imgStacked)
-    cv2.waitKey(0)
+    # cv2.imshow("Stacked Images",imgStacked)
+    # cv2.waitKey(0)
 
 if __name__ == "__main__":
+    import sys
     ### INIT PATH AND IMAGES
     # path="2.jpg"
     parser = argparse.ArgumentParser(description="Process an image.")
@@ -144,7 +164,14 @@ if __name__ == "__main__":
     widthImg = 700
     heightImg = 700
 
+    questions = 5
+    choices = 5
+    # answers = "B B B B B"
+
     args = parser.parse_args()
 
     ## RUN MAIN
-    main(args.path, args.questions, args.choices, args.answers)
+    main(args.path, 
+         args.questions, args.choices, 
+         args.answers
+         )
