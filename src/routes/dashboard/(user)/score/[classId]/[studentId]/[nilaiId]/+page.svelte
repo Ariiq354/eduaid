@@ -48,7 +48,11 @@
         <p>Form Buat Nilai</p>
       {/if}
     </div>
-    <Button variant="outline" href={`/dashboard/score/${data.classId}`} class="p-2 shadow-lg">
+    <Button
+      variant="outline"
+      href={`/dashboard/score/${data.classId}/${data.studentId}`}
+      class="p-2 shadow-lg"
+    >
       <ArrowLeft />
     </Button>
   </div>

@@ -17,6 +17,8 @@
   };
 
   export let data: scoreType[];
+  export let classId: string;
+  export let studentId: string;
 
   const tableData = writable(data);
   $: tableData.set(data);
@@ -48,7 +50,11 @@
       accessor: ({ nilaiId }) => nilaiId,
       header: 'Menu',
       cell: ({ value }) => {
-        return createRender(DataTableActions, { id: value as string });
+        return createRender(DataTableActions, {
+          id: value as string,
+          classId: classId,
+          studentId: studentId
+        });
       },
       plugins: {
         sort: {
