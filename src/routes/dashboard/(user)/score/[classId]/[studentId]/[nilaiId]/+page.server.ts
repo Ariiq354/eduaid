@@ -1,9 +1,9 @@
 import { db } from '$lib/server';
 import { classTable, cpTable, nilaiTable, subjectTable, tpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
-import { and, eq, isNotNull, sql } from 'drizzle-orm';
+import { and, eq, isNotNull, ne, sql } from 'drizzle-orm';
 import { generateId } from 'lucia';
-import { superValidate } from 'sveltekit-superforms';
+import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import { formSchema } from './schema';
@@ -60,6 +60,14 @@ export const actions: Actions = {
 
     if (!form.data.id) {
       form.data.id = generateId(15);
+    }
+
+    const exist = await db.query.nilaiTable.findFirst({
+      where: and(ne(nilaiTable.id, form.data.id), eq(nilaiTable.tpId, form.data.tpId))
+    });
+
+    if (exist) {
+      return setError(form, 'tpId', 'Score already exist for this tp');
     }
 
     await db
