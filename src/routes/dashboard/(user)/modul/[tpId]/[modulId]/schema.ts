@@ -2,8 +2,6 @@ import { z } from 'zod';
 
 export const formSchema = z.object({
   id: z.string(),
-  tpId: z.string(),
-  userId: z.string(),
   modul: z.string()
 });
 

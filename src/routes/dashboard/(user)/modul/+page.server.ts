@@ -5,33 +5,18 @@ import { count, eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
-  const modulData = await db
+  const tpData = await db
     .select({
       tpId: tpTable.id,
       tpName: tpTable.tujuanPembelajaran,
       modulCount: count(modulTable.id)
     })
     .from(tpTable)
-    .leftJoin(modulTable, eq(modulTable.tpId, tpTable.id));
+    .leftJoin(modulTable, eq(modulTable.tpId, tpTable.id))
+    .groupBy(tpTable.id)
+    .where(eq(tpTable.userId, event.locals.user!.id));
 
   return {
-    modulData
+    tpData
   };
-};
-
-export const actions: Actions = {
-  delete: async ({ url }) => {
-    const id = url.searchParams.get('id');
-    if (!id) {
-      return fail(400, { message: 'invalid request' });
-    }
-
-    try {
-      await db.delete(modulTable).where(eq(modulTable.id, id));
-    } catch (error) {
-      return fail(500, { message: 'something went wrong' });
-    }
-
-    return;
-  }
 };
