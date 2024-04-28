@@ -133,7 +133,9 @@ export const cpRelations = relations(cpTable, ({ one, many }) => ({
 
 export const tpTable = sqliteTable('tujuanPembelajaran', {
   id: text('id').notNull().primaryKey(),
-  cpId: text('cp_id').references(() => cpTable.id, { onDelete: 'cascade' }),
+  cpId: text('cp_id')
+    .references(() => cpTable.id, { onDelete: 'cascade' })
+    .notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
@@ -186,7 +188,9 @@ export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
 
 export const modulTable = sqliteTable('modul', {
   id: text('id').notNull().primaryKey(),
-  tpId: text('tp_id').references(() => tpTable.id, { onDelete: 'cascade' }),
+  tpId: text('tp_id')
+    .references(() => tpTable.id, { onDelete: 'cascade' })
+    .notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),

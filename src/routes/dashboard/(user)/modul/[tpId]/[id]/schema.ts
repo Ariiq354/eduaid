@@ -2,9 +2,9 @@ import { z } from 'zod';
 
 export const formSchema = z.object({
   id: z.string(),
-  tpId: z.string().nullable(),
+  tpId: z.string(),
   userId: z.string(),
-  modul: z.string(),
+  modul: z.string()
 });
 
 export type FormSchema = typeof formSchema;

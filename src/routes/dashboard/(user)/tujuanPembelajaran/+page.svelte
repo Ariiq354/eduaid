@@ -8,16 +8,16 @@
 </script>
 
 <div class="flex flex-col gap-4">
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-1">
     <h1 class="text-3xl font-bold">Tujuan Pembelajaran</h1>
-    <p>Temukan dan Kelola Tujuan Pembelajaran.</p>
+    <p>Temukan dan Kelola Tujuan Pembelajaran</p>
   </div>
 
   <div class="flex flex-row gap-4">
     <Button
       href="/dashboard/tujuanPembelajaran/cp/new"
       variant="default"
-      class="w-fit gap-3 shadow-lg"
+      class="flex items-center gap-2 shadow-lg"
     >
       <CirclePlus class="w-4" />
       Tambah
@@ -25,7 +25,7 @@
 
     <Button
       href="/dashboard/tujuanPembelajaran/cp/aiGenerate"
-      variant="default"
+      variant="outline"
       class="w-fit gap-3 shadow-lg"
     >
       <BotMessageSquare class="w-4" />
@@ -36,7 +36,6 @@
   <hr />
 
   <div class="flex flex-wrap">
-    
     {#each data.cpData as cp (cp.cpId)}
       {#if cp.tpCount > 0}
         <a
