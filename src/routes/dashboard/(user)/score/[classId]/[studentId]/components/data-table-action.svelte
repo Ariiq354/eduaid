@@ -10,6 +10,8 @@
   import { invalidateAll } from '$app/navigation';
 
   export let id: string;
+  export let studentId: string;
+  export let classId: string;
   let isOpen = false;
   let loading = false;
 
@@ -61,7 +63,7 @@
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenu.Separator />
-    <DropdownMenu.Item href={`/dashboard/modul/${id}`}>
+    <DropdownMenu.Item href={`/dashboard/score/${classId}/${studentId}/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
       Edit
     </DropdownMenu.Item>
