@@ -1,18 +1,17 @@
 <script lang="ts">
-  import type { PageData } from './$types';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { Button } from '$lib/components/ui/button';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
-  import * as Select from '$lib/components/ui/select';
-  import SuperDebug, { superForm } from 'sveltekit-superforms';
-  import { zodClient } from 'sveltekit-superforms/adapters';
-  import { toast } from 'svelte-sonner';
-  import { formSchema } from './schema';
-  import { goto } from '$app/navigation';
-  import { ArrowLeft, Loader2 } from 'lucide-svelte';
-  import { Button } from '$lib/components/ui/button';
-  import { useChat } from 'ai/svelte';
-  import { page } from '$app/stores';
   import { Textarea } from '$lib/components/ui/textarea';
+  import { useChat } from 'ai/svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
+  import { toast } from 'svelte-sonner';
+  import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
+  import type { PageData } from './$types';
+  import { formSchema } from './schema';
   import { ScrollArea } from '$lib/components/ui/scroll-area';
 
   let currentRoute = $page.url.pathname;
@@ -29,7 +28,7 @@
     async onUpdate({ form }) {
       if (form.valid) {
         toast.success('Submit sukses');
-        await goto(`/dashboard/admin/tujuanPembelajaran/${data.cpId}`);
+        await goto(`/dashboard/tujuanPembelajaran/${data.cpId}`);
       }
     },
 
@@ -51,7 +50,7 @@
       </div>
       <Button
         variant="outline"
-        href={`/dashboard/admin/tujuanPembelajaran/${data.cpId}`}
+        href={`/dashboard/tujuanPembelajaran/${data.cpId}`}
         class="p-2 shadow-lg"
       >
         <ArrowLeft />
@@ -71,7 +70,7 @@
       <div class="flex w-8/12 flex-col justify-between rounded-md border shadow-md">
         <!--  Chat -->
         <ScrollArea>
-          <ul class="flex flex-col gap-2 p-4">
+          <ul class="flex flex-col gap-2 overflow-y-auto p-4">
             <li class="self-start text-left">
               <div class="font-bold text-foreground">Asisten Ai</div>
               <div

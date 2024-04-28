@@ -62,7 +62,7 @@
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenu.Separator />
-    <DropdownMenu.Item href={`/dashboard/tujuanPembelajaran/${cpId}/${id}`}>
+    <DropdownMenu.Item href={`/dashboard/admin/tujuanPembelajaran/${cpId}/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
       Edit
     </DropdownMenu.Item>
