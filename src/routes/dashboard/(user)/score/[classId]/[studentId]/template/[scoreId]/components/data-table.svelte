@@ -1,0 +1,80 @@
+<script lang="ts">
+  import { Button } from '$lib/components/ui/button';
+  import * as Table from '$lib/components/ui/table';
+  import { ArrowUpDown } from 'lucide-svelte';
+  import { Render, Subscribe, createTable } from 'svelte-headless-table';
+  import { writable } from 'svelte/store';
+
+  type tableType = {
+    subjectName: string | null;
+    averageScore: string | null;
+  };
+
+  export let data: tableType[];
+
+  const tableData = writable(data);
+  $: tableData.set(data);
+
+  const table = createTable(tableData);
+
+  const columns = table.createColumns([
+    table.column({
+      accessor: 'subjectName',
+      header: 'Pelajaran'
+    }),
+    table.column({
+      accessor: 'averageScore',
+      header: 'Nilai'
+    })
+  ]);
+
+  const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = table.createViewModel(columns);
+</script>
+
+<div>
+  <div class="rounded-md border">
+    <Table.Root {...$tableAttrs}>
+      <Table.Header>
+        {#each $headerRows as headerRow}
+          <Subscribe rowAttrs={headerRow.attrs()}>
+            <Table.Row class="bg-primary/20 hover:bg-primary/10">
+              {#each headerRow.cells as cell (cell.id)}
+                <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
+                  <Table.Head {...attrs}>
+                    {#if cell.id !== 'Menu'}
+                      <Button
+                        variant="ghost"
+                        class="hover:bg-background/0 hover:text-foreground"
+                        on:click={props.sort.toggle}
+                      >
+                        <Render of={cell.render()} />
+                        <ArrowUpDown class={'ml-2 h-4 w-4'} />
+                      </Button>
+                    {:else}
+                      <Render of={cell.render()} />
+                    {/if}
+                  </Table.Head>
+                </Subscribe>
+              {/each}
+            </Table.Row>
+          </Subscribe>
+        {/each}
+      </Table.Header>
+      <Table.Body {...$tableBodyAttrs}>
+        {#each $pageRows as row (row.id)}
+          <Subscribe rowAttrs={row.attrs()} let:rowAttrs>
+            <Table.Row {...rowAttrs}>
+              {#each row.cells as cell (cell.id)}
+                <Subscribe attrs={cell.attrs()} let:attrs>
+                  <Table.Cell {...attrs}>
+                    <Render of={cell.render()} />
+                  </Table.Cell>
+                </Subscribe>
+              {/each}
+            </Table.Row>
+          </Subscribe>
+        {/each}
+      </Table.Body>
+    </Table.Root>
+  </div>
+</div>

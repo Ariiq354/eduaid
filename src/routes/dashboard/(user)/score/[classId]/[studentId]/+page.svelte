@@ -24,8 +24,15 @@
       >
         <Plus />
       </Button>
+      <Button
+        variant="outline"
+        class="shadow-lg"
+        href={`/dashboard/score/${data.classId}/${data.studentId}/template/${data.studentId}`}
+      >
+        Print
+      </Button>
     </div>
   </div>
   <hr />
-  <DataTable data={data.scoreData} />
+  <DataTable data={data.scoreData} classId={data.classId} studentId={data.studentId} />
 </div>
