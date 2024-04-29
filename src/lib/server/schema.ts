@@ -213,3 +213,14 @@ export const modulRelations = relations(modulTable, ({ one }) => ({
 }));
 
 export type selectmodul = typeof modulTable.$inferSelect;
+
+export const imagesTable = sqliteTable('images', {
+  id: text('id').notNull().primaryKey(),
+  link: text('link').notNull().unique(),
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: text('updated_at')
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+});
+
+export type selectImages = typeof imagesTable.$inferSelect;
