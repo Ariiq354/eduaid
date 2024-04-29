@@ -38,70 +38,76 @@
     : undefined;
 </script>
 
-<div class="flex flex-col gap-4">
-  <div class="flex items-center justify-between">
-    <div class="flex flex-col gap-1">
-      <h1 class="text-3xl font-bold">Nilai</h1>
-      {#if $formData.id}
-        <p>Form Edit Nilai</p>
-      {:else}
-        <p>Form Buat Nilai</p>
-      {/if}
+{#if data.student}
+  <div class="flex flex-col gap-4">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col gap-1">
+        <h1 class="text-3xl font-bold">Nilai</h1>
+        {#if $formData.id}
+          <p>Form Edit Nilai</p>
+        {:else}
+          <p>Form Buat Nilai</p>
+        {/if}
+      </div>
+      <Button
+        variant="outline"
+        href={`/dashboard/score/${data.classId}/${data.studentId}`}
+        class="p-2 shadow-lg"
+      >
+        <ArrowLeft />
+      </Button>
     </div>
-    <Button
-      variant="outline"
-      href={`/dashboard/score/${data.classId}/${data.studentId}`}
-      class="p-2 shadow-lg"
-    >
-      <ArrowLeft />
-    </Button>
-  </div>
-  <hr />
+    <hr />
 
-  <form method="POST" use:enhance>
-    <Form.Field {form} name="id">
-      <Form.Control let:attrs>
-        <input hidden name={attrs.name} bind:value={$formData.id} />
-      </Form.Control>
-    </Form.Field>
-    <Form.Field {form} name="nilai">
-      <Form.Control let:attrs>
-        <Form.Label>Nilai (1 - 100)</Form.Label>
-        <Input {...attrs} bind:value={$formData.nilai} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Field {form} name="tpId">
-      <Form.Control let:attrs>
-        <Form.Label>Pelajaran</Form.Label>
-        <Select.Root
-          selected={selectedTp}
-          onSelectedChange={(v) => {
-            v && ($formData.tpId = v.value);
-          }}
-        >
-          <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Pilih tujuan pelajaran..." />
-          </Select.Trigger>
-          <Select.Content>
-            {#if data.tpData.length}
-              {#each data.tpData as tpData (tpData.tpId)}
-                <Select.Item value={tpData.tpId} label={tpData.tpName} />
-              {/each}
-            {:else}
-              <Select.Item value="" label="Tujuan pembelajaran tidak ada" disabled />
-            {/if}
-          </Select.Content>
-        </Select.Root>
-        <input hidden bind:value={$formData.tpId} name={attrs.name} />
-      </Form.Control>
-      <Form.FieldErrors />
-    </Form.Field>
-    <Form.Button disabled={$submitting} class="mt-4">
-      {#if $submitting}
-        <Loader2 class="mr-2 h-4 w-4 animate-spin" />
-      {/if}
-      Simpan
-    </Form.Button>
-  </form>
-</div>
+    <div class="text-muted-primary rounded-md border bg-primary/20 px-4 py-2 shadow-md">
+      Nama Siswa: {data.student.studentName}
+    </div>
+
+    <form method="POST" use:enhance>
+      <Form.Field {form} name="id">
+        <Form.Control let:attrs>
+          <input hidden name={attrs.name} bind:value={$formData.id} />
+        </Form.Control>
+      </Form.Field>
+      <Form.Field {form} name="nilai">
+        <Form.Control let:attrs>
+          <Form.Label>Nilai (1 - 100)</Form.Label>
+          <Input {...attrs} bind:value={$formData.nilai} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Field {form} name="tpId">
+        <Form.Control let:attrs>
+          <Form.Label>Pelajaran</Form.Label>
+          <Select.Root
+            selected={selectedTp}
+            onSelectedChange={(v) => {
+              v && ($formData.tpId = v.value);
+            }}
+          >
+            <Select.Trigger {...attrs}>
+              <Select.Value placeholder="Pilih tujuan pelajaran..." />
+            </Select.Trigger>
+            <Select.Content>
+              {#if data.tpData.length}
+                {#each data.tpData as tpData (tpData.tpId)}
+                  <Select.Item value={tpData.tpId} label={tpData.tpName} />
+                {/each}
+              {:else}
+                <Select.Item value="" label="Tujuan pembelajaran tidak ada" disabled />
+              {/if}
+            </Select.Content>
+          </Select.Root>
+          <input hidden bind:value={$formData.tpId} name={attrs.name} />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+      <Form.Button disabled={$submitting} class="mt-4">
+        {#if $submitting}
+          <Loader2 class="mr-2 h-4 w-4 animate-spin" />
+        {/if}
+        Simpan
+      </Form.Button>
+    </form>
+  </div>
+{/if}

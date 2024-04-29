@@ -1,5 +1,5 @@
 import { db } from '$lib/server';
-import { cpTable, nilaiTable, subjectTable, tpTable } from '$lib/server/schema';
+import { cpTable, nilaiTable, studentTable, subjectTable, tpTable } from '$lib/server/schema';
 import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
@@ -7,6 +7,12 @@ import { fail, type Actions } from '@sveltejs/kit';
 export const load: PageServerLoad = async ({ params }) => {
   const studentId = params.studentId;
   const classId = params.classId;
+  const student = await db.query.studentTable.findFirst({
+    where: eq(studentTable.id, studentId),
+    columns: {
+      studentName: true
+    }
+  });
 
   const scoreData = await db
     .select({
@@ -24,7 +30,8 @@ export const load: PageServerLoad = async ({ params }) => {
   return {
     scoreData,
     classId,
-    studentId
+    studentId,
+    student
   };
 };
 

@@ -5,10 +5,11 @@
   import { Copy, Edit, Trash } from 'lucide-svelte';
   import Modal from '$lib/components/ui/modal.svelte';
   import { enhance } from '$app/forms';
-  import type { SubmitFunction } from '../$types';
   import { toast } from 'svelte-sonner';
   import { invalidateAll } from '$app/navigation';
+  import type { SubmitFunction } from '../$types';
 
+  export let cpId: string;
   export let id: string;
   let isOpen = false;
   let loading = false;
@@ -22,7 +23,7 @@
       } else {
         loading = false;
         invalidateAll();
-        toast.success('TP Deleted');
+        toast.success('Tujuan Pembelajaran Dihapus');
       }
     };
   };
@@ -61,7 +62,7 @@
       </DropdownMenu.Item>
     </DropdownMenu.Group>
     <DropdownMenu.Separator />
-    <DropdownMenu.Item href={`/dashboard/tujuanPembelajaran/${id}`}>
+    <DropdownMenu.Item href={`/dashboard/tujuanPembelajaran/${cpId}/${id}`}>
       <Edit class="mr-2 h-4 w-4" />
       Edit
     </DropdownMenu.Item>

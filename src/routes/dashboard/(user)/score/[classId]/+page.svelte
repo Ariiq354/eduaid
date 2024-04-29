@@ -21,7 +21,7 @@
     {#each data.studentData as studentData (studentData.studentId)}
       <a
         href="/dashboard/score/{data.classId}/{studentData.studentId}"
-        class="flex w-full justify-between rounded-md bg-primary p-4 text-primary-foreground"
+        class="flex w-full justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
       >
         <div>{studentData.studentName}</div>
         <div class="flex gap-2">

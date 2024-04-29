@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
   import { writable } from 'svelte/store';
-  import type { selectCp } from '$lib/server/schema';
+  import type { selectTP } from '$lib/server/schema';
   import * as Table from '$lib/components/ui/table';
   import DataTableActions from './data-table-action.svelte';
   import { addPagination, addSortBy, addTableFilter } from 'svelte-headless-table/plugins';
@@ -9,21 +9,21 @@
   import { Input } from '$lib/components/ui/input';
   import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-svelte';
 
-  type cpType = selectCp & {
-    subject: {
-      subjectName: string;
-      phase: number;
-    } | null;
+  type tpType = selectTP & {
+    teacher: {
+      username: string;
+    };
   };
 
-  export let data: cpType[];
+  export let data: tpType[];
+  export let cpId: string;
 
   const tableData = writable(data);
   $: tableData.set(data);
 
   const table = createTable(tableData, {
     page: addPagination({
-      initialPageSize: 5
+      initialPageSize: 10
     }),
     sort: addSortBy(),
     filter: addTableFilter({
@@ -33,18 +33,18 @@
 
   const columns = table.createColumns([
     table.column({
-      accessor: 'capaianPembelajaran',
-      header: 'Capaian Pembelajaran'
+      accessor: 'tujuanPembelajaran',
+      header: 'Tujuan Pembelajaran'
     }),
     table.column({
-      accessor: ({ subject }) => subject?.subjectName + ' Fase ' + subject?.phase,
-      header: 'Pelajaran'
+      accessor: ({ teacher }) => teacher.username,
+      header: 'Guru'
     }),
     table.column({
       accessor: ({ id }) => id,
       header: 'Menu',
       cell: ({ value }) => {
-        return createRender(DataTableActions, { id: value });
+        return createRender(DataTableActions, { id: value, cpId: cpId });
       },
       plugins: {
         sort: {
@@ -79,8 +79,8 @@
                   <Table.Head {...attrs}>
                     {#if cell.id !== 'Menu'}
                       <Button
-                        variant="ghost"
                         class="hover:bg-background/0 hover:text-foreground"
+                        variant="ghost"
                         on:click={props.sort.toggle}
                       >
                         <Render of={cell.render()} />

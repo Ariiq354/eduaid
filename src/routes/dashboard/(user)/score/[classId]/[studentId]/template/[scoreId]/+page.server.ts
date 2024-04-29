@@ -21,3 +21,5 @@ export const load: PageServerLoad = async () => {
     scoreData
   };
 };
+
+export const ssr = false;

@@ -7,7 +7,7 @@
   onMount(() => {
     window.print();
   });
-  window.onafterprint = function () {
+  window.onafterprint = () => {
     history.back();
   };
 </script>
