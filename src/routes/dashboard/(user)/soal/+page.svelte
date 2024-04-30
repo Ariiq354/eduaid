@@ -1,4 +1,5 @@
 <script lang="ts">
+<<<<<<< HEAD
     import { Input } from '$lib/components/ui/input';
     import { Button } from '$lib/components/ui/button';
     import { useChat } from 'ai/svelte';
@@ -11,15 +12,38 @@
     });
   </script>
   
+=======
+  import { Input } from '$lib/components/ui/input';
+  import { Button } from '$lib/components/ui/button';
+  import { useChat } from 'ai/svelte';
+  import { page } from '$app/stores';
+
+  let currentRoute = $page.url.pathname;
+  
+  const { messages, handleSubmit, input } = useChat({
+    api: currentRoute
+  });
+</script>
+
+ 
+>>>>>>> main
   <!-- Title -->
   <div class="flex items-center justify-between">
     <div>
       <h1 class="text-3xl font-bold">Asisten Ai</h1>
+<<<<<<< HEAD
       <p>Buat Modul Pembelajaran Anda dengan bantuan Ai</p>
     </div>
     <Button variant="ghost" href="/dashboard/tujuanPembelajaran">Kembali</Button>
   </div>
   
+=======
+      <p>Buat Soal dengan bantuan Ai</p>
+    </div>
+    <Button variant="ghost" href="/dashboard/tujuanPembelajaran">Kembali</Button>
+  </div>
+ 
+>>>>>>> main
   <!-- Line -->
   <hr />
   
@@ -30,8 +54,14 @@
         <li class="self-start text-left">
           <div class="font-bold text-slate-600">Asisten Ai</div>
           <div class="w-full max-w-3xl rounded-r-md rounded-t-md bg-slate-600 px-4 py-2 text-white">
+<<<<<<< HEAD
             Halo, saya Edu Ai. Saya akan membantu Anda membuat Modul Pembelajaran. Berikan saja Tujuan
             Pembelajaran yang ingin Anda pilih, dan saya akan menghasilkan daftar saran untuk Anda.
+=======
+            Halo, saya Edu Ai. Saya akan membantu Anda membuat Soal. Berikan saja Topik
+            yang ingin Anda pilih, dan saya akan menghasilkan daftar soal untuk Anda. Pastikan Anda
+            mengecek ulang fakta dan pilihan jawaban yang saya berikan.
+>>>>>>> main
           </div>
         </li>
   
@@ -55,11 +85,19 @@
           {/if}
         {/each}
       </ul>
+<<<<<<< HEAD
   
       <!-- Input -->
       <form on:submit={handleSubmit} class="flex w-full gap-4 px-4">
         <Input bind:value={$input} class="h-full" />
         <Button type="submit" class="h-full">Send</Button>
       </form>
+=======
+    <!-- Input -->
+    <form on:submit={handleSubmit} class="flex w-full gap-4 px-4">
+      <Input bind:value={$input} class="h-full" />
+      <Button type="submit" class="h-full">Send</Button>
+    </form>
+>>>>>>> main
   </div>
   

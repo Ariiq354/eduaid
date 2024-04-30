@@ -1,5 +1,12 @@
 import { db } from '$lib/server';
-import { classTable, cpTable, nilaiTable, subjectTable, tpTable } from '$lib/server/schema';
+import {
+  classTable,
+  cpTable,
+  nilaiTable,
+  studentTable,
+  subjectTable,
+  tpTable
+} from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { and, eq, isNotNull, ne, sql } from 'drizzle-orm';
 import { generateId } from 'lucia';
@@ -15,6 +22,13 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
   const data = await db.query.nilaiTable.findFirst({
     where: eq(nilaiTable.id, id)
+  });
+
+  const student = await db.query.studentTable.findFirst({
+    where: eq(studentTable.id, studentId),
+    columns: {
+      studentName: true
+    }
   });
 
   const sq = db
@@ -45,7 +59,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
     form: await superValidate(data, zod(formSchema)),
     tpData,
     studentId,
-    classId
+    classId,
+    student
   };
 };
 
@@ -82,8 +97,7 @@ export const actions: Actions = {
         target: nilaiTable.id,
         set: {
           tpId: form.data.tpId,
-          nilai: form.data.nilai,
-          studentId: event.params.studentId
+          nilai: form.data.nilai
         }
       });
 

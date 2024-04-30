@@ -17,7 +17,7 @@
     {#each data.classData as classData (classData.classId)}
       <a
         href="/dashboard/score/{classData.classId}"
-        class="flex w-full justify-between rounded-md bg-primary p-4 text-primary-foreground"
+        class="flex w-full justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
       >
         <div>{classData.classname}</div>
         <div class="flex gap-2">

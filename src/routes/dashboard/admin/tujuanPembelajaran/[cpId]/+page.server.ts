@@ -1,22 +1,34 @@
 import { db } from '$lib/server';
-import { tpTable, cpTable } from '$lib/server/schema';
+import { cpTable, tpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import type { PageServerLoad, Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
   const cpId = params.cpId;
 
-  const tpData = await db.query.cpTable.findFirst({
+  const cp = await db.query.cpTable.findFirst({
     where: eq(cpTable.id, cpId),
+    columns: {
+      capaianPembelajaran: true
+    }
+  });
+
+  const tpData = await db.query.tpTable.findMany({
+    where: eq(tpTable.cpId, cpId),
     with: {
-      tp: true
+      teacher: {
+        columns: {
+          username: true
+        }
+      }
     }
   });
 
   return {
     tpData,
-    cpId
+    cpId,
+    cp
   };
 };
 

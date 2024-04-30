@@ -35,20 +35,3 @@ export const load: PageServerLoad = async (event) => {
     cpData
   };
 };
-
-export const actions: Actions = {
-  delete: async ({ url }) => {
-    const id = url.searchParams.get('id');
-    if (!id) {
-      return fail(400, { message: 'invalid request' });
-    }
-
-    try {
-      await db.delete(tpTable).where(eq(tpTable.id, id));
-    } catch (error) {
-      return fail(500, { message: 'something went wrong' });
-    }
-
-    return;
-  }
-};

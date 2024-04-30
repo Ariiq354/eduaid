@@ -133,7 +133,9 @@ export const cpRelations = relations(cpTable, ({ one, many }) => ({
 
 export const tpTable = sqliteTable('tujuanPembelajaran', {
   id: text('id').notNull().primaryKey(),
-  cpId: text('cp_id').references(() => cpTable.id, { onDelete: 'cascade' }),
+  cpId: text('cp_id')
+    .references(() => cpTable.id, { onDelete: 'cascade' })
+    .notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
@@ -186,7 +188,9 @@ export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
 
 export const modulTable = sqliteTable('modul', {
   id: text('id').notNull().primaryKey(),
-  tpId: text('tp_id').references(() => tpTable.id, { onDelete: 'cascade' }),
+  tpId: text('tp_id')
+    .references(() => tpTable.id, { onDelete: 'cascade' })
+    .notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => userTable.id, { onDelete: 'cascade' }),
@@ -209,3 +213,14 @@ export const modulRelations = relations(modulTable, ({ one }) => ({
 }));
 
 export type selectmodul = typeof modulTable.$inferSelect;
+
+export const imagesTable = sqliteTable('images', {
+  id: text('id').notNull().primaryKey(),
+  link: text('link').notNull().unique(),
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: text('updated_at')
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+});
+
+export type selectImages = typeof imagesTable.$inferSelect;
