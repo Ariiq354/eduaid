@@ -15,5 +15,4 @@
 <div class="min-h-screen w-full bg-white">
   <div class="flex w-full justify-center text-black">Daftar Nilai Siswa</div>
   <DataTable data={data.scoreData} />
-  <!-- <pre>{JSON.stringify(data, null, 2)}</pre> -->
 </div>

@@ -2,8 +2,9 @@ import { z } from 'zod';
 
 export const formSchema = z.object({
   id: z.string(),
-  subjectId: z.string().min(1, { message: 'Pelajaran must not be empty' }),
-  capaianPembelajaran: z.string().min(2)
+  tpId: z.string().min(1, { message: 'Tujuan Pembelajaran must be selected' }),
+  soal: z.string(),
+  answer: z.string()
 });
 
 export type FormSchema = typeof formSchema;

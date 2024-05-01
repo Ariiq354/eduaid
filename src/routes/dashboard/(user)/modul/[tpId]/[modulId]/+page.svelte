@@ -113,21 +113,23 @@
       </div>
 
       <!-- Input Interface -->
-      <div class="flex w-4/12 flex-col rounded-md border p-4 shadow-md">
-        <form method="POST" use:enhance>
-          <Form.Field {form} name="id">
-            <Form.Control let:attrs>
-              <input hidden name={attrs.name} bind:value={$formData.id} />
-            </Form.Control>
-          </Form.Field>
+      <div class="w-4/12 rounded-md border p-4 shadow-md">
+        <form method="POST" class="flex h-full flex-col justify-between" use:enhance>
+          <div>
+            <Form.Field {form} name="id">
+              <Form.Control let:attrs>
+                <input hidden name={attrs.name} bind:value={$formData.id} />
+              </Form.Control>
+            </Form.Field>
 
-          <Form.Field {form} name="modul">
-            <Form.Control let:attrs>
-              <Form.Label>Modul Pembelajaran</Form.Label>
-              <Textarea rows={10} {...attrs} bind:value={$formData.modul} />
-            </Form.Control>
-            <Form.FieldErrors />
-          </Form.Field>
+            <Form.Field {form} name="modul">
+              <Form.Control let:attrs>
+                <Form.Label>Modul Pembelajaran</Form.Label>
+                <Textarea rows={10} {...attrs} bind:value={$formData.modul} />
+              </Form.Control>
+              <Form.FieldErrors />
+            </Form.Field>
+          </div>
           <Form.Button disabled={$submitting} class="mt-4">
             {#if $submitting}
               <Loader2 class="mr-2 h-4 w-4 animate-spin" />

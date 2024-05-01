@@ -1,5 +1,5 @@
 import { db } from '$lib/server';
-import { cpTable, tpTable, userTable } from '$lib/server/schema';
+import { modulTable, soalTable, tpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { generateId } from 'lucia';
@@ -8,30 +8,20 @@ import { zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad, Actions } from './$types';
 import { formSchema } from './schema';
 
-export const load: PageServerLoad = async ({ params }) => {
-  const id = params.tpId;
-  const cpId = params.cpId;
+export const load: PageServerLoad = async ({ params, locals }) => {
+  const id = params.id;
 
-  const cp = await db.query.cpTable.findFirst({
-    where: eq(cpTable.id, cpId),
-    columns: {
-      capaianPembelajaran: true
-    }
+  const tp = await db.query.tpTable.findMany({
+    where: eq(tpTable.userId, locals.user!.id)
   });
 
-  const teacher = await db.query.userTable.findMany({
-    where: eq(userTable.status, 2)
-  });
-
-  const data = await db.query.tpTable.findFirst({
-    where: eq(tpTable.id, id)
+  const data = await db.query.soalTable.findFirst({
+    where: eq(soalTable.id, id)
   });
 
   return {
     form: await superValidate(data, zod(formSchema)),
-    cpId,
-    cp,
-    teacher
+    tp
   };
 };
 
@@ -49,17 +39,20 @@ export const actions: Actions = {
     }
 
     await db
-      .insert(tpTable)
+      .insert(soalTable)
       .values({
         id: form.data.id,
-        cpId: event.params.cpId,
+        tpId: form.data.tpId,
         userId: event.locals.user!.id,
-        tujuanPembelajaran: form.data.tujuanPembelajaran
+        soal: form.data.soal,
+        answer: form.data.answer
       })
       .onConflictDoUpdate({
-        target: tpTable.id,
+        target: soalTable.id,
         set: {
-          tujuanPembelajaran: form.data.tujuanPembelajaran
+          tpId: form.data.tpId,
+          soal: form.data.soal,
+          answer: form.data.answer
         }
       });
 
