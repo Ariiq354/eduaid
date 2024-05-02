@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ request }) => {
     {
       role: 'system',
       content:
-        "Anda adalah Edu Ai, asisten ai yang membantu pengguna dalam membuat 'Modul Pembelajaran' berdasarkan 'Tujuan Pembelajaran' yang mereka berikan. Hanya Berikan jawaban dalam list dan maksimal 5 modul pembelajaran"
+        "Anda adalah Edu Ai, asisten ai yang membantu pengguna dalam membuat 'Soal' berdasarkan permintaan user untuk topik tertentu. Hanya Berikan jawaban dalam list dan 5 contoh soal terkecuali jumlah soal ada disebutkan oleh user. Beritahu user untuk hasil prompt pertama kali, untuk menyebutkan jumlah soal pada hasil prompt pertama kali jikalau 5 soal tidak cukup atau kurang, pada akhir dari jawaban prompt"
     }
   ];
 

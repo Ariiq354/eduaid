@@ -1,18 +1,17 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button';
+  import { goto } from '$app/navigation';
+  import ImageUpload from '$lib/components/ImageUpload.svelte';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
+  import { Label } from '$lib/components/ui/label';
   import * as Select from '$lib/components/ui/select';
+  import { processValues } from '$lib/utils';
+  import { Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
-  import SuperDebug, { superForm } from 'sveltekit-superforms';
+  import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema, nilaiSchema } from './schema';
-  import ImageUpload from '$lib/components/ImageUpload.svelte';
-  import { processValues } from '$lib/utils';
-  import { Loader2 } from 'lucide-svelte';
-  import { Label } from '$lib/components/ui/label';
-  import { goto } from '$app/navigation';
 
   export let data: PageData;
 
