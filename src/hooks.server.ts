@@ -40,8 +40,13 @@ const protect: Handle = async ({ event, resolve }) => {
     if (event.locals.user.status !== 2) {
       if (event.url.pathname !== '/dashboard/activate') redirect(302, '/dashboard/activate');
     }
-    if (event.url.pathname.startsWith('/dashboard/admin') && event.locals.user.role !== 2)
+    if (event.url.pathname.startsWith('/dashboard/admin') && event.locals.user.role !== 2) {
       redirect(302, '/dashboard');
+    }
+
+    if (event.url.pathname.startsWith('/dashboard/scan')) {
+      redirect(302, '/dashboard');
+    }
   }
 
   return resolve(event);
