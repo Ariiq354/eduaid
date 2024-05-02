@@ -2,7 +2,7 @@ import { db } from '$lib/server';
 import { studentTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { and, eq, ne } from 'drizzle-orm';
-import { generateId, generateIdFromEntropySize } from 'lucia';
+import { generateIdFromEntropySize } from 'lucia';
 import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';

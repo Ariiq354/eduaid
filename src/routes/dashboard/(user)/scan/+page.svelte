@@ -35,7 +35,7 @@
         toast.success('Upload link gambar ke DATABASE berhasil!');
         try {
           const response = await fetch(
-            `http://localhost:8000/ocr?q=${$formData.link}&ans=${ans}&questions=5&choices=5`
+            `https://useless-anastasie-synexcu.koyeb.app/ocr?q=${$formData.link}&ans=${ans}&questions=5&choices=5`
           );
           if (response.ok) {
             const pydata = await response.json();
