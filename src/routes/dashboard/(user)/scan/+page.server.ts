@@ -2,7 +2,7 @@ import { db } from '$lib/server';
 import { classTable, imagesTable, nilaiTable, soalTable, studentTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { and, eq } from 'drizzle-orm';
-import { generateId } from 'lucia';
+import { generateIdFromEntropySize } from 'lucia';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
@@ -39,7 +39,7 @@ export const actions: Actions = {
       });
     }
 
-    const id = generateId(15);
+    const id = generateIdFromEntropySize(10);
 
     await db.insert(imagesTable).values({
       id: id,
@@ -68,7 +68,7 @@ export const actions: Actions = {
     let id: string;
 
     if (!nilai) {
-      id = generateId(15);
+      id = generateIdFromEntropySize(10);
     } else {
       id = nilai.id;
       form.data.nilai = (nilai.nilai + form.data.nilai) / 2;

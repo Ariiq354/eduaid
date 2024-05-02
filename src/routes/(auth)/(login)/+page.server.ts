@@ -8,7 +8,7 @@ import { db } from '$lib/server';
 import { lucia } from '$lib/server/auth';
 
 export const load: PageServerLoad = async (event) => {
-  if (event.locals.user) redirect(302, '/dashboard/score');
+  if (event.locals.user) redirect(302, '/dashboard');
 
   return {
     form: await superValidate(zod(formSchema))

@@ -6,6 +6,7 @@
     DoorClosed,
     FileQuestion,
     GraduationCap,
+    LayoutDashboard,
     NotebookTabs,
     Percent,
     ScanEye,
@@ -100,6 +101,17 @@
         <div class="flex flex-col gap-2">
           <div class="text-xs font-medium uppercase tracking-wider text-gray-500">admin</div>
           <div class="flex flex-col gap-2">
+            <a
+              href="/dashboard/admin"
+              class={cn(
+                $page.url.pathname == '/dashboard/admin'
+                  ? 'flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-foreground transition-all duration-200 hover:text-foreground'
+                  : 'flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground'
+              )}
+            >
+              <LayoutDashboard size="20" />
+              <div class="flex items-center">Dashboard</div>
+            </a>
             <!-- Class -->
             <a
               href="/dashboard/admin/class"
@@ -185,6 +197,17 @@
       <div class="flex flex-col gap-2">
         <div class="text-xs font-medium uppercase tracking-wider text-gray-500">user</div>
         <div class="flex flex-col gap-2">
+          <a
+            href="/dashboard"
+            class={cn(
+              $page.url.pathname == '/dashboard'
+                ? 'flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-foreground transition-all duration-200 hover:text-foreground'
+                : 'flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all duration-200 hover:text-foreground'
+            )}
+          >
+            <LayoutDashboard size="20" />
+            <div class="flex items-center">Dashboard</div>
+          </a>
           <a
             href="/dashboard/score"
             class={cn(
