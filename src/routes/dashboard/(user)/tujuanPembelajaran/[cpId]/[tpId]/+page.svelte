@@ -61,7 +61,10 @@
     <hr />
 
     <div class="text-muted-primary rounded-md border bg-primary/20 px-4 py-2 shadow-md">
-      Capaian Pembelajaran: {data.cp.capaianPembelajaran}
+      <p>Pelajaran: {data.cp.subject.subjectName}</p>
+      <p>
+        Capaian Pembelajaran: {data.cp.capaianPembelajaran}
+      </p>
     </div>
 
     <!-- Chat & Input -->

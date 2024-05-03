@@ -16,6 +16,13 @@ export const load: PageServerLoad = async ({ params }) => {
     where: eq(cpTable.id, cpId),
     columns: {
       capaianPembelajaran: true
+    },
+    with: {
+      subject: {
+        columns: {
+          subjectName: true
+        }
+      }
     }
   });
 

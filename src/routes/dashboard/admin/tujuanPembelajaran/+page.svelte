@@ -19,13 +19,16 @@
   <div class="grid grid-cols-3 gap-4">
     {#each data.cpData as cp (cp.id)}
       <a
-        class="flex w-full items-center justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
+        class="flex flex-col gap-2 rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
         href={`/dashboard/admin/tujuanPembelajaran/${cp.id}`}
       >
-        <div>{cp.capaianPembelajaran}</div>
-        <div class="flex gap-2">
-          <Notebook />
-          {cp.tp.length}
+        <div class="border-b border-white pb-2">{cp.subject.subjectName}</div>
+        <div class="flex h-full w-full flex-col justify-between gap-2">
+          <div>{cp.capaianPembelajaran}</div>
+          <div class="flex gap-2">
+            <Notebook />
+            {cp.tp.length}
+          </div>
         </div>
       </a>
     {/each}

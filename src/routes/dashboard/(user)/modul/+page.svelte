@@ -21,10 +21,13 @@
         class="flex w-full items-center justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
         href={`/dashboard/modul/${tp.tpId}`}
       >
-        <div>{tp.tpName}</div>
-        <div class="flex gap-2">
-          <Notebook />
-          {tp.modulCount}
+        <div class="border-b border-white pb-2">{tp.subjectName}</div>
+        <div class="flex h-full w-full flex-col justify-between gap-2">
+          <div>{tp.tpName}</div>
+          <div class="flex gap-2">
+            <Notebook />
+            {tp.modulCount}
+          </div>
         </div>
       </a>
     {/each}

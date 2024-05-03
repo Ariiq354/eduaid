@@ -22,6 +22,7 @@ export const load: PageServerLoad = async (event) => {
     .select({
       cpId: cpTable.id,
       capaianPembelajaran: cpTable.capaianPembelajaran,
+      subjectName: subjectTable.subjectName,
       tpCount: count(tpTable.id)
     })
     .from(cpTable)

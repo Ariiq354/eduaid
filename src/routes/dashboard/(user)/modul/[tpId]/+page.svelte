@@ -27,7 +27,10 @@
     <hr />
 
     <div class="text-muted-primary rounded-md border bg-primary/20 px-4 py-2 shadow-md">
-      Tujuan Pembelajaran: {data.tp.tujuanPembelajaran}
+      <p>Pelajaran: {data.tp.cp.subject.subjectName}</p>
+      <p>
+        Tujuan Pembelajaran: {data.tp.tujuanPembelajaran}
+      </p>
     </div>
     <DataTable data={data.modulData} tpId={data.tpId} />
   </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button';
-  import { BotMessageSquare, Notebook, Plus } from 'lucide-svelte';
+  import { Notebook } from 'lucide-svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -22,10 +21,13 @@
         class="flex w-full items-center justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
         href={`/dashboard/tujuanPembelajaran/${cp.cpId}`}
       >
-        <div>{cp.capaianPembelajaran}</div>
-        <div class="flex gap-2">
-          <Notebook />
-          {cp.tpCount}
+        <div class="border-b border-white pb-2">{cp.subjectName}</div>
+        <div class="flex h-full w-full flex-col justify-between gap-2">
+          <div>{cp.capaianPembelajaran}</div>
+          <div class="flex gap-2">
+            <Notebook />
+            {cp.tpCount}
+          </div>
         </div>
       </a>
     {/each}
