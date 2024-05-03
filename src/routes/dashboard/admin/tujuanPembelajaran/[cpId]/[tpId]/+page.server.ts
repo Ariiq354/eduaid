@@ -53,7 +53,7 @@ export const actions: Actions = {
       .values({
         id: form.data.id,
         cpId: event.params.cpId,
-        userId: event.locals.user!.id,
+        userId: form.data.userId,
         tujuanPembelajaran: form.data.tujuanPembelajaran
       })
       .onConflictDoUpdate({
