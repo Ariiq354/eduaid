@@ -114,7 +114,7 @@
             onChange={(url) => ($formData.link = url)}
             onRemove={() => ($formData.link = '')}
           />
-          <input hidden bind:value={$formData.link} name={attrs.name} />
+          <input hidden bind:value={$formData.link} name={attrs.name} aria-hidden="true" />
         </Form.Control>
         <Form.FieldErrors />
       </Form.Field>
@@ -144,7 +144,7 @@
                 'Pilih siswa...'}
               <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Popover.Trigger>
-            <input hidden bind:value={$formData.studentId} name={attrs.name} />
+            <input hidden bind:value={$formData.studentId} name={attrs.name} aria-hidden="true" />
           </Form.Control>
           <Popover.Content class="w-[300px] p-0">
             <Command.Root>
@@ -184,7 +184,7 @@
             v && (ans = String(v.value));
           }}
         >
-          <Select.Trigger class="w-full">
+          <Select.Trigger class="w-full" aria-label="select soal">
             <Select.Value placeholder="Select soal" />
           </Select.Trigger>
           <Select.Content>
@@ -210,21 +210,21 @@
       <form method="POST" action="?/nilai" class="w-full" use:nilaiEnhance>
         <div class="mb-2 flex flex-col gap-3">
           <Label>Hasil Scan</Label>
-          <Input bind:value={myIndex} disabled />
+          <Input bind:value={myIndex} disabled placeholder="Hasil scan AI" />
           <Label>Kunci Jawaban</Label>
-          <Input bind:value={ans} disabled />
+          <Input bind:value={ans} disabled placeholder="Kunci jawaban soal" />
         </div>
 
         <Form.Field form={nilaiForm} name="tpId">
           <Form.Control let:attrs>
-            <input {...attrs} bind:value={$nilaiFormData.tpId} hidden />
+            <input {...attrs} bind:value={$nilaiFormData.tpId} hidden aria-hidden="true" />
           </Form.Control>
           <Form.FieldErrors />
         </Form.Field>
 
         <Form.Field form={nilaiForm} name="studentId">
           <Form.Control let:attrs>
-            <input {...attrs} bind:value={$nilaiFormData.studentId} hidden />
+            <input {...attrs} bind:value={$nilaiFormData.studentId} hidden aria-hidden="true" />
           </Form.Control>
           <Form.FieldErrors />
         </Form.Field>
