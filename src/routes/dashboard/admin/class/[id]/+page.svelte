@@ -2,14 +2,18 @@
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
   import * as Select from '$lib/components/ui/select';
+  import * as Popover from '$lib/components/ui/popover';
+  import * as Command from '$lib/components/ui/command';
   import SuperDebug, { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
   import { goto } from '$app/navigation';
-  import { ArrowLeft, Loader2 } from 'lucide-svelte';
-  import { Button } from '$lib/components/ui/button';
+  import { ArrowLeft, Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
+  import { Button, buttonVariants } from '$lib/components/ui/button';
+  import { cn } from '$lib/utils';
+  import { tick } from 'svelte';
 
   export let data: PageData;
 
@@ -27,12 +31,15 @@
   });
   const { form: formData, enhance, submitting } = form;
 
-  $: selectedTeacher = $formData.userId
-    ? {
-        label: data.teacher.find((teacher) => teacher.id == $formData.userId)?.username,
-        value: $formData.userId
-      }
-    : undefined;
+  let open = false;
+
+  function closeAndFocusTrigger(triggerId: string) {
+    open = false;
+    tick().then(() => {
+      document.getElementById(triggerId)?.focus();
+    });
+  }
+
   $: selectedBatch = $formData.batch.toString()
     ? {
         label: $formData.batch.toString(),
@@ -94,28 +101,53 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <Form.Field {form} name="userId">
-      <Form.Control let:attrs>
-        <Form.Label>Wali Kelas</Form.Label>
-        <Select.Root
-          selected={selectedTeacher}
-          onSelectedChange={(v) => {
-            v && ($formData.userId = v.value);
-          }}
-        >
-          <Select.Trigger {...attrs}>
-            <Select.Value placeholder="Select teacher" />
-          </Select.Trigger>
-          <Select.Content>
-            {#each data.teacher as teacher (teacher.id)}
-              <Select.Item value={teacher.id} label={teacher.username} />
-            {/each}
-          </Select.Content>
-        </Select.Root>
-        <input hidden bind:value={$formData.userId} name={attrs.name} />
-      </Form.Control>
+    <Form.Field {form} name="userId" class="relative mt-4 flex flex-col gap-1">
+      <Popover.Root bind:open let:ids>
+        <Form.Control let:attrs>
+          <Form.Label>Wali Kelas</Form.Label>
+          <Popover.Trigger
+            class={cn(
+              buttonVariants({ variant: 'outline' }),
+              'w-[200px] justify-between',
+              !$formData.userId && 'text-muted-foreground'
+            )}
+            role="combobox"
+            {...attrs}
+          >
+            {data.teacher.find((f) => f.id === $formData.userId)?.username ?? 'Pilih Wali Kelas...'}
+            <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Popover.Trigger>
+          <input hidden bind:value={$formData.userId} name={attrs.name} />
+        </Form.Control>
+        <Popover.Content class="w-[200px] p-0">
+          <Command.Root>
+            <Command.Input autofocus placeholder="Cari guru..." class="h-9" />
+            <Command.Empty>Guru belum ada</Command.Empty>
+            <Command.Group>
+              {#each data.teacher as teacher}
+                <Command.Item
+                  value={teacher.username}
+                  onSelect={() => {
+                    $formData.userId = teacher.id;
+                    closeAndFocusTrigger(ids.trigger);
+                  }}
+                >
+                  {teacher.username}
+                  <Check
+                    class={cn(
+                      'ml-auto h-4 w-4',
+                      teacher.id !== $formData.userId && 'text-transparent'
+                    )}
+                  />
+                </Command.Item>
+              {/each}
+            </Command.Group>
+          </Command.Root>
+        </Popover.Content>
+      </Popover.Root>
       <Form.FieldErrors />
     </Form.Field>
+
     <Form.Button disabled={$submitting} class="mt-4">
       {#if $submitting}
         <Loader2 class="mr-2 h-4 w-4 animate-spin" />

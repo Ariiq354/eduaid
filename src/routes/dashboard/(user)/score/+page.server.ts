@@ -1,5 +1,5 @@
 import { db } from '$lib/server';
-import { classTable, studentTable } from '$lib/server/schema';
+import { classTable, soalTable, studentTable } from '$lib/server/schema';
 import { count, eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 

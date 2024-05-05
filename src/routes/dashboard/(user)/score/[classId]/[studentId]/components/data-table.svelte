@@ -34,12 +34,12 @@
 
   const columns = table.createColumns([
     table.column({
-      accessor: 'tpName',
-      header: 'Tujuan Pembelajaran'
-    }),
-    table.column({
       accessor: 'subjectName',
       header: 'Mata Pelajaran'
+    }),
+    table.column({
+      accessor: 'tpName',
+      header: 'Tujuan Pembelajaran'
     }),
     table.column({
       accessor: 'score',

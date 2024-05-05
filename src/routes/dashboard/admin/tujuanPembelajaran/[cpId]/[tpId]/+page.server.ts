@@ -66,7 +66,8 @@ export const actions: Actions = {
       .onConflictDoUpdate({
         target: tpTable.id,
         set: {
-          tujuanPembelajaran: form.data.tujuanPembelajaran
+          tujuanPembelajaran: form.data.tujuanPembelajaran,
+          userId: form.data.userId
         }
       });
 

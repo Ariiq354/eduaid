@@ -2,16 +2,21 @@
   import { goto } from '$app/navigation';
   import ImageUpload from '$lib/components/ImageUpload.svelte';
   import * as Form from '$lib/components/ui/form';
+  import * as Popover from '$lib/components/ui/popover';
+  import * as Command from '$lib/components/ui/command';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
   import * as Select from '$lib/components/ui/select';
-  import { processValues } from '$lib/utils';
-  import { Loader2 } from 'lucide-svelte';
+  import { cn, processValues } from '$lib/utils';
+  import { Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
-  import { superForm } from 'sveltekit-superforms';
+  import SuperDebug, { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema, nilaiSchema } from './schema';
+  import { tick } from 'svelte';
+  import { buttonVariants } from '$lib/components/ui/button';
+  import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
 
   export let data: PageData;
 
@@ -21,9 +26,9 @@
   let score: string;
 
   $: {
-    $nilaiFormData.tpId = data.soalData.find((soal) => (soal.id = ans))?.tpId as string;
-    $nilaiFormData.studentId = $formData.studentId;
-    $nilaiFormData.nilai = parseInt(score);
+    $nilaiFormData.tpId = (data.soalData.find((soal) => (soal.id = ans))?.tpId as string) ?? '';
+    $nilaiFormData.studentId = $formData.studentId ?? '';
+    $nilaiFormData.nilai = parseInt(score ?? 0);
   }
 
   const form = superForm(data.imageForm, {
@@ -78,13 +83,14 @@
     }
   });
 
-  $: selectedStudent = $formData.studentId
-    ? {
-        label: data.studentData.find((student) => student.studentId == $formData.studentId)
-          ?.studentName,
-        value: $formData.studentId
-      }
-    : undefined;
+  let open = false;
+
+  function closeAndFocusTrigger(triggerId: string) {
+    open = false;
+    tick().then(() => {
+      document.getElementById(triggerId)?.focus();
+    });
+  }
 
   const { form: formData, enhance, submitting } = form;
   const { form: nilaiFormData, enhance: nilaiEnhance, submitting: nilaiSubmitting } = nilaiForm;
@@ -121,30 +127,53 @@
         <Form.FieldErrors />
       </Form.Field>
 
-      <Form.Field {form} name="studentId">
-        <Form.Control let:attrs>
-          <Form.Label>Pilih Siswa</Form.Label>
-          <Select.Root
-            selected={selectedStudent}
-            onSelectedChange={(v) => {
-              v && ($formData.studentId = v.value);
-            }}
-          >
-            <Select.Trigger {...attrs}>
-              <Select.Value placeholder="Pilih siswa" />
-            </Select.Trigger>
-            <Select.Content>
-              {#if data.studentData.length}
-                {#each data.studentData as student (student.studentId)}
-                  <Select.Item value={student.studentId} label={student.studentName} />
-                {/each}
-              {:else}
-                <Select.Item value="" label="Siswa tidak ada" disabled />
-              {/if}
-            </Select.Content>
-          </Select.Root>
-          <input hidden bind:value={$formData.studentId} name={attrs.name} />
-        </Form.Control>
+      <Form.Field {form} name="studentId" class="mt-4 flex flex-col gap-1">
+        <Popover.Root bind:open let:ids>
+          <Form.Control let:attrs>
+            <Form.Label>Pilih Siswa</Form.Label>
+            <Popover.Trigger
+              class={cn(
+                buttonVariants({ variant: 'outline' }),
+                'w-[300px] justify-between',
+                !$formData.studentId && 'text-muted-foreground'
+              )}
+              role="combobox"
+              {...attrs}
+            >
+              {data.studentData.find((f) => f.studentId === $formData.studentId)?.studentName ??
+                'Pilih siswa...'}
+              <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Popover.Trigger>
+            <input hidden bind:value={$formData.studentId} name={attrs.name} />
+          </Form.Control>
+          <Popover.Content class="w-[300px] p-0">
+            <Command.Root>
+              <Command.Input autofocus placeholder="Cari siswa..." class="h-9" />
+              <Command.Empty>Siswa belum ada</Command.Empty>
+              <Command.Group>
+                <ScrollArea class="h-[200px]">
+                  {#each data.studentData as student}
+                    <Command.Item
+                      value={student.studentName}
+                      onSelect={() => {
+                        $formData.studentId = student.studentId;
+                        closeAndFocusTrigger(ids.trigger);
+                      }}
+                    >
+                      {student.studentName}
+                      <Check
+                        class={cn(
+                          'ml-auto h-4 w-4',
+                          student.studentId !== $formData.studentId && 'text-transparent'
+                        )}
+                      />
+                    </Command.Item>
+                  {/each}
+                </ScrollArea>
+              </Command.Group>
+            </Command.Root>
+          </Popover.Content>
+        </Popover.Root>
         <Form.FieldErrors />
       </Form.Field>
 
@@ -160,7 +189,11 @@
           </Select.Trigger>
           <Select.Content>
             {#each data.soalData as soal}
-              <Select.Item value={soal.answer}>{soal.soal}</Select.Item>
+              <Select.Item value={soal.answer}>
+                <div class="truncate">
+                  {soal.soal}
+                </div>
+              </Select.Item>
             {/each}
           </Select.Content>
         </Select.Root>

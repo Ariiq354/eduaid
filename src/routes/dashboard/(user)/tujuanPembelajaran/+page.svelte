@@ -18,10 +18,10 @@
   <div class="grid grid-cols-3 gap-4">
     {#each data.cpData as cp (cp.cpId)}
       <a
-        class="flex w-full items-center justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
+        class="flex flex-col items-center justify-between gap-2 rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
         href={`/dashboard/tujuanPembelajaran/${cp.cpId}`}
       >
-        <div class="border-b border-white pb-2">{cp.subjectName}</div>
+        <div class="w-full border-b border-white pb-2">{cp.subjectName}</div>
         <div class="flex h-full w-full flex-col justify-between gap-2">
           <div>{cp.capaianPembelajaran}</div>
           <div class="flex gap-2">

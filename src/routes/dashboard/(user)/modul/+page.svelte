@@ -18,10 +18,10 @@
   <div class="grid grid-cols-3 gap-4">
     {#each data.tpData as tp (tp.tpId)}
       <a
-        class="flex w-full items-center justify-between rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
+        class="flex flex-col items-center justify-between gap-2 rounded-md bg-primary p-4 text-primary-foreground shadow-md hover:shadow-lg"
         href={`/dashboard/modul/${tp.tpId}`}
       >
-        <div class="border-b border-white pb-2">{tp.subjectName}</div>
+        <div class="w-full border-b border-white pb-2">{tp.subjectName}</div>
         <div class="flex h-full w-full flex-col justify-between gap-2">
           <div>{tp.tpName}</div>
           <div class="flex gap-2">
