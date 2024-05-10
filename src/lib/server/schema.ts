@@ -137,8 +137,8 @@ export const modulTable = sqliteTable('modul', {
 
 export const imagesTable = sqliteTable('images', {
   id: text('id').notNull().primaryKey(),
-  userId: text('user_id').notNull(),
-  studentId: text('student_id').notNull(),
+  userId: text('user_id').references(() => userTable.id, { onDelete: 'set null' }),
+  studentId: text('student_id').references(() => studentTable.id, { onDelete: 'set null' }),
   link: text('link').notNull(),
   name: text('name').notNull(),
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
