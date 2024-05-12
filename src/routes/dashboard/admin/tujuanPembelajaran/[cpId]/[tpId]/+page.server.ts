@@ -1,11 +1,11 @@
 import { db } from '$lib/server';
-import { cpTable, tpTable } from '$lib/server/schema';
+import { cpTable, tpTable, userTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import { generateId } from 'lucia';
+import { generateIdFromEntropySize } from 'lucia';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import type { PageServerLoad, Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { formSchema } from './schema';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -16,7 +16,18 @@ export const load: PageServerLoad = async ({ params }) => {
     where: eq(cpTable.id, cpId),
     columns: {
       capaianPembelajaran: true
+    },
+    with: {
+      subject: {
+        columns: {
+          subjectName: true
+        }
+      }
     }
+  });
+
+  const teacher = await db.query.userTable.findMany({
+    where: eq(userTable.status, 2)
   });
 
   const data = await db.query.tpTable.findFirst({
@@ -26,7 +37,8 @@ export const load: PageServerLoad = async ({ params }) => {
   return {
     form: await superValidate(data, zod(formSchema)),
     cpId,
-    cp
+    cp,
+    teacher
   };
 };
 
@@ -40,7 +52,7 @@ export const actions: Actions = {
     }
 
     if (!form.data.id) {
-      form.data.id = generateId(15);
+      form.data.id = generateIdFromEntropySize(10);
     }
 
     await db
@@ -48,13 +60,14 @@ export const actions: Actions = {
       .values({
         id: form.data.id,
         cpId: event.params.cpId,
-        userId: event.locals.user!.id,
+        userId: form.data.userId,
         tujuanPembelajaran: form.data.tujuanPembelajaran
       })
       .onConflictDoUpdate({
         target: tpTable.id,
         set: {
-          tujuanPembelajaran: form.data.tujuanPembelajaran
+          tujuanPembelajaran: form.data.tujuanPembelajaran,
+          userId: form.data.userId
         }
       });
 

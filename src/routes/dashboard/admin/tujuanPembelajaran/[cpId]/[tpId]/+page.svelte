@@ -1,19 +1,22 @@
 <script lang="ts">
-  import type { PageData } from './$types';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { Button, buttonVariants } from '$lib/components/ui/button';
+  import * as Popover from '$lib/components/ui/popover';
+  import * as Command from '$lib/components/ui/command';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
-  import * as Select from '$lib/components/ui/select';
-  import SuperDebug, { superForm } from 'sveltekit-superforms';
-  import { zodClient } from 'sveltekit-superforms/adapters';
-  import { toast } from 'svelte-sonner';
-  import { formSchema } from './schema';
-  import { goto } from '$app/navigation';
-  import { ArrowLeft, Loader2 } from 'lucide-svelte';
-  import { Button } from '$lib/components/ui/button';
-  import { useChat } from 'ai/svelte';
-  import { page } from '$app/stores';
-  import { Textarea } from '$lib/components/ui/textarea';
   import { ScrollArea } from '$lib/components/ui/scroll-area';
+  import { Textarea } from '$lib/components/ui/textarea';
+  import { useChat } from 'ai/svelte';
+  import { ArrowLeft, Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
+  import { toast } from 'svelte-sonner';
+  import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
+  import type { PageData } from './$types';
+  import { formSchema } from './schema';
+  import { tick } from 'svelte';
+  import { cn } from '$lib/utils';
 
   let currentRoute = $page.url.pathname;
 
@@ -39,6 +42,15 @@
   });
 
   const { form: formData, enhance, submitting } = form;
+
+  let open = false;
+
+  function closeAndFocusTrigger(triggerId: string) {
+    open = false;
+    tick().then(() => {
+      document.getElementById(triggerId)?.focus();
+    });
+  }
 </script>
 
 {#if data.cp}
@@ -62,7 +74,10 @@
     <hr />
 
     <div class="text-muted-primary rounded-md border bg-primary/20 px-4 py-2 shadow-md">
-      Capaian Pembelajaran: {data.cp.capaianPembelajaran}
+      <p>Pelajaran: {data.cp.subject.subjectName}</p>
+      <p>
+        Capaian Pembelajaran: {data.cp.capaianPembelajaran}
+      </p>
     </div>
 
     <!-- Chat & Input -->
@@ -118,22 +133,77 @@
       </div>
 
       <!-- Input Interface -->
-      <div class="flex w-4/12 flex-col rounded-md border p-4 shadow-md">
-        <form method="POST" use:enhance>
-          <Form.Field {form} name="id">
-            <Form.Control let:attrs>
-              <input hidden name={attrs.name} bind:value={$formData.id} />
-            </Form.Control>
-          </Form.Field>
+      <div class="w-4/12 rounded-md border p-4 shadow-md">
+        <form method="POST" class="flex h-full flex-col justify-between" use:enhance>
+          <div>
+            <Form.Field {form} name="id">
+              <Form.Control let:attrs>
+                <input hidden name={attrs.name} bind:value={$formData.id} />
+              </Form.Control>
+            </Form.Field>
 
-          <Form.Field {form} name="tujuanPembelajaran">
-            <Form.Control let:attrs>
-              <Form.Label>Tujuan Pembelajaran</Form.Label>
-              <Textarea rows={10} {...attrs} bind:value={$formData.tujuanPembelajaran} />
-            </Form.Control>
-            <Form.FieldErrors />
-          </Form.Field>
-          <Form.Button disabled={$submitting} class="mt-4">
+            <Form.Field {form} name="tujuanPembelajaran">
+              <Form.Control let:attrs>
+                <Form.Label>Tujuan Pembelajaran</Form.Label>
+                <Textarea
+                  rows={10}
+                  class="resize-none"
+                  {...attrs}
+                  bind:value={$formData.tujuanPembelajaran}
+                />
+              </Form.Control>
+              <Form.FieldErrors />
+            </Form.Field>
+
+            <Form.Field {form} name="userId" class="mt-4 flex flex-col gap-1">
+              <Popover.Root bind:open let:ids>
+                <Form.Control let:attrs>
+                  <Form.Label>Wali Kelas</Form.Label>
+                  <Popover.Trigger
+                    class={cn(
+                      buttonVariants({ variant: 'outline' }),
+                      'w-[200px] justify-between',
+                      !$formData.userId && 'text-muted-foreground'
+                    )}
+                    role="combobox"
+                    {...attrs}
+                  >
+                    {data.teacher.find((f) => f.id === $formData.userId)?.username ??
+                      'Pilih Wali Kelas...'}
+                    <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Popover.Trigger>
+                  <input hidden bind:value={$formData.userId} name={attrs.name} />
+                </Form.Control>
+                <Popover.Content class="w-[200px] p-0">
+                  <Command.Root>
+                    <Command.Input autofocus placeholder="Cari guru..." class="h-9" />
+                    <Command.Empty>Guru belum ada</Command.Empty>
+                    <Command.Group>
+                      {#each data.teacher as teacher}
+                        <Command.Item
+                          value={teacher.username}
+                          onSelect={() => {
+                            $formData.userId = teacher.id;
+                            closeAndFocusTrigger(ids.trigger);
+                          }}
+                        >
+                          {teacher.username}
+                          <Check
+                            class={cn(
+                              'ml-auto h-4 w-4',
+                              teacher.id !== $formData.userId && 'text-transparent'
+                            )}
+                          />
+                        </Command.Item>
+                      {/each}
+                    </Command.Group>
+                  </Command.Root>
+                </Popover.Content>
+              </Popover.Root>
+              <Form.FieldErrors />
+            </Form.Field>
+          </div>
+          <Form.Button disabled={$submitting} class="mt-4 w-fit">
             {#if $submitting}
               <Loader2 class="mr-2 h-4 w-4 animate-spin" />
             {/if}

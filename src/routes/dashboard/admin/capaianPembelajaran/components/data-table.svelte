@@ -23,7 +23,7 @@
 
   const table = createTable(tableData, {
     page: addPagination({
-      initialPageSize: 5
+      initialPageSize: 10
     }),
     sort: addSortBy(),
     filter: addTableFilter({

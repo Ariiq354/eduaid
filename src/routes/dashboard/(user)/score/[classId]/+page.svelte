@@ -27,7 +27,7 @@
         <div class="flex gap-2">
           <BookMarked />
           {#if studentData.average}
-            {studentData.average}
+            {parseFloat(studentData.average).toFixed(2).toString()}
           {:else}
             0
           {/if}

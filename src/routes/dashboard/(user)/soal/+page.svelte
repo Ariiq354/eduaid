@@ -1,66 +1,25 @@
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input';
   import { Button } from '$lib/components/ui/button';
-  import { useChat } from 'ai/svelte';
-  import { page } from '$app/stores';
+  import { ArrowLeft, BotMessageSquare, Plus } from 'lucide-svelte';
+  import type { PageData } from './$types';
+  import DataTable from './components/data-table.svelte';
 
-  let currentRoute = $page.url.pathname;
-  
-  const { messages, handleSubmit, input } = useChat({
-    api: currentRoute
-  });
+  export let data: PageData;
 </script>
 
- 
-  <!-- Title -->
+<div class="flex flex-col gap-4">
   <div class="flex items-center justify-between">
-    <div>
-      <h1 class="text-3xl font-bold">Asisten Ai</h1>
-      <p>Buat Soal dengan bantuan Ai</p>
+    <div class="flex flex-col gap-1">
+      <h1 class="text-3xl font-bold">Soal</h1>
+      <p>Tabel Daftar Soal</p>
     </div>
-    <Button variant="ghost" href="/dashboard/tujuanPembelajaran">Kembali</Button>
+    <div class="flex flex-row gap-4">
+      <Button href={`/dashboard/soal/new`} variant="outline" class="p-2 shadow-lg">
+        <Plus />
+      </Button>
+    </div>
   </div>
- 
-  <!-- Line -->
+
   <hr />
-  
-  <!-- Chat & Input -->
-  <div class="flex min-h-[640px] flex-col justify-between gap-4">
-      <!--  Chat -->
-      <ul class="flex flex-col px-4 py-8">
-        <li class="self-start text-left">
-          <div class="font-bold text-slate-600">Asisten Ai</div>
-          <div class="w-full max-w-3xl rounded-r-md rounded-t-md bg-slate-600 px-4 py-2 text-white">
-            Halo, saya Edu Ai. Saya akan membantu Anda membuat Soal. Berikan saja Topik
-            yang ingin Anda pilih, dan saya akan menghasilkan daftar soal untuk Anda. Pastikan Anda
-            mengecek ulang fakta dan pilihan jawaban yang saya berikan.
-          </div>
-        </li>
-  
-        {#each $messages as message}
-          {#if message.role === 'user'}
-            <li class="self-end text-right">
-              <div class="font-bold text-primary">{message.role}</div>
-              <div class="w-full max-w-3xl rounded-l-md rounded-t-md bg-primary px-4 py-2 text-white">
-                {message.content}
-              </div>
-            </li>
-          {:else}
-            <li class="self-start text-left">
-              <div class="font-bold text-slate-600">Asisten Ai</div>
-              <div
-                class="w-full max-w-3xl rounded-r-md rounded-t-md bg-slate-600 px-4 py-2 text-white"
-              >
-                {message.content}
-              </div>
-            </li>
-          {/if}
-        {/each}
-      </ul>
-    <!-- Input -->
-    <form on:submit={handleSubmit} class="flex w-full gap-4 px-4">
-      <Input bind:value={$input} class="h-full" />
-      <Button type="submit" class="h-full">Send</Button>
-    </form>
-  </div>
-  
+  <DataTable data={data.soalData} />
+</div>

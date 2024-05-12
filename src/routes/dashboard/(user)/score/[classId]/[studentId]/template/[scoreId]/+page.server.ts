@@ -1,13 +1,19 @@
 import { db } from '$lib/server';
 import { cpTable, nilaiTable, studentTable, subjectTable, tpTable } from '$lib/server/schema';
-import { avg, eq } from 'drizzle-orm';
+import { avg, eq, max, min, sql } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
   const scoreData = await db
     .select({
       subjectName: subjectTable.subjectName,
-      averageScore: avg(nilaiTable.nilai)
+      q1: subjectTable.minimum,
+      q2: subjectTable.medium,
+      averageScore: avg(nilaiTable.nilai),
+      maxScore: max(nilaiTable.nilai),
+      minScore: min(nilaiTable.nilai),
+      maxTp: max(tpTable.tujuanPembelajaran),
+      minTp: min(tpTable.tujuanPembelajaran)
     })
     .from(nilaiTable)
     .leftJoin(studentTable, eq(nilaiTable.studentId, studentTable.id))

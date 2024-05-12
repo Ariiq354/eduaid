@@ -9,7 +9,7 @@ import {
 } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { and, eq, isNotNull, ne, sql } from 'drizzle-orm';
-import { generateId } from 'lucia';
+import { generateIdFromEntropySize } from 'lucia';
 import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
@@ -31,29 +31,13 @@ export const load: PageServerLoad = async ({ params, locals }) => {
     }
   });
 
-  const sq = db
-    .select({
-      phase: sql<number>`CASE
-    WHEN batch IN (1, 2) THEN 1
-    WHEN batch IN (3, 4) THEN 2
-    WHEN batch IN (5, 6) THEN 3
-    ELSE NULL
-    END `.as('phasecolumn')
-    })
-    .from(classTable)
-    .where(eq(classTable.userId, locals.user!.id))
-    .as('sq');
-
   const tpData = await db
     .select({
       tpId: tpTable.id,
       tpName: tpTable.tujuanPembelajaran
     })
     .from(tpTable)
-    .where(and(eq(tpTable.userId, locals.user!.id), isNotNull(sq.phase)))
-    .leftJoin(cpTable, eq(tpTable.cpId, cpTable.id))
-    .leftJoin(subjectTable, eq(cpTable.subjectId, subjectTable.id))
-    .leftJoin(sq, eq(subjectTable.phase, sq.phase));
+    .where(eq(tpTable.userId, locals.user!.id));
 
   return {
     form: await superValidate(data, zod(formSchema)),
@@ -74,7 +58,7 @@ export const actions: Actions = {
     }
 
     if (!form.data.id) {
-      form.data.id = generateId(15);
+      form.data.id = generateIdFromEntropySize(10);
     }
 
     const exist = await db.query.nilaiTable.findFirst({

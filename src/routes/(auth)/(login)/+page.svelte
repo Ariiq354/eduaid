@@ -19,7 +19,7 @@
     async onUpdate({ form }) {
       if (form.valid) {
         toast.success('Login sukses');
-        await goto('/dashboard/score');
+        await goto('/dashboard');
       }
     },
 

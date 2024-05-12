@@ -1,9 +1,10 @@
 <script lang="ts">
-  import '../app.pcss';
   import { Toaster } from '$lib/components/ui/sonner';
   import { ModeWatcher } from 'mode-watcher';
+  import '../app.pcss';
 </script>
 
 <ModeWatcher />
 <Toaster richColors />
+
 <slot />

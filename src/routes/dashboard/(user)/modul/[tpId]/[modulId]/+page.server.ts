@@ -2,10 +2,10 @@ import { db } from '$lib/server';
 import { modulTable, tpTable } from '$lib/server/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import { generateId } from 'lucia';
+import { generateIdFromEntropySize } from 'lucia';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import type { PageServerLoad, Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { formSchema } from './schema';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -16,6 +16,17 @@ export const load: PageServerLoad = async ({ params }) => {
     where: eq(tpTable.id, tpId),
     columns: {
       tujuanPembelajaran: true
+    },
+    with: {
+      cp: {
+        with: {
+          subject: {
+            columns: {
+              subjectName: true
+            }
+          }
+        }
+      }
     }
   });
 
@@ -40,7 +51,7 @@ export const actions: Actions = {
     }
 
     if (!form.data.id) {
-      form.data.id = generateId(15);
+      form.data.id = generateIdFromEntropySize(10);
     }
 
     await db

@@ -13,13 +13,6 @@ export const userTable = sqliteTable('user', {
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
-export const usersRelations = relations(userTable, ({ many }) => ({
-  class: many(classTable),
-  tp: many(tpTable)
-}));
-
-export type selectUser = typeof userTable.$inferSelect;
-
 export const sessionTable = sqliteTable('session', {
   id: text('id').notNull().primaryKey(),
   userId: text('user_id')
@@ -40,16 +33,6 @@ export const classTable = sqliteTable('class', {
     .default(sql`(CURRENT_TIMESTAMP)`)
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
-
-export const classRelations = relations(classTable, ({ one, many }) => ({
-  students: many(studentTable),
-  teacher: one(userTable, {
-    fields: [classTable.userId],
-    references: [userTable.id]
-  })
-}));
-
-export type selectClass = typeof classTable.$inferSelect;
 
 export const studentTable = sqliteTable('student', {
   id: text('id').notNull().primaryKey(),
@@ -83,16 +66,6 @@ export const studentTable = sqliteTable('student', {
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
-export const studentRelations = relations(studentTable, ({ one, many }) => ({
-  class: one(classTable, {
-    fields: [studentTable.classId],
-    references: [classTable.id]
-  }),
-  nilai: many(nilaiTable)
-}));
-
-export type selectStudent = typeof studentTable.$inferSelect;
-
 export const subjectTable = sqliteTable('subject', {
   id: text('id').notNull().primaryKey(),
   subjectName: text('subject_name').notNull(),
@@ -105,31 +78,17 @@ export const subjectTable = sqliteTable('subject', {
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
-export type selectSubject = typeof subjectTable.$inferSelect;
-
-export const pelajaranRelations = relations(subjectTable, ({ many }) => ({
-  capaianPembelajaran: many(cpTable)
-}));
-
 export const cpTable = sqliteTable('capainPembelajaran', {
   id: text('id').notNull().primaryKey(),
-  subjectId: text('subject_id').references(() => subjectTable.id, { onDelete: 'set null' }),
+  subjectId: text('subject_id')
+    .notNull()
+    .references(() => subjectTable.id, { onDelete: 'set null' }),
   capaianPembelajaran: text('capaian_pembelajaran').notNull(),
   createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
   updatedAt: text('updated_at')
     .default(sql`(CURRENT_TIMESTAMP)`)
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
-
-export type selectCp = typeof cpTable.$inferSelect;
-
-export const cpRelations = relations(cpTable, ({ one, many }) => ({
-  subject: one(subjectTable, {
-    fields: [cpTable.subjectId],
-    references: [subjectTable.id]
-  }),
-  tp: many(tpTable)
-}));
 
 export const tpTable = sqliteTable('tujuanPembelajaran', {
   id: text('id').notNull().primaryKey(),
@@ -146,20 +105,6 @@ export const tpTable = sqliteTable('tujuanPembelajaran', {
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
-export const tpRelations = relations(tpTable, ({ one, many }) => ({
-  cp: one(cpTable, {
-    fields: [tpTable.cpId],
-    references: [cpTable.id]
-  }),
-  teacher: one(userTable, {
-    fields: [tpTable.userId],
-    references: [userTable.id]
-  }),
-  modul: many(modulTable)
-}));
-
-export type selectTP = typeof tpTable.$inferSelect;
-
 export const nilaiTable = sqliteTable('nilai', {
   id: text('id').notNull().primaryKey(),
   tpId: text('tp_id')
@@ -174,17 +119,6 @@ export const nilaiTable = sqliteTable('nilai', {
     .default(sql`(CURRENT_TIMESTAMP)`)
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
-
-export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
-  tp: one(tpTable, {
-    fields: [nilaiTable.tpId],
-    references: [tpTable.id]
-  }),
-  student: one(studentTable, {
-    fields: [nilaiTable.studentId],
-    references: [studentTable.id]
-  })
-}));
 
 export const modulTable = sqliteTable('modul', {
   id: text('id').notNull().primaryKey(),
@@ -201,6 +135,103 @@ export const modulTable = sqliteTable('modul', {
     .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
 });
 
+export const imagesTable = sqliteTable('images', {
+  id: text('id').notNull().primaryKey(),
+  userId: text('user_id').references(() => userTable.id, { onDelete: 'set null' }),
+  studentId: text('student_id').references(() => studentTable.id, { onDelete: 'set null' }),
+  link: text('link').notNull(),
+  name: text('name').notNull(),
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: text('updated_at')
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+});
+
+export const soalTable = sqliteTable('soal', {
+  id: text('id').notNull().primaryKey(),
+  soal: text('link').notNull(),
+  answer: text('answer').notNull(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => userTable.id, { onDelete: 'cascade' }),
+  tpId: text('tp_id')
+    .notNull()
+    .references(() => tpTable.id, { onDelete: 'cascade' }),
+  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: text('updated_at')
+    .default(sql`(CURRENT_TIMESTAMP)`)
+    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
+});
+
+// Relations
+export const usersRelations = relations(userTable, ({ many }) => ({
+  class: many(classTable),
+  tp: many(tpTable),
+  modul: many(modulTable),
+  soal: many(soalTable),
+  images: many(imagesTable)
+}));
+
+export const classRelations = relations(classTable, ({ one, many }) => ({
+  students: many(studentTable),
+  teacher: one(userTable, {
+    fields: [classTable.userId],
+    references: [userTable.id]
+  })
+}));
+
+export const studentRelations = relations(studentTable, ({ one, many }) => ({
+  class: one(classTable, {
+    fields: [studentTable.classId],
+    references: [classTable.id]
+  }),
+  nilai: many(nilaiTable),
+  images: many(imagesTable)
+}));
+
+export const pelajaranRelations = relations(subjectTable, ({ many }) => ({
+  capaianPembelajaran: many(cpTable)
+}));
+
+export const cpRelations = relations(cpTable, ({ one, many }) => ({
+  subject: one(subjectTable, {
+    fields: [cpTable.subjectId],
+    references: [subjectTable.id]
+  }),
+  tp: many(tpTable)
+}));
+
+export const tpRelations = relations(tpTable, ({ one, many }) => ({
+  cp: one(cpTable, {
+    fields: [tpTable.cpId],
+    references: [cpTable.id]
+  }),
+  teacher: one(userTable, {
+    fields: [tpTable.userId],
+    references: [userTable.id]
+  }),
+  modul: many(modulTable),
+  nilai: one(nilaiTable, {
+    fields: [tpTable.id],
+    references: [nilaiTable.tpId]
+  }),
+  soal: one(soalTable, {
+    fields: [tpTable.id],
+    references: [soalTable.tpId]
+  })
+}));
+
+export const nilaiRelations = relations(nilaiTable, ({ one }) => ({
+  tp: one(tpTable, {
+    fields: [nilaiTable.tpId],
+    references: [tpTable.id]
+  }),
+  student: one(studentTable, {
+    fields: [nilaiTable.studentId],
+    references: [studentTable.id]
+  })
+}));
+
 export const modulRelations = relations(modulTable, ({ one }) => ({
   tp: one(tpTable, {
     fields: [modulTable.tpId],
@@ -212,15 +243,31 @@ export const modulRelations = relations(modulTable, ({ one }) => ({
   })
 }));
 
+export const soalRelations = relations(soalTable, ({ one }) => ({
+  tp: one(tpTable, {
+    fields: [soalTable.tpId],
+    references: [tpTable.id]
+  }),
+  teacher: one(userTable, {
+    fields: [soalTable.userId],
+    references: [userTable.id]
+  })
+}));
+
+// Type exports
+
+export type selectUser = typeof userTable.$inferSelect;
+
+export type selectClass = typeof classTable.$inferSelect;
+
+export type selectStudent = typeof studentTable.$inferSelect;
+
+export type selectSubject = typeof subjectTable.$inferSelect;
+
+export type selectCp = typeof cpTable.$inferSelect;
+
+export type selectTP = typeof tpTable.$inferSelect;
+
 export type selectmodul = typeof modulTable.$inferSelect;
 
-export const imagesTable = sqliteTable('images', {
-  id: text('id').notNull().primaryKey(),
-  link: text('link').notNull().unique(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`),
-  updatedAt: text('updated_at')
-    .default(sql`(CURRENT_TIMESTAMP)`)
-    .$onUpdate(() => sql`(CURRENT_TIMESTAMP)`)
-});
-
-export type selectImages = typeof imagesTable.$inferSelect;
+export type selectSoal = typeof soalTable.$inferSelect;

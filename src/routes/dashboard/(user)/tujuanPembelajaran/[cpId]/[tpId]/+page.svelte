@@ -61,7 +61,10 @@
     <hr />
 
     <div class="text-muted-primary rounded-md border bg-primary/20 px-4 py-2 shadow-md">
-      Capaian Pembelajaran: {data.cp.capaianPembelajaran}
+      <p>Pelajaran: {data.cp.subject.subjectName}</p>
+      <p>
+        Capaian Pembelajaran: {data.cp.capaianPembelajaran}
+      </p>
     </div>
 
     <!-- Chat & Input -->
@@ -117,21 +120,28 @@
       </div>
 
       <!-- Input Interface -->
-      <div class="flex w-4/12 flex-col rounded-md border p-4 shadow-md">
-        <form method="POST" use:enhance>
-          <Form.Field {form} name="id">
-            <Form.Control let:attrs>
-              <input hidden name={attrs.name} bind:value={$formData.id} />
-            </Form.Control>
-          </Form.Field>
+      <div class="w-4/12 rounded-md border p-4 shadow-md">
+        <form method="POST" class="flex h-full flex-col justify-between" use:enhance>
+          <div>
+            <Form.Field {form} name="id">
+              <Form.Control let:attrs>
+                <input hidden name={attrs.name} bind:value={$formData.id} />
+              </Form.Control>
+            </Form.Field>
 
-          <Form.Field {form} name="tujuanPembelajaran">
-            <Form.Control let:attrs>
-              <Form.Label>Tujuan Pembelajaran</Form.Label>
-              <Textarea rows={10} {...attrs} bind:value={$formData.tujuanPembelajaran} />
-            </Form.Control>
-            <Form.FieldErrors />
-          </Form.Field>
+            <Form.Field {form} name="tujuanPembelajaran">
+              <Form.Control let:attrs>
+                <Form.Label>Tujuan Pembelajaran</Form.Label>
+                <Textarea
+                  rows={10}
+                  class="resize-none"
+                  {...attrs}
+                  bind:value={$formData.tujuanPembelajaran}
+                />
+              </Form.Control>
+              <Form.FieldErrors />
+            </Form.Field>
+          </div>
           <Form.Button disabled={$submitting} class="mt-4">
             {#if $submitting}
               <Loader2 class="mr-2 h-4 w-4 animate-spin" />
