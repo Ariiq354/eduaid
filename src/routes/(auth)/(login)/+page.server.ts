@@ -1,11 +1,11 @@
 import type { Actions, PageServerLoad } from './$types';
-import { superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
-import { zod } from 'sveltekit-superforms/adapters';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { Argon2id } from 'oslo/password';
 import { db } from '$lib/server';
 import { lucia } from '$lib/server/auth';
+import { superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async (event) => {
   if (event.locals.user) redirect(302, '/dashboard');

@@ -39,13 +39,6 @@
       document.getElementById(triggerId)?.focus();
     });
   }
-
-  $: selectedBatch = $formData.batch.toString()
-    ? {
-        label: $formData.batch.toString(),
-        value: $formData.batch.toString()
-      }
-    : undefined;
 </script>
 
 <div class="flex flex-col gap-4">
@@ -81,9 +74,8 @@
       <Form.Control let:attrs>
         <Form.Label>Tingkat Kelas</Form.Label>
         <Select.Root
-          selected={selectedBatch}
           onSelectedChange={(v) => {
-            v && ($formData.batch = parseInt(v.value));
+            v && ($formData.batch = parseInt(String(v.value)));
           }}
         >
           <Select.Trigger {...attrs}>
