@@ -5,7 +5,7 @@
   export let data: PageData;
 </script>
 
-<div class="grid grid-cols-3 gap-4 px-12 text-white">
+<div class="grid grid-cols-1 gap-4 px-12 text-white lg:grid-cols-3">
   <div class="relative w-full bg-green-600 shadow-lg">
     <div class="flex flex-col px-4 pb-8 pt-4">
       <h1 class="text-3xl font-semibold">

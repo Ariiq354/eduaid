@@ -69,7 +69,7 @@
     </Form.Field>
 
     <h1 class="mb-2 text-xl">Identitas siswa</h1>
-    <div class="flex gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
       <Form.Field {form} name="noInduk" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>No Induk</Form.Label>
@@ -85,7 +85,7 @@
         <Form.FieldErrors />
       </Form.Field>
     </div>
-    <div class="flex gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
       <Form.Field {form} name="studentName" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Nama Lengkap</Form.Label>
@@ -101,7 +101,7 @@
         <Form.FieldErrors />
       </Form.Field>
     </div>
-    <div class="flex gap-12">
+    <div class="grid gap-x-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <Form.Field {form} name="gender" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Jenis Kelamin</Form.Label>
@@ -138,7 +138,7 @@
         <Form.FieldErrors />
       </Form.Field>
     </div>
-    <div class="mt-2 flex gap-12">
+    <div class="mt-2 grid gap-x-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <Form.Field {form} name="tempatLahir" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Tempat Lahir</Form.Label>
@@ -190,7 +190,7 @@
     </Form.Field>
 
     <h1 class="mb-2 mt-12 text-xl">Identitas Orang Tua</h1>
-    <div class="flex gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
       <Form.Field {form} name="namaAyah" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Nama Ayah</Form.Label>
@@ -206,7 +206,7 @@
         <Form.FieldErrors />
       </Form.Field>
     </div>
-    <div class="flex gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
       <Form.Field {form} name="namaIbu" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Nama Ibu</Form.Label>
@@ -229,7 +229,7 @@
       </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
-    <div class="flex gap-12">
+    <div class="grid gap-x-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
       <Form.Field {form} name="provinsi" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Provinsi</Form.Label>
@@ -268,7 +268,7 @@
     </Form.Field>
 
     <h1 class="mb-2 mt-12 text-xl">Identitas Wali</h1>
-    <div class="flex gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:gap-12">
       <Form.Field {form} name="namaWali" class="w-full">
         <Form.Control let:attrs>
           <Form.Label>Nama Wali</Form.Label>

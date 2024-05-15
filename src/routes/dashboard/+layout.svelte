@@ -9,7 +9,7 @@
 <div class="flex">
   <Sidebar role={data.user.role} status={data.user.status} />
   <div class="flex flex-1 flex-col bg-background">
-    <Topbar />
+    <Topbar status={data.user.status} role={data.user.role} />
     <div class="container h-full w-full py-8">
       <slot />
     </div>

@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { ArrowRight, ChevronRight, CircleArrowRight, School, User, User2 } from 'lucide-svelte';
+  import { CircleArrowRight } from 'lucide-svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
 </script>
 
-<div class="grid grid-cols-3 gap-4 px-12 text-white">
+<div class="grid grid-cols-1 gap-4 px-12 text-white lg:grid-cols-3">
   <div class="relative w-full bg-blue-600 shadow-lg">
     <div class="flex flex-col px-4 pb-8 pt-4">
       <h1 class="text-3xl font-semibold">

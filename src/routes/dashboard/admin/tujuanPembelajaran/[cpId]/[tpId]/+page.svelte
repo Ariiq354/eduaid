@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { Button, buttonVariants } from '$lib/components/ui/button';
+  import * as Combobox from '$lib/components/ui/combobox';
   import * as Popover from '$lib/components/ui/popover';
   import * as Command from '$lib/components/ui/command';
   import * as Form from '$lib/components/ui/form';
@@ -43,14 +44,19 @@
 
   const { form: formData, enhance, submitting } = form;
 
-  let open = false;
+  let inputValue = '';
+  let touchedInput = false;
 
-  function closeAndFocusTrigger(triggerId: string) {
-    open = false;
-    tick().then(() => {
-      document.getElementById(triggerId)?.focus();
-    });
-  }
+  $: filteredItems =
+    inputValue && touchedInput
+      ? data.teacher.filter((i) => i.username.toLowerCase().includes(inputValue.toLowerCase()))
+      : data.teacher;
+  $: selectedTeacher = $formData.userId
+    ? {
+        label: data.teacher.find((i) => i.id == $formData.userId)?.username,
+        value: $formData.userId
+      }
+    : undefined;
 </script>
 
 {#if data.cp}
@@ -81,11 +87,11 @@
     </div>
 
     <!-- Chat & Input -->
-    <div class="flex h-[480px] flex-row gap-4">
+    <div class="flex h-fit flex-col gap-4 lg:flex-row">
       <!-- Chat Interface -->
-      <div class="flex w-8/12 flex-col justify-between rounded-md border shadow-md">
+      <div class="flex w-full flex-col justify-between rounded-md border shadow-md lg:w-8/12">
         <!--  Chat -->
-        <ScrollArea>
+        <ScrollArea class="h-96">
           <ul class="flex flex-col gap-2 p-4">
             <li class="self-start text-left">
               <div class="font-bold text-foreground">Asisten Ai</div>
@@ -133,7 +139,7 @@
       </div>
 
       <!-- Input Interface -->
-      <div class="w-4/12 rounded-md border p-4 shadow-md">
+      <div class="w-full rounded-md border p-4 shadow-md lg:w-4/12">
         <form method="POST" class="flex h-full flex-col justify-between" use:enhance>
           <div>
             <Form.Field {form} name="id">
@@ -156,50 +162,34 @@
             </Form.Field>
 
             <Form.Field {form} name="userId" class="mt-4 flex flex-col gap-1">
-              <Popover.Root bind:open let:ids>
-                <Form.Control let:attrs>
-                  <Form.Label>Wali Kelas</Form.Label>
-                  <Popover.Trigger
-                    class={cn(
-                      buttonVariants({ variant: 'outline' }),
-                      'w-[200px] justify-between',
-                      !$formData.userId && 'text-muted-foreground'
-                    )}
-                    role="combobox"
-                    {...attrs}
-                  >
-                    {data.teacher.find((f) => f.id === $formData.userId)?.username ??
-                      'Pilih Wali Kelas...'}
-                    <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Popover.Trigger>
-                  <input hidden bind:value={$formData.userId} name={attrs.name} />
-                </Form.Control>
-                <Popover.Content class="w-[200px] p-0">
-                  <Command.Root>
-                    <Command.Input autofocus placeholder="Cari guru..." class="h-9" />
-                    <Command.Empty>Guru belum ada</Command.Empty>
-                    <Command.Group>
-                      {#each data.teacher as teacher}
-                        <Command.Item
-                          value={teacher.username}
-                          onSelect={() => {
-                            $formData.userId = teacher.id;
-                            closeAndFocusTrigger(ids.trigger);
-                          }}
-                        >
-                          {teacher.username}
-                          <Check
-                            class={cn(
-                              'ml-auto h-4 w-4',
-                              teacher.id !== $formData.userId && 'text-transparent'
-                            )}
-                          />
-                        </Command.Item>
-                      {/each}
-                    </Command.Group>
-                  </Command.Root>
-                </Popover.Content>
-              </Popover.Root>
+              <Form.Control let:attrs>
+                <Form.Label>Wali Kelas</Form.Label>
+                <Combobox.Root
+                  selected={selectedTeacher}
+                  onSelectedChange={(v) => {
+                    v && ($formData.userId = v.value);
+                  }}
+                  bind:inputValue
+                  bind:touchedInput
+                >
+                  <div class="relative">
+                    <Combobox.Input placeholder="Search subject" />
+                  </div>
+
+                  <Combobox.Content>
+                    {#each filteredItems as item (item.id)}
+                      <Combobox.Item value={item.id} label={item.username}>
+                        {item.username}
+                      </Combobox.Item>
+                    {:else}
+                      <span class="block px-5 py-2 text-sm text-muted-foreground">
+                        No results found
+                      </span>
+                    {/each}
+                  </Combobox.Content>
+                </Combobox.Root>
+                <input hidden bind:value={$formData.userId} name={attrs.name} />
+              </Form.Control>
               <Form.FieldErrors />
             </Form.Field>
           </div>

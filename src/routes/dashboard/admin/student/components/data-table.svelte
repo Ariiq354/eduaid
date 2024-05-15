@@ -32,12 +32,12 @@
 
   const columns = table.createColumns([
     table.column({
-      accessor: 'nisn',
-      header: 'NISN'
-    }),
-    table.column({
       accessor: 'studentName',
       header: 'Nama Siswa'
+    }),
+    table.column({
+      accessor: 'nisn',
+      header: 'NISN'
     }),
     table.column({
       accessor: ({ class: kelas }) => kelas?.classname,
@@ -86,7 +86,10 @@
             <Table.Row class="bg-primary/20 hover:bg-primary/10">
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-                  <Table.Head {...attrs}>
+                  <Table.Head
+                    {...attrs}
+                    class="hidden first-of-type:table-cell last-of-type:table-cell md:table-cell"
+                  >
                     {#if cell.id !== 'Menu'}
                       <Button
                         variant="ghost"
@@ -112,7 +115,10 @@
             <Table.Row {...rowAttrs}>
               {#each row.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs>
-                  <Table.Cell {...attrs}>
+                  <Table.Cell
+                    {...attrs}
+                    class="hidden first-of-type:table-cell last-of-type:table-cell md:table-cell"
+                  >
                     <Render of={cell.render()} />
                   </Table.Cell>
                 </Subscribe>

@@ -1,19 +1,15 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { Button } from '$lib/components/ui/button';
+  import * as Combobox from '$lib/components/ui/combobox';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
-  import * as Select from '$lib/components/ui/select';
-  import * as Popover from '$lib/components/ui/popover';
-  import * as Command from '$lib/components/ui/command';
-  import SuperDebug, { superForm } from 'sveltekit-superforms';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
+  import { toast } from 'svelte-sonner';
+  import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
-  import { toast } from 'svelte-sonner';
   import { formSchema } from './schema';
-  import { goto } from '$app/navigation';
-  import { ArrowLeft, Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
-  import { Button, buttonVariants } from '$lib/components/ui/button';
-  import { tick } from 'svelte';
-  import { cn } from '$lib/utils';
 
   export let data: PageData;
 
@@ -34,14 +30,20 @@
 
   const { form: formData, enhance, submitting } = form;
 
-  let open = false;
+  // Combobox
+  let inputValue = '';
+  let touchedInput = false;
 
-  function closeAndFocusTrigger(triggerId: string) {
-    open = false;
-    tick().then(() => {
-      document.getElementById(triggerId)?.focus();
-    });
-  }
+  $: filteredItems =
+    inputValue && touchedInput
+      ? data.subject.filter((i) => i.subjectName.toLowerCase().includes(inputValue.toLowerCase()))
+      : data.subject;
+  $: selectedSubject = $formData.subjectId
+    ? {
+        label: data.subject.find((i) => i.id == $formData.subjectId)?.subjectName,
+        value: $formData.subjectId
+      }
+    : undefined;
 </script>
 
 <div class="flex flex-col gap-4">
@@ -74,50 +76,32 @@
       <Form.FieldErrors />
     </Form.Field>
     <Form.Field {form} name="subjectId" class="mt-4 flex flex-col gap-1">
-      <Popover.Root bind:open let:ids>
-        <Form.Control let:attrs>
-          <Form.Label>Pelajaran</Form.Label>
-          <Popover.Trigger
-            class={cn(
-              buttonVariants({ variant: 'outline' }),
-              'w-[500px] justify-between',
-              !$formData.subjectId && 'text-muted-foreground'
-            )}
-            role="combobox"
-            {...attrs}
-          >
-            {data.subject.find((f) => f.id === $formData.subjectId)?.subjectName ??
-              'Pilih Pelajaran...'}
-            <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Popover.Trigger>
-          <input hidden bind:value={$formData.subjectId} name={attrs.name} />
-        </Form.Control>
-        <Popover.Content class="w-[500px] p-0">
-          <Command.Root>
-            <Command.Input autofocus placeholder="Cari pelajaran..." class="h-9" />
-            <Command.Empty>Pelajaran belum ada</Command.Empty>
-            <Command.Group>
-              {#each data.subject as subject}
-                <Command.Item
-                  value={subject.subjectName}
-                  onSelect={() => {
-                    $formData.subjectId = subject.id;
-                    closeAndFocusTrigger(ids.trigger);
-                  }}
-                >
-                  {subject.subjectName + ' Fase ' + subject.phase}
-                  <Check
-                    class={cn(
-                      'ml-auto h-4 w-4',
-                      subject.id !== $formData.subjectId && 'text-transparent'
-                    )}
-                  />
-                </Command.Item>
-              {/each}
-            </Command.Group>
-          </Command.Root>
-        </Popover.Content>
-      </Popover.Root>
+      <Form.Control let:attrs>
+        <Form.Label>Pelajaran</Form.Label>
+        <Combobox.Root
+          selected={selectedSubject}
+          onSelectedChange={(v) => {
+            v && ($formData.subjectId = v.value);
+          }}
+          bind:inputValue
+          bind:touchedInput
+        >
+          <div class="relative">
+            <Combobox.Input placeholder="Search subject" />
+          </div>
+
+          <Combobox.Content>
+            {#each filteredItems as item (item.id)}
+              <Combobox.Item value={item.id} label={item.subjectName}>
+                {item.subjectName}
+              </Combobox.Item>
+            {:else}
+              <span class="block px-5 py-2 text-sm text-muted-foreground"> No results found </span>
+            {/each}
+          </Combobox.Content>
+        </Combobox.Root>
+        <input hidden bind:value={$formData.subjectId} name={attrs.name} />
+      </Form.Control>
       <Form.FieldErrors />
     </Form.Field>
     <Form.Button disabled={$submitting} class="mt-4">
