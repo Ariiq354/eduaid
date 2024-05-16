@@ -75,7 +75,10 @@
             <Table.Row class="bg-primary/20 hover:bg-primary/10">
               {#each headerRow.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-                  <Table.Head {...attrs}>
+                  <Table.Head
+                    {...attrs}
+                    class="hidden first-of-type:table-cell last-of-type:table-cell lg:table-cell"
+                  >
                     {#if cell.id !== 'Menu'}
                       <Button
                         class="hover:bg-background/0 hover:text-foreground"
@@ -101,7 +104,10 @@
             <Table.Row {...rowAttrs}>
               {#each row.cells as cell (cell.id)}
                 <Subscribe attrs={cell.attrs()} let:attrs>
-                  <Table.Cell {...attrs}>
+                  <Table.Cell
+                    {...attrs}
+                    class="hidden first:table-cell first:max-w-96 first:truncate last:table-cell lg:table-cell"
+                  >
                     <Render of={cell.render()} />
                   </Table.Cell>
                 </Subscribe>
@@ -127,3 +133,6 @@
     >
   </div>
 </div>
+
+<style>
+</style>

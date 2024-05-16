@@ -64,11 +64,11 @@
     </div>
 
     <!-- Chat & Input -->
-    <div class="flex h-[480px] flex-row gap-4">
+    <div class="flex h-fit flex-col gap-4 lg:flex-row">
       <!-- Chat Interface -->
-      <div class="flex w-8/12 flex-col justify-between rounded-md border shadow-md">
+      <div class="flex w-full flex-col justify-between rounded-md border shadow-md lg:w-8/12">
         <!--  Chat -->
-        <ScrollArea>
+        <ScrollArea class="h-96">
           <ul class="flex flex-col gap-2 overflow-y-auto p-4">
             <li class="self-start text-left">
               <div class="font-bold text-foreground">Asisten Ai</div>
@@ -116,7 +116,7 @@
       </div>
 
       <!-- Input Interface -->
-      <div class="w-4/12 rounded-md border p-4 shadow-md">
+      <div class="w-full rounded-md border p-4 shadow-md lg:w-4/12">
         <form method="POST" class="flex h-full flex-col justify-between" use:enhance>
           <div>
             <Form.Field {form} name="id">

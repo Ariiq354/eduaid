@@ -3,6 +3,7 @@
   import ImageUpload from '$lib/components/ImageUpload.svelte';
   import * as Form from '$lib/components/ui/form';
   import * as Popover from '$lib/components/ui/popover';
+  import * as Combobox from '$lib/components/ui/combobox';
   import * as Command from '$lib/components/ui/command';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
@@ -83,14 +84,15 @@
     }
   });
 
-  let open = false;
+  let inputValue = '';
+  let touchedInput = false;
 
-  function closeAndFocusTrigger(triggerId: string) {
-    open = false;
-    tick().then(() => {
-      document.getElementById(triggerId)?.focus();
-    });
-  }
+  $: filteredItems =
+    inputValue && touchedInput
+      ? data.studentData.filter((i) =>
+          i.studentName.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      : data.studentData;
 
   const { form: formData, enhance, submitting } = form;
   const { form: nilaiFormData, enhance: nilaiEnhance, submitting: nilaiSubmitting } = nilaiForm;
@@ -104,7 +106,7 @@
     </div>
   </div>
   <hr />
-  <div class="flex gap-12">
+  <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
     <form method="POST" action="?/image" class="w-full" use:enhance>
       <Form.Field {form} name="link">
         <Form.Control let:attrs>
@@ -128,52 +130,33 @@
       </Form.Field>
 
       <Form.Field {form} name="studentId" class="mt-4 flex flex-col gap-1">
-        <Popover.Root bind:open let:ids>
-          <Form.Control let:attrs>
-            <Form.Label>Pilih Siswa</Form.Label>
-            <Popover.Trigger
-              class={cn(
-                buttonVariants({ variant: 'outline' }),
-                'w-[300px] justify-between',
-                !$formData.studentId && 'text-muted-foreground'
-              )}
-              role="combobox"
-              {...attrs}
-            >
-              {data.studentData.find((f) => f.studentId === $formData.studentId)?.studentName ??
-                'Pilih siswa...'}
-              <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Popover.Trigger>
-            <input hidden bind:value={$formData.studentId} name={attrs.name} aria-hidden="true" />
-          </Form.Control>
-          <Popover.Content class="w-[300px] p-0">
-            <Command.Root>
-              <Command.Input autofocus placeholder="Cari siswa..." class="h-9" />
-              <Command.Empty>Siswa belum ada</Command.Empty>
-              <Command.Group>
-                <ScrollArea class="h-[200px]">
-                  {#each data.studentData as student}
-                    <Command.Item
-                      value={student.studentName}
-                      onSelect={() => {
-                        $formData.studentId = student.studentId;
-                        closeAndFocusTrigger(ids.trigger);
-                      }}
-                    >
-                      {student.studentName}
-                      <Check
-                        class={cn(
-                          'ml-auto h-4 w-4',
-                          student.studentId !== $formData.studentId && 'text-transparent'
-                        )}
-                      />
-                    </Command.Item>
-                  {/each}
-                </ScrollArea>
-              </Command.Group>
-            </Command.Root>
-          </Popover.Content>
-        </Popover.Root>
+        <Form.Control let:attrs>
+          <Form.Label>Pilih Siswa</Form.Label>
+          <Combobox.Root
+            onSelectedChange={(v) => {
+              v && ($formData.studentId = String(v.value));
+            }}
+            bind:inputValue
+            bind:touchedInput
+          >
+            <div class="relative">
+              <Combobox.Input placeholder="Search siswa" />
+            </div>
+
+            <Combobox.Content class="max-h-40 overflow-auto">
+              {#each filteredItems as item (item.studentId)}
+                <Combobox.Item value={item.studentId} label={item.studentName}>
+                  {item.studentName}
+                </Combobox.Item>
+              {:else}
+                <span class="block px-5 py-2 text-sm text-muted-foreground">
+                  No results found
+                </span>
+              {/each}
+            </Combobox.Content>
+          </Combobox.Root>
+          <input hidden bind:value={$formData.studentId} name={attrs.name} aria-hidden="true" />
+        </Form.Control>
         <Form.FieldErrors />
       </Form.Field>
 

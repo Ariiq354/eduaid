@@ -1,23 +1,19 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { Button, buttonVariants } from '$lib/components/ui/button';
+  import { Button } from '$lib/components/ui/button';
+  import * as Combobox from '$lib/components/ui/combobox';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
   import { ScrollArea } from '$lib/components/ui/scroll-area';
-  import * as Select from '$lib/components/ui/select';
-  import * as Popover from '$lib/components/ui/popover';
-  import * as Command from '$lib/components/ui/command';
   import { Textarea } from '$lib/components/ui/textarea';
   import { useChat } from 'ai/svelte';
-  import { ArrowLeft, Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
   import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema } from './schema';
-  import { cn } from '$lib/utils';
-  import { tick } from 'svelte';
 
   let currentRoute = $page.url.pathname;
 
@@ -44,14 +40,19 @@
 
   const { form: formData, enhance, submitting } = form;
 
-  let open = false;
+  let inputValue = '';
+  let touchedInput = false;
 
-  function closeAndFocusTrigger(triggerId: string) {
-    open = false;
-    tick().then(() => {
-      document.getElementById(triggerId)?.focus();
-    });
-  }
+  $: filteredItems =
+    inputValue && touchedInput
+      ? data.tp.filter((i) => i.tujuanPembelajaran.toLowerCase().includes(inputValue.toLowerCase()))
+      : data.tp;
+  $: selectedTp = $formData.tpId
+    ? {
+        label: data.tp.find((i) => i.id == $formData.tpId)?.tujuanPembelajaran,
+        value: $formData.tpId
+      }
+    : undefined;
 </script>
 
 <div class="flex flex-col gap-4">
@@ -74,11 +75,11 @@
   </div>
 
   <!-- Chat & Input -->
-  <div class="flex h-[480px] flex-row gap-4">
+  <div class="flex h-fit flex-col gap-4 lg:flex-row">
     <!-- Chat Interface -->
-    <div class="flex w-8/12 flex-col justify-between rounded-md border shadow-md">
+    <div class="flex w-full flex-col justify-between rounded-md border shadow-md lg:w-8/12">
       <!--  Chat -->
-      <ScrollArea>
+      <ScrollArea class="h-96">
         <ul class="flex flex-col gap-2 overflow-y-auto p-4">
           <li class="self-start text-left">
             <div class="font-bold text-foreground">Asisten Ai</div>
@@ -126,7 +127,7 @@
     </div>
 
     <!-- Input Interface -->
-    <div class="w-4/12 rounded-md border p-4 shadow-md">
+    <div class="w-full rounded-md border p-4 shadow-md lg:w-4/12">
       <form method="POST" class="flex h-full flex-col justify-between" use:enhance>
         <div>
           <Form.Field {form} name="id">
@@ -156,54 +157,34 @@
           </Form.Field>
 
           <Form.Field {form} name="tpId">
-            <Popover.Root bind:open let:ids>
-              <Form.Control let:attrs>
-                <Form.Label>Tujuan Pembelajaran</Form.Label>
-                <Popover.Trigger
-                  class={cn(
-                    buttonVariants({ variant: 'outline' }),
-                    'w-[300px] justify-between',
-                    !$formData.tpId && 'text-muted-foreground'
-                  )}
-                  role="combobox"
-                  {...attrs}
-                >
-                  <div class="truncate">
-                    {data.tp.find((f) => f.id === $formData.tpId)?.tujuanPembelajaran ??
-                      'Pilih Tujuan Pembelajaran...'}
-                  </div>
-                  <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Popover.Trigger>
-                <input hidden bind:value={$formData.tpId} name={attrs.name} />
-              </Form.Control>
-              <Popover.Content class="w-[300px] p-0">
-                <Command.Root>
-                  <Command.Input autofocus placeholder="Cari tujuan pembelajaran..." class="h-9" />
-                  <Command.Empty>Tujuan pembelajaran belum ada</Command.Empty>
-                  <Command.Group>
-                    <ScrollArea class="h-[200px]">
-                      {#each data.tp as tp}
-                        <Command.Item
-                          value={tp.tujuanPembelajaran}
-                          onSelect={() => {
-                            $formData.tpId = tp.id;
-                            closeAndFocusTrigger(ids.trigger);
-                          }}
-                        >
-                          {tp.tujuanPembelajaran}
-                          <Check
-                            class={cn(
-                              'ml-auto h-4 w-4',
-                              tp.id !== $formData.tpId && 'text-transparent'
-                            )}
-                          />
-                        </Command.Item>
-                      {/each}
-                    </ScrollArea>
-                  </Command.Group>
-                </Command.Root>
-              </Popover.Content>
-            </Popover.Root>
+            <Form.Control let:attrs>
+              <Form.Label>Tujuan Pembelajaran</Form.Label>
+              <Combobox.Root
+                selected={selectedTp}
+                onSelectedChange={(v) => {
+                  v && ($formData.tpId = v.value);
+                }}
+                bind:inputValue
+                bind:touchedInput
+              >
+                <div class="relative">
+                  <Combobox.Input placeholder="Search tujuan Pembelajaran" />
+                </div>
+
+                <Combobox.Content>
+                  {#each filteredItems as item (item.id)}
+                    <Combobox.Item value={item.id} label={item.tujuanPembelajaran}>
+                      {item.tujuanPembelajaran}
+                    </Combobox.Item>
+                  {:else}
+                    <span class="block px-5 py-2 text-sm text-muted-foreground">
+                      No results found
+                    </span>
+                  {/each}
+                </Combobox.Content>
+              </Combobox.Root>
+              <input hidden bind:value={$formData.tpId} name={attrs.name} />
+            </Form.Control>
             <Form.FieldErrors />
           </Form.Field>
         </div>

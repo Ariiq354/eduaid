@@ -1,23 +1,19 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { Button, buttonVariants } from '$lib/components/ui/button';
+  import { Button } from '$lib/components/ui/button';
   import * as Combobox from '$lib/components/ui/combobox';
-  import * as Popover from '$lib/components/ui/popover';
-  import * as Command from '$lib/components/ui/command';
   import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
   import { ScrollArea } from '$lib/components/ui/scroll-area';
   import { Textarea } from '$lib/components/ui/textarea';
   import { useChat } from 'ai/svelte';
-  import { ArrowLeft, Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
+  import { ArrowLeft, Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
   import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema } from './schema';
-  import { tick } from 'svelte';
-  import { cn } from '$lib/utils';
 
   let currentRoute = $page.url.pathname;
 

@@ -17,7 +17,7 @@
     </Button>
   </div>
   <hr />
-  <div class="grid grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
     {#each data.studentData as studentData (studentData.studentId)}
       <a
         href="/dashboard/score/{data.classId}/{studentData.studentId}"
