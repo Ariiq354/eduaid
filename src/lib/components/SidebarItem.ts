@@ -42,12 +42,12 @@ export const AdminItem = [
     href: '/dashboard/admin/capaianPembelajaran',
     label: 'Capaian Pembelajaran',
     logo: BookOpen
-  },
-  {
-    href: '/dashboard/admin/tujuanPembelajaran',
-    label: 'Tujuan Pembelajaran',
-    logo: NotebookTabs
   }
+  // {
+  //   href: '/dashboard/admin/tujuanPembelajaran',
+  //   label: 'Tujuan Pembelajaran',
+  //   logo: NotebookTabs
+  // }
 ];
 
 export const UserItem = [
