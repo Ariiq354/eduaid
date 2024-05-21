@@ -1,33 +1,30 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import ImageUpload from '$lib/components/ImageUpload.svelte';
-  import * as Form from '$lib/components/ui/form';
-  import * as Popover from '$lib/components/ui/popover';
   import * as Combobox from '$lib/components/ui/combobox';
-  import * as Command from '$lib/components/ui/command';
+  import * as Form from '$lib/components/ui/form';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
   import * as Select from '$lib/components/ui/select';
-  import { cn, processValues } from '$lib/utils';
-  import { Check, ChevronsUpDown, Loader2 } from 'lucide-svelte';
+  import { processValues } from '$lib/utils';
+  import { Loader2 } from 'lucide-svelte';
   import { toast } from 'svelte-sonner';
   import SuperDebug, { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import type { PageData } from './$types';
   import { formSchema, nilaiSchema } from './schema';
-  import { tick } from 'svelte';
-  import { buttonVariants } from '$lib/components/ui/button';
-  import ScrollArea from '$lib/components/ui/scroll-area/scroll-area.svelte';
 
   export let data: PageData;
 
   let loading = false;
   let ans: string;
+  let soalId: string;
   let myIndex: string;
   let score: string;
 
   $: {
-    $nilaiFormData.tpId = (data.soalData.find((soal) => (soal.id = ans))?.tpId as string) ?? '';
+    ans = (data.soalData.find((soal) => soal.id == soalId)?.answer as string) ?? '';
+    $nilaiFormData.tpId = (data.soalData.find((soal) => soal.id == soalId)?.tpId as string) ?? '';
     $nilaiFormData.studentId = $formData.studentId ?? '';
     $nilaiFormData.nilai = parseInt(score ?? 0);
   }
@@ -164,7 +161,7 @@
         <Label>Pilih Soal</Label>
         <Select.Root
           onSelectedChange={(v) => {
-            v && (ans = String(v.value));
+            v && (soalId = String(v.value));
           }}
         >
           <Select.Trigger class="w-full" aria-label="select soal">
@@ -172,10 +169,11 @@
           </Select.Trigger>
           <Select.Content>
             {#each data.soalData as soal}
-              <Select.Item value={soal.answer}>
+              <Select.Item value={soal.id}>
                 <div class="truncate">
                   {soal.soal}
                 </div>
+                {soal.id}
               </Select.Item>
             {/each}
           </Select.Content>

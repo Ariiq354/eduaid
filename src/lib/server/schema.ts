@@ -254,6 +254,17 @@ export const soalRelations = relations(soalTable, ({ one }) => ({
   })
 }));
 
+export const imageRelations = relations(imagesTable, ({ one }) => ({
+  student: one(studentTable, {
+    fields: [imagesTable.studentId],
+    references: [studentTable.id]
+  }),
+  teacher: one(userTable, {
+    fields: [imagesTable.userId],
+    references: [userTable.id]
+  })
+}));
+
 // Type exports
 
 export type selectUser = typeof userTable.$inferSelect;

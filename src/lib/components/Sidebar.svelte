@@ -1,20 +1,7 @@
 <script lang="ts">
-  import {
-    Book,
-    BookOpen,
-    ClipboardPlus,
-    DoorClosed,
-    FileQuestion,
-    GraduationCap,
-    LayoutDashboard,
-    NotebookTabs,
-    Percent,
-    ScanEye,
-    Users
-  } from 'lucide-svelte';
   import { page } from '$app/stores';
-  import { cn } from '$lib/utils';
   import { AdminItem, UserItem } from '$lib/components/SidebarItem';
+  import { cn } from '$lib/utils';
 
   export let role: number;
   export let status: number;

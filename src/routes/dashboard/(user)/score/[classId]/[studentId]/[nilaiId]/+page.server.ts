@@ -62,7 +62,10 @@ export const actions: Actions = {
     }
 
     const exist = await db.query.nilaiTable.findFirst({
-      where: and(ne(nilaiTable.id, form.data.id), eq(nilaiTable.tpId, form.data.tpId))
+      where: and(
+        ne(nilaiTable.id, form.data.id),
+        and(eq(nilaiTable.tpId, form.data.tpId), eq(nilaiTable.studentId, event.params.studentId))
+      )
     });
 
     if (exist) {
