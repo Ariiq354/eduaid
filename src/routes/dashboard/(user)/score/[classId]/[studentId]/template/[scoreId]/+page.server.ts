@@ -3,7 +3,17 @@ import { cpTable, nilaiTable, studentTable, subjectTable, tpTable } from '$lib/s
 import { avg, eq, max, min, sql } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ params }) => {
+  const studentData = await db.query.studentTable.findFirst({
+    where: eq(studentTable.id, params.scoreId),
+    with: {
+      class: {
+        columns: {
+          classname: true
+        }
+      }
+    }
+  });
   const scoreData = await db
     .select({
       subjectName: subjectTable.subjectName,
@@ -21,10 +31,12 @@ export const load: PageServerLoad = async () => {
     .leftJoin(cpTable, eq(tpTable.cpId, cpTable.id))
     .leftJoin(subjectTable, eq(cpTable.subjectId, subjectTable.id))
     .groupBy(subjectTable.subjectName)
-    .orderBy(subjectTable.subjectName);
+    .orderBy(subjectTable.subjectName)
+    .where(eq(studentTable.id, params.scoreId));
 
   return {
-    scoreData
+    scoreData,
+    studentData
   };
 };
 

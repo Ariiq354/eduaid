@@ -23,6 +23,10 @@
 
 <div class="min-h-screen w-full bg-white">
   <div class="flex w-full justify-center text-black">Daftar Nilai Siswa</div>
+  <div class="flex w-full flex-col">
+    <div>Nama: {data.studentData?.studentName}</div>
+    <div>Kelas: {data.studentData?.class?.classname}</div>
+  </div>
   <DataTable data={data.scoreData} />
   <table class="mt-12 w-full border">
     {#each data.scoreData as scoreData}
