@@ -144,6 +144,14 @@
             <Form.FieldErrors />
           </Form.Field>
 
+          <Form.Field {form} name="title">
+            <Form.Control let:attrs>
+              <Form.Label>Judul</Form.Label>
+              <Input {...attrs} bind:value={$formData.title} />
+            </Form.Control>
+            <Form.FieldErrors />
+          </Form.Field>
+
           <Form.Field {form} name="answer">
             <Form.Control let:attrs>
               <Form.Label>Jawaban</Form.Label>

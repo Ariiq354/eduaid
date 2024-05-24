@@ -149,6 +149,7 @@ export const imagesTable = sqliteTable('images', {
 
 export const soalTable = sqliteTable('soal', {
   id: text('id').notNull().primaryKey(),
+  title: text('title').notNull(),
   soal: text('link').notNull(),
   answer: text('answer').notNull(),
   userId: text('user_id')

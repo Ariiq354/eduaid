@@ -45,13 +45,15 @@ export const actions: Actions = {
         tpId: form.data.tpId,
         userId: event.locals.user!.id,
         soal: form.data.soal,
-        answer: form.data.answer
+        answer: form.data.answer,
+        title: form.data.title
       })
       .onConflictDoUpdate({
         target: soalTable.id,
         set: {
           tpId: form.data.tpId,
           soal: form.data.soal,
+          title: form.data.title,
           answer: form.data.answer
         }
       });

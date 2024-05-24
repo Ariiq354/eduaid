@@ -5,7 +5,6 @@
   import { ArrowLeft, Plus } from 'lucide-svelte';
 
   export let data: PageData;
-  console.log(data);
 </script>
 
 {#if data.student}

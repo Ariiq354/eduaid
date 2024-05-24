@@ -21,6 +21,8 @@
   let soalId: string;
   let myIndex: string;
   let score: string;
+  let question: string;
+  let choices: string;
 
   $: {
     ans = (data.soalData.find((soal) => soal.id == soalId)?.answer as string) ?? '';
@@ -38,7 +40,7 @@
         toast.success('Upload link gambar ke DATABASE berhasil!');
         try {
           const response = await fetch(
-            `https://useless-anastasie-synexcu.koyeb.app/ocr?q=${$formData.link}&ans=${ans}&questions=5&choices=5`
+            `https://useless-anastasie-synexcu.koyeb.app/ocr?q=${$formData.link}&ans=${ans}&questions=${question}&choices=${choices}`
           );
           if (response.ok) {
             const pydata = await response.json();
@@ -126,6 +128,22 @@
         <Form.FieldErrors />
       </Form.Field>
 
+      <Form.Field {form} name="name">
+        <Form.Control let:attrs>
+          <Form.Label>Jumlah Soal</Form.Label>
+          <Input type="number" bind:value={question} placeholder="Jumlah Soal" />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+
+      <Form.Field {form} name="name">
+        <Form.Control let:attrs>
+          <Form.Label>Jumlah Pilihan</Form.Label>
+          <Input type="number" bind:value={choices} placeholder="Jumlah Pilihan" />
+        </Form.Control>
+        <Form.FieldErrors />
+      </Form.Field>
+
       <Form.Field {form} name="studentId" class="mt-4 flex flex-col gap-1">
         <Form.Control let:attrs>
           <Form.Label>Pilih Siswa</Form.Label>
@@ -171,9 +189,8 @@
             {#each data.soalData as soal}
               <Select.Item value={soal.id}>
                 <div class="truncate">
-                  {soal.soal}
+                  {soal.title}
                 </div>
-                {soal.id}
               </Select.Item>
             {/each}
           </Select.Content>

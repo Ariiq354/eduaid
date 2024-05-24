@@ -1,0 +1,938 @@
+[
+  {
+    "id": "cpyzwqzlgfhdsbvi",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 85,
+    "created_at": "2024-05-03 01:26:17",
+    "updated_at": "2024-05-03 01:26:17",
+    "__drizzlerowid__": 1
+  },
+  {
+    "id": "4furlnksav4dcgql",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 75,
+    "created_at": "2024-05-03 01:26:25",
+    "updated_at": "2024-05-03 01:26:25",
+    "__drizzlerowid__": 2
+  },
+  {
+    "id": "anbld5hpqyo4lfk7",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 92,
+    "created_at": "2024-05-03 01:26:40",
+    "updated_at": "2024-05-03 01:26:40",
+    "__drizzlerowid__": 3
+  },
+  {
+    "id": "byuzx5nqdsguhbmv",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 97.65625,
+    "created_at": "2024-05-04 14:06:44",
+    "updated_at": "2024-05-20 17:23:38",
+    "__drizzlerowid__": 5
+  },
+  {
+    "id": "y5cnharwsl44g5dq",
+    "tp_id": "73i2qr4xtge24vi2",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 75,
+    "created_at": "2024-05-04 14:06:56",
+    "updated_at": "2024-05-04 14:06:56",
+    "__drizzlerowid__": 6
+  },
+  {
+    "id": "2zkxhh4w3lrvsamb",
+    "tp_id": "gsis7izlx5vjxx2w",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 93,
+    "created_at": "2024-05-04 14:16:07",
+    "updated_at": "2024-05-04 14:16:07",
+    "__drizzlerowid__": 7
+  },
+  {
+    "id": "vg6bdpeg7escbqao",
+    "tp_id": "t4jc2yjgjymh7rgy",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 87,
+    "created_at": "2024-05-04 14:16:43",
+    "updated_at": "2024-05-04 14:16:43",
+    "__drizzlerowid__": 8
+  },
+  {
+    "id": "xfeowwqhl2val74a",
+    "tp_id": "ykyfti6tteoi4h5m",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 71,
+    "created_at": "2024-05-04 14:17:48",
+    "updated_at": "2024-05-04 14:17:48",
+    "__drizzlerowid__": 9
+  },
+  {
+    "id": "wn6e2j4ckxge3xmv",
+    "tp_id": "vuwqemrxykic6o5o",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 77,
+    "created_at": "2024-05-04 14:19:35",
+    "updated_at": "2024-05-04 14:19:35",
+    "__drizzlerowid__": 10
+  },
+  {
+    "id": "nq7zvzjxmn3edjjr",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 84,
+    "created_at": "2024-05-04 14:22:54",
+    "updated_at": "2024-05-04 14:22:54",
+    "__drizzlerowid__": 12
+  },
+  {
+    "id": "tb57h7dlninzd7qw",
+    "tp_id": "as4rm2awudgwre67",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 75,
+    "created_at": "2024-05-04 14:23:07",
+    "updated_at": "2024-05-04 14:23:07",
+    "__drizzlerowid__": 13
+  },
+  {
+    "id": "5nueaie5hs5sesi2",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 64,
+    "created_at": "2024-05-04 14:23:51",
+    "updated_at": "2024-05-04 14:23:51",
+    "__drizzlerowid__": 14
+  },
+  {
+    "id": "xluziepxjrfcmhys",
+    "tp_id": "sukkd4tgiujjtoxy",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 84,
+    "created_at": "2024-05-04 14:24:10",
+    "updated_at": "2024-05-04 14:24:10",
+    "__drizzlerowid__": 15
+  },
+  {
+    "id": "pm5g5zwkjymkrxyo",
+    "tp_id": "5x2vlg6r6344x5vw",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 78,
+    "created_at": "2024-05-04 14:24:30",
+    "updated_at": "2024-05-04 14:24:30",
+    "__drizzlerowid__": 16
+  },
+  {
+    "id": "4k4qibyvxcjps33d",
+    "tp_id": "5r5sh55z2leuwfrp",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 60,
+    "created_at": "2024-05-04 17:23:14",
+    "updated_at": "2024-05-04 17:23:14",
+    "__drizzlerowid__": 17
+  },
+  {
+    "id": "nzt6poy75lvjwatp",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "i6scfbnhkfnfbw3q",
+    "nilai": 88,
+    "created_at": "2024-05-04 17:46:34",
+    "updated_at": "2024-05-04 17:46:34",
+    "__drizzlerowid__": 18
+  },
+  {
+    "id": "sgwaixc7dg4n5ggj",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "px5pwfinwj4hmlv3",
+    "nilai": 100,
+    "created_at": "2024-05-20 17:24:49",
+    "updated_at": "2024-05-20 17:24:49",
+    "__drizzlerowid__": 19
+  },
+  {
+    "id": "td3lkgacl6ozugad",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "gfanonxddlswm5yn",
+    "nilai": 67,
+    "created_at": "2024-05-20 17:29:53",
+    "updated_at": "2024-05-21 04:06:01",
+    "__drizzlerowid__": 20
+  },
+  {
+    "id": "ng2iez7ebwd5nlpa",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "7rnk442cncnk7xlv",
+    "nilai": 100,
+    "created_at": "2024-05-21 01:18:42",
+    "updated_at": "2024-05-21 01:18:42",
+    "__drizzlerowid__": 21
+  },
+  {
+    "id": "sj7pojtzwfjueiqf",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "4nhs2gjbaxlhi5e7",
+    "nilai": 40,
+    "created_at": "2024-05-21 01:28:54",
+    "updated_at": "2024-05-21 01:28:54",
+    "__drizzlerowid__": 23
+  },
+  {
+    "id": "ows7i7j3yxamctdv",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "r4ruelo3zo7b4ucv",
+    "nilai": 100,
+    "created_at": "2024-05-21 01:29:58",
+    "updated_at": "2024-05-21 01:29:58",
+    "__drizzlerowid__": 24
+  },
+  {
+    "id": "gosamssn73yt23x7",
+    "tp_id": "hvly5nega7dodpx2",
+    "student_id": "i6scfbnhkfnfbw3q",
+    "nilai": 93,
+    "created_at": "2024-05-21 01:33:31",
+    "updated_at": "2024-05-21 01:33:31",
+    "__drizzlerowid__": 25
+  },
+  {
+    "id": "5wl3hcxrixkpjpdr",
+    "tp_id": "abmiylkuyhuey6ug",
+    "student_id": "jakzmc3ks6wpjjts",
+    "nilai": 78,
+    "created_at": "2024-05-21 01:36:32",
+    "updated_at": "2024-05-21 01:36:32",
+    "__drizzlerowid__": 26
+  },
+  {
+    "id": "6hfhrxtwj2ayu7by",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "4r3ygznho4z2gxmf",
+    "nilai": 100,
+    "created_at": "2024-05-21 01:46:16",
+    "updated_at": "2024-05-21 01:46:16",
+    "__drizzlerowid__": 27
+  },
+  {
+    "id": "ylk4tsb4hxven2rk",
+    "tp_id": "abmiylkuyhuey6ug",
+    "student_id": "4r3ygznho4z2gxmf",
+    "nilai": 100,
+    "created_at": "2024-05-21 02:14:10",
+    "updated_at": "2024-05-21 02:14:10",
+    "__drizzlerowid__": 28
+  },
+  {
+    "id": "pzfqvppq6cshoutw",
+    "tp_id": "abmiylkuyhuey6ug",
+    "student_id": "ozbkqvearp6s6k6x",
+    "nilai": 100,
+    "created_at": "2024-05-21 02:14:39",
+    "updated_at": "2024-05-21 02:14:39",
+    "__drizzlerowid__": 29
+  },
+  {
+    "id": "jscc4g3jxrmtqzv2",
+    "tp_id": "as4rm2awudgwre67",
+    "student_id": "ozbkqvearp6s6k6x",
+    "nilai": 78,
+    "created_at": "2024-05-21 02:15:05",
+    "updated_at": "2024-05-21 02:15:05",
+    "__drizzlerowid__": 30
+  },
+  {
+    "id": "tl2vnbajutcc6rxc",
+    "tp_id": "t4jc2yjgjymh7rgy",
+    "student_id": "i6scfbnhkfnfbw3q",
+    "nilai": 79,
+    "created_at": "2024-05-21 04:05:09",
+    "updated_at": "2024-05-21 04:05:09",
+    "__drizzlerowid__": 31
+  },
+  {
+    "id": "idyzzmvtgqzpexu2",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "i6scfbnhkfnfbw3q",
+    "nilai": 81,
+    "created_at": "2024-05-21 04:05:22",
+    "updated_at": "2024-05-21 04:05:22",
+    "__drizzlerowid__": 32
+  },
+  {
+    "id": "dudhozlhs6j26n4k",
+    "tp_id": "as4rm2awudgwre67",
+    "student_id": "i6scfbnhkfnfbw3q",
+    "nilai": 100,
+    "created_at": "2024-05-21 04:05:43",
+    "updated_at": "2024-05-21 04:05:43",
+    "__drizzlerowid__": 33
+  },
+  {
+    "id": "el2m5wzx75icl6hr",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "gfanonxddlswm5yn",
+    "nilai": 87,
+    "created_at": "2024-05-21 04:06:13",
+    "updated_at": "2024-05-21 04:06:13",
+    "__drizzlerowid__": 34
+  },
+  {
+    "id": "rxkvzqie6uvmppvd",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "7rnk442cncnk7xlv",
+    "nilai": 86,
+    "created_at": "2024-05-21 04:06:44",
+    "updated_at": "2024-05-21 04:06:44",
+    "__drizzlerowid__": 35
+  },
+  {
+    "id": "kcia5reqixwowqzw",
+    "tp_id": "2dwlkk4pulu5qlkc",
+    "student_id": "gfanonxddlswm5yn",
+    "nilai": 98,
+    "created_at": "2024-05-21 04:06:44",
+    "updated_at": "2024-05-21 04:06:44",
+    "__drizzlerowid__": 36
+  },
+  {
+    "id": "6aeswlwvlwnehugm",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "gfanonxddlswm5yn",
+    "nilai": 84,
+    "created_at": "2024-05-21 04:07:06",
+    "updated_at": "2024-05-21 04:07:06",
+    "__drizzlerowid__": 37
+  },
+  {
+    "id": "fex5uscjqidvgllm",
+    "tp_id": "as4rm2awudgwre67",
+    "student_id": "4nhs2gjbaxlhi5e7",
+    "nilai": 98,
+    "created_at": "2024-05-21 04:07:10",
+    "updated_at": "2024-05-21 04:07:10",
+    "__drizzlerowid__": 38
+  },
+  {
+    "id": "qsh44kugscprrbrm",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "gfanonxddlswm5yn",
+    "nilai": 75,
+    "created_at": "2024-05-21 04:07:26",
+    "updated_at": "2024-05-21 04:07:26",
+    "__drizzlerowid__": 39
+  },
+  {
+    "id": "t42gk6zd2ewxlrxu",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "4nhs2gjbaxlhi5e7",
+    "nilai": 75,
+    "created_at": "2024-05-21 04:07:28",
+    "updated_at": "2024-05-21 04:07:28",
+    "__drizzlerowid__": 40
+  },
+  {
+    "id": "tfg6fs74kkwt3xoh",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "4nhs2gjbaxlhi5e7",
+    "nilai": 88,
+    "created_at": "2024-05-21 04:07:41",
+    "updated_at": "2024-05-21 04:07:41",
+    "__drizzlerowid__": 41
+  },
+  {
+    "id": "spx4lh6iem5ysfoq",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "4nhs2gjbaxlhi5e7",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:07:59",
+    "updated_at": "2024-05-21 04:07:59",
+    "__drizzlerowid__": 42
+  },
+  {
+    "id": "464qbnpy3xns6adi",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "7rnk442cncnk7xlv",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:08:18",
+    "updated_at": "2024-05-21 04:08:18",
+    "__drizzlerowid__": 43
+  },
+  {
+    "id": "nva5jzsmikr5ludb",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "7rnk442cncnk7xlv",
+    "nilai": 78,
+    "created_at": "2024-05-21 04:08:28",
+    "updated_at": "2024-05-21 04:08:28",
+    "__drizzlerowid__": 44
+  },
+  {
+    "id": "lzrcsbv7nryty5kq",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "7rnk442cncnk7xlv",
+    "nilai": 80,
+    "created_at": "2024-05-21 04:08:48",
+    "updated_at": "2024-05-21 04:08:48",
+    "__drizzlerowid__": 45
+  },
+  {
+    "id": "pi3tcrj6kkuhhpcs",
+    "tp_id": "gsis7izlx5vjxx2w",
+    "student_id": "px5pwfinwj4hmlv3",
+    "nilai": 87,
+    "created_at": "2024-05-21 04:10:52",
+    "updated_at": "2024-05-21 04:10:52",
+    "__drizzlerowid__": 46
+  },
+  {
+    "id": "bdvssmlf7qs46fad",
+    "tp_id": "t4jc2yjgjymh7rgy",
+    "student_id": "px5pwfinwj4hmlv3",
+    "nilai": 100,
+    "created_at": "2024-05-21 04:11:10",
+    "updated_at": "2024-05-21 04:11:10",
+    "__drizzlerowid__": 47
+  },
+  {
+    "id": "2wynukhjb4h6nykt",
+    "tp_id": "5r5sh55z2leuwfrp",
+    "student_id": "px5pwfinwj4hmlv3",
+    "nilai": 72,
+    "created_at": "2024-05-21 04:11:54",
+    "updated_at": "2024-05-21 04:11:54",
+    "__drizzlerowid__": 48
+  },
+  {
+    "id": "gn2u5spypvmlnwmx",
+    "tp_id": "as4rm2awudgwre67",
+    "student_id": "px5pwfinwj4hmlv3",
+    "nilai": 81,
+    "created_at": "2024-05-21 04:12:37",
+    "updated_at": "2024-05-21 04:12:37",
+    "__drizzlerowid__": 49
+  },
+  {
+    "id": "qtmtkosmyd6fcy5f",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "ozthn2qgpetw6ywl",
+    "nilai": 100,
+    "created_at": "2024-05-21 04:14:13",
+    "updated_at": "2024-05-21 04:14:13",
+    "__drizzlerowid__": 50
+  },
+  {
+    "id": "xrwojs22iwb7tpo6",
+    "tp_id": "as4rm2awudgwre67",
+    "student_id": "ozthn2qgpetw6ywl",
+    "nilai": 100,
+    "created_at": "2024-05-21 04:15:16",
+    "updated_at": "2024-05-21 04:15:16",
+    "__drizzlerowid__": 51
+  },
+  {
+    "id": "f5mto2xvo2rdhcum",
+    "tp_id": "vuwqemrxykic6o5o",
+    "student_id": "ozthn2qgpetw6ywl",
+    "nilai": 80,
+    "created_at": "2024-05-21 04:15:32",
+    "updated_at": "2024-05-21 04:15:32",
+    "__drizzlerowid__": 52
+  },
+  {
+    "id": "csfmfj4tleg7yf3w",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "ozthn2qgpetw6ywl",
+    "nilai": 87,
+    "created_at": "2024-05-21 04:15:48",
+    "updated_at": "2024-05-21 04:15:48",
+    "__drizzlerowid__": 53
+  },
+  {
+    "id": "f7bw7flcqilrwzrk",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "ozthn2qgpetw6ywl",
+    "nilai": 76,
+    "created_at": "2024-05-21 04:16:00",
+    "updated_at": "2024-05-21 04:16:00",
+    "__drizzlerowid__": 54
+  },
+  {
+    "id": "yaipx25cge5twqhj",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "7mjofy2aaji5ep3u",
+    "nilai": 85,
+    "created_at": "2024-05-21 04:16:32",
+    "updated_at": "2024-05-21 04:16:32",
+    "__drizzlerowid__": 55
+  },
+  {
+    "id": "ll2bowybza2dblwc",
+    "tp_id": "t4jc2yjgjymh7rgy",
+    "student_id": "7mjofy2aaji5ep3u",
+    "nilai": 82,
+    "created_at": "2024-05-21 04:16:46",
+    "updated_at": "2024-05-21 04:16:46",
+    "__drizzlerowid__": 56
+  },
+  {
+    "id": "ng7ijpgtsabqmuor",
+    "tp_id": "sukkd4tgiujjtoxy",
+    "student_id": "7mjofy2aaji5ep3u",
+    "nilai": 76,
+    "created_at": "2024-05-21 04:16:59",
+    "updated_at": "2024-05-21 04:16:59",
+    "__drizzlerowid__": 57
+  },
+  {
+    "id": "qqn4xszmrenolpcc",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "r4ruelo3zo7b4ucv",
+    "nilai": 78,
+    "created_at": "2024-05-21 04:17:03",
+    "updated_at": "2024-05-21 04:17:03",
+    "__drizzlerowid__": 58
+  },
+  {
+    "id": "dhrfepcvi4vuk4ar",
+    "tp_id": "vuwqemrxykic6o5o",
+    "student_id": "7mjofy2aaji5ep3u",
+    "nilai": 84,
+    "created_at": "2024-05-21 04:17:11",
+    "updated_at": "2024-05-21 04:17:11",
+    "__drizzlerowid__": 59
+  },
+  {
+    "id": "dae6k7gemgmndntz",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "r4ruelo3zo7b4ucv",
+    "nilai": 66,
+    "created_at": "2024-05-21 04:17:13",
+    "updated_at": "2024-05-21 04:17:13",
+    "__drizzlerowid__": 60
+  },
+  {
+    "id": "r675iqbjkytjjkxd",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "r4ruelo3zo7b4ucv",
+    "nilai": 99,
+    "created_at": "2024-05-21 04:17:24",
+    "updated_at": "2024-05-21 04:17:24",
+    "__drizzlerowid__": 61
+  },
+  {
+    "id": "oxfo6bgybhj3n4ke",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "7mjofy2aaji5ep3u",
+    "nilai": 98,
+    "created_at": "2024-05-21 04:17:25",
+    "updated_at": "2024-05-21 04:17:25",
+    "__drizzlerowid__": 62
+  },
+  {
+    "id": "3x5bdxurxg6hkpvj",
+    "tp_id": "vuwqemrxykic6o5o",
+    "student_id": "r4ruelo3zo7b4ucv",
+    "nilai": 60,
+    "created_at": "2024-05-21 04:17:38",
+    "updated_at": "2024-05-21 04:17:38",
+    "__drizzlerowid__": 63
+  },
+  {
+    "id": "krhi5dwtmh3af4q4",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "5imck6cdyu74jbms",
+    "nilai": 87,
+    "created_at": "2024-05-21 04:17:53",
+    "updated_at": "2024-05-21 04:17:53",
+    "__drizzlerowid__": 64
+  },
+  {
+    "id": "qanxw3bekvfalwqs",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "5imck6cdyu74jbms",
+    "nilai": 92,
+    "created_at": "2024-05-21 04:18:05",
+    "updated_at": "2024-05-21 04:18:05",
+    "__drizzlerowid__": 65
+  },
+  {
+    "id": "qczppixzm5zh6dhj",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "5imck6cdyu74jbms",
+    "nilai": 89,
+    "created_at": "2024-05-21 04:18:16",
+    "updated_at": "2024-05-21 04:18:16",
+    "__drizzlerowid__": 66
+  },
+  {
+    "id": "ck6ad34cqgggdbrl",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "5imck6cdyu74jbms",
+    "nilai": 79,
+    "created_at": "2024-05-21 04:18:29",
+    "updated_at": "2024-05-21 04:18:29",
+    "__drizzlerowid__": 67
+  },
+  {
+    "id": "mbe3hw5jhdzpsszc",
+    "tp_id": "5r5sh55z2leuwfrp",
+    "student_id": "5imck6cdyu74jbms",
+    "nilai": 85,
+    "created_at": "2024-05-21 04:18:44",
+    "updated_at": "2024-05-21 04:18:44",
+    "__drizzlerowid__": 68
+  },
+  {
+    "id": "hu3xkak6yopzs4qf",
+    "tp_id": "vuwqemrxykic6o5o",
+    "student_id": "u5l2n25hdwgl5awr",
+    "nilai": 74,
+    "created_at": "2024-05-21 04:18:59",
+    "updated_at": "2024-05-21 04:18:59",
+    "__drizzlerowid__": 69
+  },
+  {
+    "id": "f7vx6qcfmvtfm5v4",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "u5l2n25hdwgl5awr",
+    "nilai": 87,
+    "created_at": "2024-05-21 04:19:10",
+    "updated_at": "2024-05-21 04:19:10",
+    "__drizzlerowid__": 70
+  },
+  {
+    "id": "7u4da76bcnmzwhti",
+    "tp_id": "s4h6dinkwfg3n3pf",
+    "student_id": "u5l2n25hdwgl5awr",
+    "nilai": 91,
+    "created_at": "2024-05-21 04:19:25",
+    "updated_at": "2024-05-21 04:19:25",
+    "__drizzlerowid__": 71
+  },
+  {
+    "id": "am47brrsqf7ioxy6",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "u5l2n25hdwgl5awr",
+    "nilai": 79,
+    "created_at": "2024-05-21 04:19:41",
+    "updated_at": "2024-05-21 04:19:41",
+    "__drizzlerowid__": 72
+  },
+  {
+    "id": "hn5k4oz3geqpdbc6",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "jakzmc3ks6wpjjts",
+    "nilai": 70,
+    "created_at": "2024-05-21 04:19:41",
+    "updated_at": "2024-05-21 04:19:41",
+    "__drizzlerowid__": 73
+  },
+  {
+    "id": "ztnqmvq566zdieoc",
+    "tp_id": "73i2qr4xtge24vi2",
+    "student_id": "jakzmc3ks6wpjjts",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:19:51",
+    "updated_at": "2024-05-21 04:19:51",
+    "__drizzlerowid__": 74
+  },
+  {
+    "id": "6tqmfqakmcxtkc26",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "u5l2n25hdwgl5awr",
+    "nilai": 97,
+    "created_at": "2024-05-21 04:19:54",
+    "updated_at": "2024-05-21 04:19:54",
+    "__drizzlerowid__": 75
+  },
+  {
+    "id": "iaqmsxstm7gryecz",
+    "tp_id": "ykyfti6tteoi4h5m",
+    "student_id": "jakzmc3ks6wpjjts",
+    "nilai": 87,
+    "created_at": "2024-05-21 04:20:04",
+    "updated_at": "2024-05-21 04:20:04",
+    "__drizzlerowid__": 76
+  },
+  {
+    "id": "5idwhqhb2nj7dcup",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "ombadl5nuocpdbiy",
+    "nilai": 95,
+    "created_at": "2024-05-21 04:20:13",
+    "updated_at": "2024-05-21 04:20:13",
+    "__drizzlerowid__": 77
+  },
+  {
+    "id": "t63m3yj3cal6vfxf",
+    "tp_id": "hvly5nega7dodpx2",
+    "student_id": "jakzmc3ks6wpjjts",
+    "nilai": 88,
+    "created_at": "2024-05-21 04:20:15",
+    "updated_at": "2024-05-21 04:20:15",
+    "__drizzlerowid__": 78
+  },
+  {
+    "id": "hvw4tb2kcajnnxh4",
+    "tp_id": "gsis7izlx5vjxx2w",
+    "student_id": "ombadl5nuocpdbiy",
+    "nilai": 77,
+    "created_at": "2024-05-21 04:20:32",
+    "updated_at": "2024-05-21 04:20:32",
+    "__drizzlerowid__": 79
+  },
+  {
+    "id": "7re72gc2bny6ryyd",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "4r3ygznho4z2gxmf",
+    "nilai": 64,
+    "created_at": "2024-05-21 04:20:34",
+    "updated_at": "2024-05-21 04:20:34",
+    "__drizzlerowid__": 80
+  },
+  {
+    "id": "wqm76eo3vwsktjul",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "4r3ygznho4z2gxmf",
+    "nilai": 96,
+    "created_at": "2024-05-21 04:20:44",
+    "updated_at": "2024-05-21 04:20:44",
+    "__drizzlerowid__": 81
+  },
+  {
+    "id": "ogwjhj6nmfckf6vs",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "ombadl5nuocpdbiy",
+    "nilai": 79,
+    "created_at": "2024-05-21 04:20:52",
+    "updated_at": "2024-05-21 04:20:52",
+    "__drizzlerowid__": 82
+  },
+  {
+    "id": "l4yywf4wshngtx7p",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "4r3ygznho4z2gxmf",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:20:55",
+    "updated_at": "2024-05-21 04:20:55",
+    "__drizzlerowid__": 83
+  },
+  {
+    "id": "3eoxh2exbz7zjy34",
+    "tp_id": "i7mpfarq7sypn5il",
+    "student_id": "ombadl5nuocpdbiy",
+    "nilai": 98,
+    "created_at": "2024-05-21 04:21:02",
+    "updated_at": "2024-05-21 04:21:02",
+    "__drizzlerowid__": 84
+  },
+  {
+    "id": "x3zsqcwttubfwxum",
+    "tp_id": "5r5sh55z2leuwfrp",
+    "student_id": "ombadl5nuocpdbiy",
+    "nilai": 79,
+    "created_at": "2024-05-21 04:21:23",
+    "updated_at": "2024-05-21 04:21:23",
+    "__drizzlerowid__": 85
+  },
+  {
+    "id": "mysjg4gqrh62risu",
+    "tp_id": "hvly5nega7dodpx2",
+    "student_id": "ozbkqvearp6s6k6x",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:23:36",
+    "updated_at": "2024-05-21 04:23:36",
+    "__drizzlerowid__": 86
+  },
+  {
+    "id": "svs4xrao3acjcgbp",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "ozbkqvearp6s6k6x",
+    "nilai": 67,
+    "created_at": "2024-05-21 04:24:05",
+    "updated_at": "2024-05-21 04:24:05",
+    "__drizzlerowid__": 87
+  },
+  {
+    "id": "udr2sywug6qm5occ",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "ozbkqvearp6s6k6x",
+    "nilai": 77,
+    "created_at": "2024-05-21 04:24:20",
+    "updated_at": "2024-05-21 04:24:20",
+    "__drizzlerowid__": 88
+  },
+  {
+    "id": "tvsscftze4vza7o4",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "dens26ccxq7gbhhi",
+    "nilai": 77,
+    "created_at": "2024-05-21 04:30:30",
+    "updated_at": "2024-05-21 04:30:30",
+    "__drizzlerowid__": 89
+  },
+  {
+    "id": "juuepei6j5rvdrx5",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "dens26ccxq7gbhhi",
+    "nilai": 83,
+    "created_at": "2024-05-21 04:34:07",
+    "updated_at": "2024-05-21 04:34:07",
+    "__drizzlerowid__": 90
+  },
+  {
+    "id": "ujzujowla5el3ruw",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "dens26ccxq7gbhhi",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:34:19",
+    "updated_at": "2024-05-21 04:34:19",
+    "__drizzlerowid__": 91
+  },
+  {
+    "id": "jopkleu64j4xbu3n",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "dens26ccxq7gbhhi",
+    "nilai": 74,
+    "created_at": "2024-05-21 04:34:38",
+    "updated_at": "2024-05-21 04:34:38",
+    "__drizzlerowid__": 92
+  },
+  {
+    "id": "t7ndft3has24vh4b",
+    "tp_id": "5x2vlg6r6344x5vw",
+    "student_id": "dens26ccxq7gbhhi",
+    "nilai": 88,
+    "created_at": "2024-05-21 04:39:15",
+    "updated_at": "2024-05-21 04:39:15",
+    "__drizzlerowid__": 93
+  },
+  {
+    "id": "zl4zdb4m7fojbkdf",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "dsmcmirpxu5evlt5",
+    "nilai": 100,
+    "created_at": "2024-05-21 04:39:29",
+    "updated_at": "2024-05-21 04:39:29",
+    "__drizzlerowid__": 94
+  },
+  {
+    "id": "r47u4enraf5pwxwa",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "dsmcmirpxu5evlt5",
+    "nilai": 78,
+    "created_at": "2024-05-21 04:39:45",
+    "updated_at": "2024-05-21 04:39:45",
+    "__drizzlerowid__": 95
+  },
+  {
+    "id": "x5tvxc276hpz7zfo",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "dsmcmirpxu5evlt5",
+    "nilai": 80,
+    "created_at": "2024-05-21 04:40:00",
+    "updated_at": "2024-05-21 04:40:00",
+    "__drizzlerowid__": 96
+  },
+  {
+    "id": "ve2ayp3xnoaguziq",
+    "tp_id": "jejbtigwrhdw7e4i",
+    "student_id": "dsmcmirpxu5evlt5",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:40:12",
+    "updated_at": "2024-05-21 04:40:12",
+    "__drizzlerowid__": 97
+  },
+  {
+    "id": "yl4tq4tjacw6xhyv",
+    "tp_id": "73i2qr4xtge24vi2",
+    "student_id": "dsmcmirpxu5evlt5",
+    "nilai": 85,
+    "created_at": "2024-05-21 04:40:23",
+    "updated_at": "2024-05-21 04:40:23",
+    "__drizzlerowid__": 98
+  },
+  {
+    "id": "uvbz4sdypmnuscat",
+    "tp_id": "yt7l3dd57ygsudhs",
+    "student_id": "dbd6v4c56eskkriv",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:40:43",
+    "updated_at": "2024-05-21 04:40:43",
+    "__drizzlerowid__": 99
+  },
+  {
+    "id": "qgs7revfdmwuluup",
+    "tp_id": "smudaglvdojz3bcq",
+    "student_id": "dbd6v4c56eskkriv",
+    "nilai": 80,
+    "created_at": "2024-05-21 04:40:53",
+    "updated_at": "2024-05-21 04:40:53",
+    "__drizzlerowid__": 100
+  },
+  {
+    "id": "yr3r2od2armvh2bi",
+    "tp_id": "exbdtcmkjk52wets",
+    "student_id": "dbd6v4c56eskkriv",
+    "nilai": 70,
+    "created_at": "2024-05-21 04:41:02",
+    "updated_at": "2024-05-21 04:41:02",
+    "__drizzlerowid__": 101
+  },
+  {
+    "id": "hfhgduur3z4eohag",
+    "tp_id": "y4a4b6qytkqzxlhi",
+    "student_id": "dbd6v4c56eskkriv",
+    "nilai": 100,
+    "created_at": "2024-05-21 04:41:12",
+    "updated_at": "2024-05-21 04:41:12",
+    "__drizzlerowid__": 102
+  },
+  {
+    "id": "vintgap4dojmzeva",
+    "tp_id": "73i2qr4xtge24vi2",
+    "student_id": "dbd6v4c56eskkriv",
+    "nilai": 90,
+    "created_at": "2024-05-21 04:41:23",
+    "updated_at": "2024-05-21 04:41:23",
+    "__drizzlerowid__": 103
+  },
+  {
+    "id": "t74yzynzlqd6vpaq",
+    "tp_id": "abmiylkuyhuey6ug",
+    "student_id": "ozthn2qgpetw6ywl",
+    "nilai": 20,
+    "created_at": "2024-05-21 14:24:42",
+    "updated_at": "2024-05-21 14:24:42",
+    "__drizzlerowid__": 104
+  },
+  {
+    "id": "pcu75n2fbnhzdpxn",
+    "tp_id": "hvly5nega7dodpx2",
+    "student_id": "zp6n74t6n2ovxwdj",
+    "nilai": 98,
+    "created_at": "2024-05-22 07:47:00",
+    "updated_at": "2024-05-22 07:47:00",
+    "__drizzlerowid__": 107
+  },
+  {
+    "id": "gpzchlzpfxzrmlxo",
+    "tp_id": "vuwqemrxykic6o5o",
+    "student_id": "2cs3yglazijt2uj4",
+    "nilai": 99,
+    "created_at": "2024-05-22 08:37:23",
+    "updated_at": "2024-05-22 08:37:23",
+    "__drizzlerowid__": 108
+  },
+  {
+    "id": "iwuylftubo4z56t5",
+    "tp_id": "abmiylkuyhuey6ug",
+    "student_id": "2cs3yglazijt2uj4",
+    "nilai": 60,
+    "created_at": "2024-05-22 08:41:12",
+    "updated_at": "2024-05-22 08:44:20",
+    "__drizzlerowid__": 109
+  }
+]

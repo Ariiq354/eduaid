@@ -1,0 +1,50 @@
+[
+  {
+    "id": "m5b7cmeotz35upja",
+    "subject_id": "kv7qonkz7oooasfh",
+    "capaian_pembelajaran": "Memahami dan menghargai keanekaragaman seni budaya dan keterampilan dari berbagai daerah di Indonesia.",
+    "created_at": "2024-05-03 01:05:50",
+    "updated_at": "2024-05-03 01:05:50",
+    "__drizzlerowid__": 1
+  },
+  {
+    "id": "equ6ugfr7n7w2tca",
+    "subject_id": "dhvyj2x7yosfoumx",
+    "capaian_pembelajaran": "Siswa dapat memahami dan menerapkan konsep fungsi kuadrat dalam pemecahan masalah sehari-hari.",
+    "created_at": "2024-05-03 01:07:50",
+    "updated_at": "2024-05-03 01:07:50",
+    "__drizzlerowid__": 2
+  },
+  {
+    "id": "gar5lbktnikl74hh",
+    "subject_id": "b7r6tsthlmb3ul6n",
+    "capaian_pembelajaran": "Siswa dapat memahami pentingnya olahraga teratur dan pola makan sehat untuk kesejahteraan fisik dan mental.",
+    "created_at": "2024-05-03 01:08:02",
+    "updated_at": "2024-05-03 01:08:02",
+    "__drizzlerowid__": 3
+  },
+  {
+    "id": "m37ege2h4apvu6ya",
+    "subject_id": "zlvosoqovnhk3kaw",
+    "capaian_pembelajaran": "Siswa dapat memahami dan menjelaskan siklus air dan perannya dalam ekosistem.",
+    "created_at": "2024-05-03 01:08:15",
+    "updated_at": "2024-05-03 01:08:15",
+    "__drizzlerowid__": 4
+  },
+  {
+    "id": "z63oxngnfbe2eqms",
+    "subject_id": "tf3laxh6w6muqydy",
+    "capaian_pembelajaran": "Siswa dapat memahami dan menjelaskan konsep dasar ekonomi seperti permintaan, penawaran, dan keseimbangan pasar.",
+    "created_at": "2024-05-03 01:08:24",
+    "updated_at": "2024-05-03 01:08:24",
+    "__drizzlerowid__": 5
+  },
+  {
+    "id": "u5zunr4twrs6slqt",
+    "subject_id": "4pd2imuwkfm44ovb",
+    "capaian_pembelajaran": "Siswa dapat memahami dan menjelaskan konsep dasar kewarganegaraan.",
+    "created_at": "2024-05-04 16:53:40",
+    "updated_at": "2024-05-04 16:53:40",
+    "__drizzlerowid__": 6
+  }
+]

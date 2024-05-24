@@ -1,0 +1,20 @@
+[
+  {
+    "id": "kicymjvnox7yhfyd",
+    "user_id": "nartbgtpj77szkh5",
+    "classname": "6A",
+    "batch": 6,
+    "created_at": "2024-05-03 01:03:54",
+    "updated_at": "2024-05-03 01:04:28",
+    "__drizzlerowid__": 1
+  },
+  {
+    "id": "fz3ztq7wd3ld7tzq",
+    "user_id": "nartbgtpj77szkh5",
+    "classname": "5A",
+    "batch": 5,
+    "created_at": "2024-05-04 16:39:32",
+    "updated_at": "2024-05-04 16:39:32",
+    "__drizzlerowid__": 2
+  }
+]
